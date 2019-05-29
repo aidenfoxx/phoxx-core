@@ -1,5 +1,7 @@
 <?php
 
+namespace Phoxx\Core\File;
+
 /**
  * https://github.com/symfony/http-foundation/blob/master/File/File.php
  */

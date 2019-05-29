@@ -162,8 +162,6 @@ function newSessionService(Config $config)
 	return new Session($driver);
 }
 
-
-
 /**
  * Core services.
  */
