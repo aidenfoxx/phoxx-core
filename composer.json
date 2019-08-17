@@ -14,7 +14,7 @@
 		"twig/twig": "2.4.*",
 		"smarty/smarty": "3.1.*",
 		"doctrine/orm": "2.5.*",
-		"filp/whoops": "2.1.*",
+		"filp/whoops": "2.1.*"
 	},
 	"minimum-stability" : "stable",
 	"autoload" : {
