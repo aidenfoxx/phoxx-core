@@ -11,12 +11,12 @@ use Doctrine\Common\EventManager;
 
 use Phoxx\Core\Cache\Cache;
 use Phoxx\Core\Cache\Drivers\ArrayDriver;
-use Phoxx\Core\Database\Cache\CacheInterface;
-use Phoxx\Core\Database\Extensions\TablePrefix;
-use Phoxx\Core\Database\Extensions\ModelDate;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Database\Doctrine\CacheInterface;
+use Phoxx\Core\Database\Doctrine\Events\TablePrefix;
+use Phoxx\Core\Database\Doctrine\Events\ModelDate;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Doctrine implements ServiceInterface
+class Doctrine implements ServiceProvider
 {
 	private $connection;
 

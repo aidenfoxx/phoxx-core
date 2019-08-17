@@ -2,48 +2,68 @@
 
 namespace Phoxx\Core\File;
 
-/**
- * https://github.com/symfony/http-foundation/blob/master/File/File.php
- */
+use Phoxx\Core\File\FileExceptions\FileFileException;
+
 class File
 {
-	private $path;
+	protected $path;
 
-	public function __construct(string $path, bool $checkPath = true)
+	public function __construct(string $path)
 	{
-        if ($checkPath === true && is_file($path) === false) {
-            throw new FileException('Invalid file `'.$path.'`.');
-        }
-    	$this->path = $path;
+		if (is_file($path) === false) {
+			throw new FileException('Invalid file `'.$path.'`.');
+		}
+
+		$this->path = $path;
+	}
+
+	public function getPath(): string
+	{
+		return $this->path;
 	}
 
 	public function getName(): string
 	{
+		return pathinfo($this->path, PATHINFO_FILENAME);
+	}
 
+	public function getBaseName(): string
+	{
+		return pathinfo($this->path, PATHINFO_BASENAME);
 	}
 
 	public function getExtension(): string
 	{
-
+		return pathinfo($this->path, PATHINFO_EXTENSION);
 	}
 
 	public function getMimeType(): string
 	{
-
+		return ($mimetype = @mime_content_type($this->path)) !== false ? $mimetype : 'text/plain';
 	}
 
 	public function copy(string $dest): void
 	{
+		if (@copy($this->path, $dest) === false) {
+			throw new FileException('Failed to copy file to destination `'.$dest.'`.');
+		}
 
+		$this->path = $dest;
 	}
 
 	public function move(string $dest): void
 	{
+		if (@rename($this->path, $dest) === false) {
+			throw new FileException('Failed to move file to destination `'.$dest.'`.');
+		}
 
+		$this->path = $dest;
 	}
 
 	public function delete(): void
 	{
-
+		if (@unlink($this->path) === false) {
+			throw new FileException('Failed to remove file `'.$this->path.'`.');
+		}
 	}
 }

@@ -1,0 +1,1 @@
+Images/files are an outlier in that they are self functional.

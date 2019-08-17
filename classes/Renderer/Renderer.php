@@ -8,9 +8,9 @@ use Phoxx\Core\Renderer\Drivers\TwigDriver;
 use Phoxx\Core\Renderer\Drivers\SmartyDriver;
 use Phoxx\Core\Renderer\Exceptions\RendererException;
 use Phoxx\Core\Renderer\Interfaces\RendererDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Renderer implements ServiceInterface
+class Renderer implements ServiceProvider
 {
 	private $driver;
 

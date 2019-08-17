@@ -7,13 +7,13 @@ use stdClass;
 use Phoxx\Core\Cache\Cache;
 use Phoxx\Core\Utilities\Exceptions\ConfigException;
 use Phoxx\Core\File\Exceptions\FileException;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Config implements ServiceInterface
+class Config implements ServiceProvider
 {
 	private $cache;
 
-	private $base;
+	protected $base;
 
 	protected $paths = array();	
 
@@ -69,7 +69,7 @@ class Config implements ServiceInterface
 			return (object)$config;
 		}
 
-		$config = include($resolved);
+		$config = include $resolved;
 
 		if ($this->cache !== null) {
 			$this->cache->setValue($resolved, $config);

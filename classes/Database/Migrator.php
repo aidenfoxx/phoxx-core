@@ -4,9 +4,9 @@ namespace Phoxx\Core\Database;
 
 use Phoxx\Core\Database\Migration;
 use Phoxx\Core\Database\Exceptions\MigrationException;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Migrator implements ServiceInterface
+class Migrator implements ServiceProvider
 {
 	protected $migrations = array();
 
@@ -15,7 +15,7 @@ class Migrator implements ServiceInterface
 		$migrations = PATH_CACHE.'/migrations.php';
 
 		if (is_file($migrations) === true) {
-			$this->migrations = include($migrations);
+			$this->migrations = include $migrations;
 		}
 		
 		/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phoxx\Core\Database\Extensions;
+namespace Phoxx\Core\Database\Doctrine\Events;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 

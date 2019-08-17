@@ -1,6 +1,6 @@
 <?php
 
-namespace Phoxx\Core\Database\Cache;
+namespace Phoxx\Core\Database\Doctrine;
 
 use Doctrine\Common\Cache\CacheProvider;
 

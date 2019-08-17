@@ -5,10 +5,10 @@ namespace Phoxx\Core\Framework;
 use Phoxx\Core\Http\Request;
 use Phoxx\Core\Http\Response;
 use Phoxx\Core\Http\Exceptions\RequestException;
-use Phoxx\Core\Http\Exceptions\ResponseException;
 use Phoxx\Core\Router\Route;
 use Phoxx\Core\Router\Router;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
+use Phoxx\Core\Controllers\Exceptions\ControllerException;
 
 class Application
 {
@@ -17,22 +17,23 @@ class Application
 	public static function getInstance(string $name): self
 	{
 		if (isset(static::$instances[$name]) === false) {
-			static::$instances[$name] = new static();
+			$router = new Router();
+			$serviceContainer = new ServiceContainer();
+
+			static::$instances[$name] = new static($router, $serviceContainer);
 		}
 
 		return static::$instances[$name];
 	}
 
-	private $router;
+	private $routeContainer;
 
-	private $serviceContainer = null;
+	private $serviceContainer;
 
-	protected $requests = array();
-
-	public function __construct()
+	public function __construct(RouteContainer $routeContainer, ServiceContainer $serviceContainer)
 	{
-		$this->router = new Router();
-		$this->serviceContainer = new ServiceContainer();
+		$this->routeContainer = $routeContainer;
+		$this->serviceContainer = $serviceContainer;
 	}
 
 	public function getRouter(): Router
@@ -50,7 +51,7 @@ class Application
 		$this->serviceContainer = $serviceContainer;
 	}
 
-	public function getService(string $service): ?ServiceInterface
+	public function getService(string $service): ?ServiceProvider
 	{
 		return $this->serviceContainer->getService($service);
 	}
@@ -63,17 +64,22 @@ class Application
 
 		$route = $this->router->match($request->getPath(), $request->getMethod());
 		
-		if (($route instanceof Route) === false) {
+		if ($route === null) {
 			return null;
 		}
 
-		$route->setServiceContainer($this->serviceContainer);
+		$controller = $route->getController();
+		$action = $route->getAction();
+		$parameters = $route->getParameters();
 
-		$this->requests[] = $request;
+		if (class_exists($controller) === false || 
+			is_subclass_of($controller, 'Phoxx\Core\Controllers\Controller') === false || 
+			is_callable(array($controller, $action)) === false) {
+				throw new ControllerException('Invalid action `'.$controller.'::'.$action.'()`.');
+		}
 
-		$response = $this->router->dispatch($route);
-
-		array_pop($this->requests);
+		$controller = new $controller($request, $this->serviceContainer);
+		$response = call_user_func_array(array($controller, $action), $parameters);
 
 		if (($response instanceof Response) === false) {
 			throw new ResponseException('Response must be instance of `Phoxx\Core\Http\Response`.');

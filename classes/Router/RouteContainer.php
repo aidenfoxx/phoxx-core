@@ -7,13 +7,24 @@ use Phoxx\Core\Router\Exceptions\RouteException;
 
 class Router
 {
-	protected $compiledRoutes = '';
-
 	protected $routes = array();
 
 	protected $reversed = array();
 
-	public function addRoute(Route $route): void
+	public function getRoutes(): array
+	{
+		$this->routes;
+	}
+
+	/**
+	 * TODO: Accept Route.
+	 */
+	public function getRoute(string $path, string $method = 'GET'): array
+	{
+		return $this->routes[$method][$path];
+	}
+
+	public function setRoute(string $path, array $action, string $method = 'GET'): void
 	{
 		$method = strtoupper($method);
 
@@ -37,19 +48,20 @@ class Router
 			 * If path matches defined route, return
 			 * route.
 			 */
-			if ((bool)preg_match('#^'.$route.'$#', $path, $parameters) === true) {
+			if ((bool)preg_match('#^'.$route.'$#', $path, $match) === true) {
 				/**
 				 * Ignore named keys.
 				 */
-				foreach (array_keys($parameters) as $key) {
+				foreach (array_keys($match) as $key) {
 					if (is_numeric($key) === false) {
-						unset($parameters[$key]);
+						unset($match[$key]);
 					}
 				}
 
 				return array(
-					'route' => $route,
-					'parameters' => $parameters
+					'controller' => key($action),
+					'action' => reset($action),
+					'parameters' => array_slice($match, 1)
 				);
 			}
 		}
@@ -57,7 +69,7 @@ class Router
 		return null;
 	}
 
-	public function reverse(Route $route, array $parameters = array()): ?string
+	public function reverse(string $controller, string $action, array $parameters = array(), string $method = 'GET'): ?string
 	{
 		$method = strtoupper($method);
 

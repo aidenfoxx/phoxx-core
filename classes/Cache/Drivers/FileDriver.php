@@ -7,7 +7,7 @@ use Phoxx\Core\File\Exceptions\FileException;
 
 class FileDriver implements CacheDriver
 {
-	private $path;
+	protected $path;
 
 	public function __construct(string $path = PATH_CACHE.'/default')
 	{
@@ -27,14 +27,11 @@ class FileDriver implements CacheDriver
 			return null;
 		}
 
-		$file = fopen($path, 'r');
-
-		if (($line = fgets($file)) === false) {
-			fclose($file);
-			return null;
+		if (($file = @fopen($path, 'r')) === false) {
+			throw new FileException('Failed to open file `'.$path.'`.');
 		}
 
-		if ((int)$line !== 0 && (int)$line < time()) {
+		if (($line = (int)fgets($file)) !== 0 && $line < time()) {
 			fclose($file);
 			return null;
 		}
@@ -64,26 +61,27 @@ class FileDriver implements CacheDriver
 		$directory = pathinfo($path, PATHINFO_DIRNAME);
 
 		if (is_dir($directory) === false) {
-			mkdir($directory, 0777, true);
-			chmod($directory, 0777);
+			@mkdir($directory, 0777, true);
 		}
 		
-		file_put_contents($path, $lifetime.PHP_EOL.serialize($value));
+		if (file_put_contents($path, $lifetime.PHP_EOL.serialize($value)) === false) {
+			throw new FileException('Failed to write file `'.$path.'`.');
+		}
 	}
 
 	public function removeValue(string $index): void
 	{
 		$path = $this->generatePath($index);
 
-		if (is_file($path) === true) {
-			unlink($path);
+		if (is_file($path) === true && @unlink($path) === false) {
+			throw new FileException('Failed to remove file `'.$path.'`.');
 		}
 	}
 
 	public function clear(): void
 	{
-		if (is_dir($this->path) === true) {
-			unlink($this->path);
+		if (is_dir($this->path) === true && @unlink($this->path) === false) {
+			throw new FileException('Failed to remove directory `'.$this->path.'`.');
 		}
 	}
 }

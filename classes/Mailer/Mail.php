@@ -93,7 +93,7 @@ class Mail
 		return $this->bcc;
 	}
 
-	public function addBcc(string $email, ?string $name = null)
+	public function addBcc(string $email, ?string $name = null): void
 	{
 		$this->bcc[$email] = $name;
 	}

@@ -11,7 +11,7 @@ use Phoxx\Core\File\Exceptions\FileException;
 
 class PhpDriver implements RendererDriver
 {
-	private $base;
+	protected $base;
 
 	protected $extension = '.php';
 
@@ -69,7 +69,7 @@ class PhpDriver implements RendererDriver
 		extract($parameters);
 		ob_start();
 
-		include($resolved);
+		include $resolved;
 
 		return ob_get_clean();
 	}

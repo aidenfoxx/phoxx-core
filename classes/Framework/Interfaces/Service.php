@@ -2,7 +2,7 @@
 
 namespace Phoxx\Core\Framework\Interfaces;
 
-interface ServiceInterface
+interface Service
 {
 	public function getServiceName(): string;
 }

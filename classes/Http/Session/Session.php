@@ -3,9 +3,9 @@
 namespace Phoxx\Core\Http\Session;
 
 use Phoxx\Core\Http\Session\Interfaces\SessionDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Session implements ServiceInterface
+class Session implements ServiceProvider
 {
 	protected $driver;
 

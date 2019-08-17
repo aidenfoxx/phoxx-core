@@ -3,9 +3,9 @@
 namespace Phoxx\Core\Mailer;
 
 use Phoxx\Core\Mailer\Interfaces\MailerDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Mailer implements ServiceInterface
+class Mailer implements ServiceProvider
 {
 	private $driver;
 

@@ -14,9 +14,9 @@ interface SessionDriver
 
 	public function active(): bool;
 
-	public function open(): bool;
+	public function open(): void;
 
-	public function close(): bool;
+	public function close(): void;
 
 	public function clear(): void;
 }

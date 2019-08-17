@@ -55,10 +55,10 @@ class NativeDriver implements SessionDriver
 		return $this->active;
 	}
 
-	public function open(): bool
+	public function open(): void
 	{
 		if ($this->active === true) {
-			return true;
+			return;
 		}
 
 		if (session_status() === PHP_SESSION_ACTIVE) {
@@ -69,12 +69,16 @@ class NativeDriver implements SessionDriver
 			throw new ResponseException('Response headers already sent.');
 		}
 
-	   	return session_start() === true ? ($this->active = true) : false;
+		if (session_start() === false) {
+			throw new SessionException('Failed to start session.');
+		}
+
+		$this->active = true;
 	}
 
-	public function close(): bool
+	public function close(): void
 	{
-		return session_write_close();
+		session_write_close();
 	}
 
 	public function clear(): void

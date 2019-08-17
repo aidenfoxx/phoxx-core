@@ -3,9 +3,9 @@
 namespace Phoxx\Core\Cache;
 
 use Phoxx\Core\Cache\Interfaces\CacheDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceInterface;
+use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Cache implements ServiceInterface
+class Cache implements ServiceProvider
 {
 	private $driver;
 	

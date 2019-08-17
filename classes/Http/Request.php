@@ -4,7 +4,7 @@ namespace Phoxx\Core\Http;
 
 class Request
 {
-	private $baseUri;
+	protected $baseUri;
 
 	protected $query = array();
 

@@ -6,7 +6,8 @@ use Phoxx\Core\Http\Request;
 
 class SimpleRequest extends Request
 {
-    public function __construct(string $uri, string $method = 'GET') {
+    public function __construct(string $uri, string $method = 'GET')
+    {
         parent::__construct(
         	$uri,
             $method,
