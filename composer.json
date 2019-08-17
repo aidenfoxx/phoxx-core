@@ -2,12 +2,6 @@
 	"name" : "phoxx-mvc/core",
 	"description" : "Core Phoxx MVC classes",
 	"type" : "library",
-	"authors" : [{
-			"name" : "Aiden Foxx",
-			"email" : "aiden@foxx.io",
-			"role" : "Developer"
-		}
-	],
 	"license" : "proprietary",
 	"require" : {
 		"php" : ">=7.1.0",
@@ -16,7 +10,6 @@
 		"doctrine/orm": "2.5.*",
 		"filp/whoops": "2.1.*"
 	},
-	"minimum-stability" : "stable",
 	"autoload" : {
 		"psr-4" : {
 			"Phoxx\\Core\\" : "classes"
