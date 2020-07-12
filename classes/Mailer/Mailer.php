@@ -5,7 +5,7 @@ namespace Phoxx\Core\Mailer;
 use Phoxx\Core\Mailer\Interfaces\MailerDriver;
 use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Mailer implements ServiceProvider
+class Mailer
 {
 	private $driver;
 
@@ -14,10 +14,10 @@ class Mailer implements ServiceProvider
 		$this->driver = $driver;
 	}
 
-	public function getServiceName(): string
-	{
-		return 'mailer';
-	}
+  public function getDriver(): MailerDriver
+  {
+    return $this->driver;
+  }
 
 	public function send(Mail $mail): bool
 	{

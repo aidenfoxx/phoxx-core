@@ -17,10 +17,10 @@ class MailDriver implements MailerDriver
 
 	public function send(Mail $mail): bool
 	{
-		$from = '';
-		$to = array();
-		$cc = array();
-		$bcc = array();
+		$from = null;
+		$to = [];
+		$cc = [];
+		$bcc = [];
 
 		if (($email = $mail->getSender()) !== null) {
 			if (($name = $mail->getSenderName()) !== null) {
@@ -42,7 +42,7 @@ class MailDriver implements MailerDriver
 			$bcc[] = empty($name) === false ? $name.' <'.$email.'>' : $email;
 		}
 
-		$headers = array();
+		$headers = [];
 
 		$headers['MIME-Version'] = '1.0';
 		$headers['Content-type'] = 'text/html;charset=UTF-8"';
@@ -52,9 +52,9 @@ class MailDriver implements MailerDriver
 		$headers['Bcc'] = implode(',', $bcc);
 
 		return mail(
-			implode(',', $to), 
-			$mail->getSubject(), 
-			$this->renderer->render($mail->getTemplate()), 
+			implode(',', $to),
+			$mail->getSubject(),
+			$this->renderer->render($mail->getTemplate()),
 			$headers
 		);
 	}

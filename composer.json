@@ -1,17 +1,16 @@
 {
-	"name" : "phoxx-mvc/core",
-	"description" : "Core Phoxx MVC classes",
-	"type" : "library",
-	"license" : "proprietary",
-	"require" : {
-		"php" : ">=7.1.0",
-		"twig/twig": "2.4.*",
-		"smarty/smarty": "3.1.*",
-		"doctrine/orm": "2.5.*",
-		"filp/whoops": "2.1.*"
+	"name": "phoxx-mvc/core",
+	"description" : "phoxx-mvc/core",
+	"type": "library",
+	"license": "proprietary",
+	"require": {
+		"php": "^7.2.5",
+		"twig/twig": "^2.12.5",
+		"smarty/smarty": "^3.1.36",
+		"doctrine/orm": "^2.5.14"
 	},
-	"autoload" : {
-		"psr-4" : {
+	"autoload": {
+		"psr-4": {
 			"Phoxx\\Core\\" : "classes"
 		},
 		"files": ["bootstrap.php"]

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phoxx\Core\Cache\Drivers;
 
@@ -10,7 +10,7 @@ class ApcuDriver implements CacheDriver
 	{
 		$sucess = false;
 		$value = apcu_fetch($index, $sucess);
-		
+
 		return $sucess === true ? $value : null;
 	}
 

@@ -7,8 +7,6 @@ use Phoxx\Core\Utilities\Validator;
 abstract class Model
 {
 	private $validator;
-	
-	protected $id;
 
 	protected $dateCreated = 0;
 
@@ -22,11 +20,6 @@ abstract class Model
 	public function getValidator(): Validator
 	{
 		return $this->validator;
-	}
-
-	public function getId(): int
-	{
-		return (int)$this->id;
 	}
 
 	public function getDateCreated(): int

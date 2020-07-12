@@ -134,9 +134,9 @@ class Response
 
 	protected $status;
 
-	protected $headers = array();
+	protected $headers = [];
 
-	public function __construct(string $content = '', int $status = Response::HTTP_OK, array $headers = array())
+	public function __construct(string $content = '', int $status = Response::HTTP_OK, array $headers = [])
 	{
 		$this->content = $content;
 		$this->status = $status;
@@ -161,6 +161,11 @@ class Response
 	public function setHeader(string $key, string $value): void
 	{
 		$this->headers[$key] = $value;
+	}
+
+	public function removeHeader(string $key): void
+	{
+		unset($this->headers[$key]);
 	}
 
 	public function getHeaders(): array

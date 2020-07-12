@@ -8,28 +8,22 @@ use Phoxx\Core\Renderer\Drivers\TwigDriver;
 use Phoxx\Core\Renderer\Drivers\SmartyDriver;
 use Phoxx\Core\Renderer\Exceptions\RendererException;
 use Phoxx\Core\Renderer\Interfaces\RendererDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Renderer implements ServiceProvider
+class Renderer
 {
-	private $driver;
+	protected $driver;
 
 	public function __construct(RendererDriver $driver)
 	{
 		$this->driver = $driver;
 	}
 
-	public function getServiceName(): string
-	{
-		return 'renderer';
-	}
+  public function getDriver(): RendererDriver
+  {
+    return $this->driver;
+  }
 
-	public function getDriver(): RendererDriver
-	{
-		return $this->driver;
-	}
-
-	public function addPath(string $path, string $namespace = null): void
+	public function addPath(string $path, ?string $namespace = null): void
 	{
 		$this->driver->addPath($path, $namespace);
 	}

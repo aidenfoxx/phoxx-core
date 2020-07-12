@@ -7,15 +7,16 @@ use stdClass;
 use Phoxx\Core\Cache\Cache;
 use Phoxx\Core\Utilities\Exceptions\ConfigException;
 use Phoxx\Core\File\Exceptions\FileException;
-use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Config implements ServiceProvider
+class Config
 {
-	private $cache;
+	private static $extension = '.php';
+
+	protected $cache;
 
 	protected $base;
 
-	protected $paths = array();	
+	protected $paths = [];
 
 	public function __construct(?Cache $cache = null, string $base = PATH_BASE)
 	{
@@ -23,12 +24,7 @@ class Config implements ServiceProvider
 		$this->base = $base;
 	}
 
-	public function getServiceName(): string
-	{
-		return 'config';
-	}
-
-	public function addPath(string $path, string $namespace = null): void
+	public function addPath(string $path, ?string $namespace = null): void
 	{
 		$this->paths[$namespace][$path] = true;
 	}
@@ -41,11 +37,11 @@ class Config implements ServiceProvider
 			throw new ConfigException('Invalid namespace for file `'.$file.'`.');
 		}
 
-		foreach (array_keys($this->paths[$namespace]) as $base) {
+		foreach (array_keys($this->paths[$namespace]) as $configPath) {
 			/**
 			 * Resolve namespace.
 			 */
-			$path = $base.'/'.($namespace !== null ? substr($file, strlen($match[0])) : $file).'.php';
+			$path = $configPath.'/'.($namespace !== null ? substr($file, strlen($match[0])) : $file).self::$extension;
 
 			/**
 			 * Resolve relative path.

@@ -6,9 +6,9 @@ class View
 {
 	protected $template;
 
-	protected $parameters = array();
+	protected $parameters;
 
-	public function __construct(string $template, array $parameters = array())
+	public function __construct(string $template, array $parameters = [])
 	{
 		$this->template = $template;
 		$this->parameters = $parameters;
@@ -24,7 +24,7 @@ class View
 		return isset($this->parameters[$name]) === true ? $this->parameters[$name] : null;
 	}
 
-	public function setParameter(string $name, string $value): void
+	public function setParameter(string $name, $value): void
 	{
 		$this->parameters[$name] = $value;
 	}

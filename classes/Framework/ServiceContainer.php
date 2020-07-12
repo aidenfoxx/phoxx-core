@@ -2,23 +2,22 @@
 
 namespace Phoxx\Core\Framework;
 
-use Phoxx\Core\Framework\Interfaces\ServiceProvider;
-
 class ServiceContainer
 {
-	protected $services = array();	
+	protected $services = [];
 
-	public function getService(string $service): ?ServiceProvider
+	public function getService(string $index): ?object
 	{
-		return isset($this->services[$service]) === true ? $this->services[$service] : null;
+		return isset($this->services[$index]) === true ? $this->services[$index] : null;
 	}
 
-	public function setService(ServiceProvider $service): void
+	public function addService(object $service): void
 	{
-		$this->services[$service->getServiceName()] = $service;
+		$this->services[get_class($service)] = $service;
 	}
-	public function removeService(string $service): void
+
+	public function removeService(string $index): void
 	{
-		$this->services[$service] = $service;
+		unset($this->services[$index]);
 	}
 }

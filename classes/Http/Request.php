@@ -4,34 +4,35 @@ namespace Phoxx\Core\Http;
 
 class Request
 {
-	protected $baseUri;
+	protected $url;
 
-	protected $query = array();
+	protected $query = [];
 
-	protected $request = array();
+	protected $request = [];
 
-	protected $server = array();
+	protected $server = [];
 
-	protected $cookies = array();
+	protected $cookies = [];
 
-	protected $files = array();
+	protected $files = [];
 
 	protected $content;
 
 	public function __construct(
 		string $uri,
 		string $method = 'GET',
-		array $query = array(), 
-		array $request = array(), 
-		array $server = array(),
-		array $cookies = array(),
-		array $files = array(),
+		array $query = [],
+		array $request = [],
+		array $server = [],
+		array $cookies = [],
+		array $files = [],
 		string $content = null)
 	{
 		/**
 		 * Define required application variables.
 		 */
 		$server = array_replace(array(
+			'PATH_INFO' => '',
 			'SERVER_NAME' => 'localhost',
 			'SERVER_PORT' => 80,
 			'SERVER_PROTOCOL' => 'HTTP/1.1',
@@ -49,9 +50,11 @@ class Request
 		$components = parse_url($uri);
 
 		/**
-		 * Parse out URI data into session.
+		 * Parse out URI data into server.
 		 */
-		$server['PATH_INFO'] = $components['path'] !== '/' ? $components['path'] : '';
+		if (isset($components['path']) === true) {
+			$server['PATH_INFO'] = $components['path'] !== '/' ? $components['path'] : '';
+		}
 
 		if (isset($components['scheme']) === true) {
 			if ($components['scheme'] === 'https') {
@@ -82,13 +85,13 @@ class Request
 		}
 
 		if (isset($components['query']) === true) {
-			parse_str(html_entity_decode($components['query']), $queryData);
+			parse_str(html_entity_decode($components['query']), $uriQuery);
 
 			if (empty($query) === false) {
-				$query = array_replace($queryData, $query);
+				$query = array_replace($uriQuery, $query);
 				$server['QUERY_STRING'] = http_build_query($query, '', '&');
 			} else {
-				$query = $queryData;
+				$query = $uriQuery;
 				$server['QUERY_STRING'] = $components['query'];
 			}
 		} elseif (empty($query) === false) {
@@ -103,9 +106,10 @@ class Request
 		$server['REQUEST_URI'] = (empty($server['PATH_INFO']) === false ? $server['PATH_INFO'] : '/').(empty($server['QUERY_STRING']) === false ? '?'.$server['QUERY_STRING'] : '');
 
 		/**
-		 * Resolve PATH_INFO for internal requests.
+		 * Resolve PATH_INFO for internal requests,
+		 * excluding reserved paths.
 		 */
-		if (strcasecmp($server['SERVER_NAME'], $_SERVER['SERVER_NAME']) === 0) {
+		if (strcasecmp($server['SERVER_NAME'], $_SERVER['SERVER_NAME']) === 0 && in_array($server['PATH_INFO'], ['_404_', '_500_']) === false) {
 			$server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen(PATH_PUBLIC))) !== '/' ? $path : '';
 		}
 
@@ -132,16 +136,17 @@ class Request
 		return $this->server['REQUEST_URI'];
 	}
 
-	public function getBaseUri(): string
+	public function getUrl(): string
 	{
-		if (isset($this->baseUri) === false) {
-			$protocol = isset($this->server['HTTPS']) === true ? 'https://' : 'http://';
+		if (isset($this->url) === false) {
+			$protocol = isset($this->server['HTTPS']) ? 'https://' : 'http://';
 			$host = $this->server['SERVER_NAME'];
-			$port = (int)$this->server['SERVER_PORT'] === 80 || (int)$this->server['SERVER_PORT'] === 443 && isset($this->server['HTTPS']) === true ? '' : ':'.$this->server['SERVER_PORT'];
+			$port = !isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 80 || isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 443 ? ':'.$this->server['SERVER_PORT'] : '';
 
-			$this->baseUri = $protocol.$host.$port;
+			// TODO: Investigate if template strings are faster/better.
+			$this->url = $protocol.$host.$port;
 		}
-		return $this->baseUri;
+		return $this->url;
 	}
 
 	public function getQuery(string $index)

@@ -12,13 +12,13 @@ use Phoxx\Core\File\Exceptions\FileException;
 
 class SmartyDriver implements RendererDriver
 {
+	private static $extension = '.tpl';
+
 	private $smarty;
 
 	private $security;
 
-	protected $extension = '.tpl';
-
-	protected $paths = array();
+	protected $paths = [];
 
 	public function __construct(bool $cache = true, bool $forceCompile = false, string $base = PATH_BASE)
 	{
@@ -45,15 +45,16 @@ class SmartyDriver implements RendererDriver
 	{
 		return $this->smarty;
 	}
-	
-	public function addPath(string $path, string $namespace = null): void
+
+	public function addPath(string $path, ?string $namespace = null): void
 	{
 		$this->paths[$namespace][$path] = true;
+		$this->security->secure_dir[] = $path;
 	}
 
 	public function render(View $view): string
 	{
-		$template = $view->getTemplate().$this->extension;
+		$template = $view->getTemplate().self::$extension;
 		$namespace = (bool)preg_match('#^@([a-zA-Z-_]+)/#', $template, $match) === true ? $match[1] : null;
 
 		if (isset($this->paths[$namespace]) === false) {

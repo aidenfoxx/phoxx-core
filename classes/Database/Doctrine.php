@@ -14,15 +14,14 @@ use Phoxx\Core\Cache\Drivers\ArrayDriver;
 use Phoxx\Core\Database\Doctrine\CacheInterface;
 use Phoxx\Core\Database\Doctrine\Events\TablePrefix;
 use Phoxx\Core\Database\Doctrine\Events\ModelDate;
-use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
-class Doctrine implements ServiceProvider
+class Doctrine
 {
 	private $connection;
 
 	private $entityManager;
 
-	protected $paths = array();
+	protected $paths = [];
 
 	public function __construct(string $name, string $user = 'root', string $password = '', string $prefix = 'foxx_', string $host = '127.0.0.1', int $port = 3306, ?Cache $cache = null)
 	{
@@ -45,21 +44,19 @@ class Doctrine implements ServiceProvider
 			$config->setMetadataCacheImpl($doctrineCache);
 		}
 
-		$this->connection = DriverManager::getConnection(array(
+		/**
+		 * TODO: Maybe pass in the connection as arg (maybe no need for $config and $cache)?
+		 */
+		$this->connection = DriverManager::getConnection([
 			'dbname' => $name,
 			'user' => $user,
 			'password' => $password,
 			'host' => $host,
 			'port' => $port,
 			'driver' => 'pdo_mysql',
-		), $config, $eventManager);
+		], $config, $eventManager);
 
 		$this->entityManager = EntityManager::create($this->connection, $config, $eventManager);
-	}
-
-	public function getServiceName(): string
-	{
-		return 'doctrine';
 	}
 
 	public function getConnection(): Connection

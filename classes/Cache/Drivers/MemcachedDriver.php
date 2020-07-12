@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phoxx\Core\Cache\Drivers;
 
@@ -32,7 +32,7 @@ class MemcachedDriver implements CacheDriver
 		return $this->memcached->getResultCode() === Memcached::MEMCACHED_SUCCESS ? $value : null;
 	}
 
-	public function setValue(string $index, $value, int $lifetime): void
+	public function setValue(string $index, $value, int $lifetime = 0): void
 	{
 		$this->memcached->set($index, $value, $lifetime);
 	}

@@ -1,0 +1,10 @@
+.phpunit.result.cache
+
+cache/*
+!cache/.gitkeep
+
+report/*
+!report/.gitkeep
+
+vendor/*
+!vendor/.gitkeep

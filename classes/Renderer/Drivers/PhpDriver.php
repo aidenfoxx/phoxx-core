@@ -11,25 +11,25 @@ use Phoxx\Core\File\Exceptions\FileException;
 
 class PhpDriver implements RendererDriver
 {
+	private static $extension = '.php';
+
 	protected $base;
 
-	protected $extension = '.php';
-
-	protected $paths = array();	
+	protected $paths = [];
 
 	public function __construct(string $base = PATH_BASE)
 	{
 		$this->base = $base;
 	}
 
-	public function addPath(string $path, string $namespace = null): void
+	public function addPath(string $path, ?string $namespace = null): void
 	{
 		$this->paths[$namespace][$path] = true;
 	}
 
 	public function render(View $view): string
 	{
-		$template = $view->getTemplate().$this->extension;
+		$template = $view->getTemplate().self::$extension;
 		$namespace = (bool)preg_match('#^@([a-zA-Z-_]+)/#', $template, $match) === true ? $match[1] : null;
 
 		if (isset($this->paths[$namespace]) === false) {

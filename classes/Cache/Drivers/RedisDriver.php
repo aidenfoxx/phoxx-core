@@ -1,14 +1,15 @@
-<?php 
+<?php
 
 namespace Phoxx\Core\Cache\Drivers;
 
-use Redis;
-
 use Phoxx\Core\Cache\Interfaces\CacheDriver;
+
+use EngineException;
+use Redis;
 
 class RedisDriver implements CacheDriver
 {
-	private $memcached;
+	private $redis;
 
 	public function __construct(string $address, int $port)
 	{
@@ -23,10 +24,14 @@ class RedisDriver implements CacheDriver
 
 	public function getValue(string $index)
 	{
-		return ($value = @unserialize($this->redis->get($index))) === false ? null : $value;
+		try {
+			return unserialize($this->redis->get($index));
+		} catch (EngineException $e) {
+			return null;
+		}
 	}
 
-	public function setValue(string $index, $value, int $lifetime): void
+	public function setValue(string $index, $value, int $lifetime = 0): void
 	{
 		$this->redis->set($index, serialize($value), $lifetime);
 	}

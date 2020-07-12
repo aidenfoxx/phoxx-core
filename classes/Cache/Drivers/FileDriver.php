@@ -1,9 +1,11 @@
-<?php 
+<?php
 
 namespace Phoxx\Core\Cache\Drivers;
 
 use Phoxx\Core\Cache\Interfaces\CacheDriver;
 use Phoxx\Core\File\Exceptions\FileException;
+
+use EngineException;
 
 class FileDriver implements CacheDriver
 {
@@ -46,8 +48,12 @@ class FileDriver implements CacheDriver
 		}
 
 		fclose($file);
-			
-		return ($value = @unserialize($value)) === false ? null : $value;
+
+		try {
+			return unserialize($value);
+		} catch (EngineException $e) {
+			return null;
+		}
 	}
 
 	public function setValue(string $index, $value, int $lifetime = 0): void
@@ -63,7 +69,7 @@ class FileDriver implements CacheDriver
 		if (is_dir($directory) === false) {
 			@mkdir($directory, 0777, true);
 		}
-		
+
 		if (file_put_contents($path, $lifetime.PHP_EOL.serialize($value)) === false) {
 			throw new FileException('Failed to write file `'.$path.'`.');
 		}
@@ -85,4 +91,3 @@ class FileDriver implements CacheDriver
 		}
 	}
 }
-

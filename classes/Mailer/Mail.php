@@ -16,21 +16,21 @@ class Mail
 
 	protected $headers;
 
-	protected $recipients = array();
+	protected $recipients = [];
 
-	protected $cc = array();
+	protected $cc = [];
 
-	protected $bcc = array();
+	protected $bcc = [];
 
-	protected $attachments = array();
+	protected $attachments = [];
 
-	public function __construct(string $subject, View $template, ?string $sender = null, ?string $senderName = null, array $headers = array())
+	public function __construct(string $subject, View $template, ?string $sender = null, ?string $senderName = null, array $headers = [])
 	{
 		$this->subject = $subject;
 		$this->template = $template;
 		$this->sender = $sender;
 		$this->senderName = $senderName;
-		$this->headers = array();
+		$this->headers = [];
 	}
 
 	public function getSubject(): string
