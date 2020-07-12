@@ -6,5 +6,5 @@ use Phoxx\Core\Mailer\Mail;
 
 interface MailerDriver
 {
-	public function send(Mail $mail): bool;
+  public function send(Mail $mail): bool;
 }

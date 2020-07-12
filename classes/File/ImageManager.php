@@ -34,7 +34,7 @@ class ImageManager
     }
 
     if ($this->imagick->writeImage($dest) === false) {
-      throw new FileException('Failed to write image `'.$dest.'`.');
+      throw new FileException('Failed to write image `' . $dest . '`.');
     }
 
     $this->path = $dest;
@@ -56,7 +56,7 @@ class ImageManager
             $offset = $coverWidth / 2 - $sourceWidth / 2;
 
             $this->imagick->extentImage($coverWidth, $sourceHeight, -$offset, 0);
-          } else if ($sourceRatio < $resizeRatio) {
+          } elseif ($sourceRatio < $resizeRatio) {
             $coverHeight = $sourceWidth / $resizeRatio;
             $offset = $coverHeight / 2 - $sourceHeight / 2;
 
@@ -73,7 +73,7 @@ class ImageManager
             $offset = $containHeight / 2 - $sourceHeight / 2;
 
             $this->imagick->extentImage($sourceWidth, $containHeight, 0, -$offset);
-          } else if ($sourceRatio < $resizeRatio) {
+          } elseif ($sourceRatio < $resizeRatio) {
             $containWidth = $sourceHeight * $resizeRatio;
             $offset = $containWidth / 2 - $sourceWidth / 2;
 
@@ -86,7 +86,7 @@ class ImageManager
     $this->imagick->scaleImage($width, $height);
 
     if ($this->imagick->writeImage($this->path) === false) {
-      throw new FileException('Failed to write image `'.$this->path.'`.');
+      throw new FileException('Failed to write image `' . $this->path . '`.');
     }
   }
 
@@ -95,7 +95,7 @@ class ImageManager
     $this->imagick->rotateImage($angle, $background);
 
     if ($this->imagick->writeImage($this->path) === false) {
-      throw new FileException('Failed to write image `'.$this->path.'`.');
+      throw new FileException('Failed to write image `' . $this->path . '`.');
     }
   }
 }

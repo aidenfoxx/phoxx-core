@@ -39,11 +39,11 @@ class Route
     /**
      * Replace named parameters in route.
      */
-    return preg_replace_callback('#\(\?<([a-zA-Z0-9_-]+)>[^\)]+\)#', function(array $match) use ($parameters) {
-      if (isset($parameters[$match[1]]) === true && (bool)preg_match('#^'.$match[0].'$#', $parameters[$match[1]]) === true) {
+    return preg_replace_callback('#\(\?<([a-zA-Z0-9_-]+)>[^\)]+\)#', function (array $match) use ($parameters) {
+      if (isset($parameters[$match[1]]) === true && (bool)preg_match('#^' . $match[0] . '$#', $parameters[$match[1]]) === true) {
         return (string)$parameters[$match[1]];
       }
-      throw new RouteException('Incorrect value for parameter `'.$match[1].'`.');
+      throw new RouteException('Incorrect value for parameter `' . $match[1] . '`.');
     }, $this->pattern);
   }
 }

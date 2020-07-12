@@ -40,7 +40,7 @@ class Application extends Dispatcher
     }
 
     foreach ($response->getHeaders() as $name => $value) {
-      header($name.': '.$value);
+      header($name . ': ' . $value);
     }
 
     http_response_code($response->getStatus());

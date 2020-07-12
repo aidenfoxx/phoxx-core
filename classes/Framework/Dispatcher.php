@@ -14,50 +14,50 @@ use Phoxx\Core\Router\RouteContainer;
 
 class Dispatcher
 {
-	private $routeContainer;
+  private $routeContainer;
 
-	private $serviceContainer;
+  private $serviceContainer;
 
-	private $requestStack;
+  private $requestStack;
 
-	public function __construct(RouteContainer $routeContainer, ServiceContainer $serviceContainer, RequestStack $requestStack)
-	{
-		$this->routeContainer = $routeContainer;
-		$this->serviceContainer = $serviceContainer;
-		$this->requestStack = $requestStack;
-	}
+  public function __construct(RouteContainer $routeContainer, ServiceContainer $serviceContainer, RequestStack $requestStack)
+  {
+    $this->routeContainer = $routeContainer;
+    $this->serviceContainer = $serviceContainer;
+    $this->requestStack = $requestStack;
+  }
 
-	public function dispatch(Request $request): ?Response
-	{
-		if (strcasecmp($request->getServer('SERVER_NAME'), $_SERVER['SERVER_NAME']) !== 0) {
-			throw new RequestException('Could not dispatch external request.');
-		}
+  public function dispatch(Request $request): ?Response
+  {
+    if (strcasecmp($request->getServer('SERVER_NAME'), $_SERVER['SERVER_NAME']) !== 0) {
+      throw new RequestException('Could not dispatch external request.');
+    }
 
-		$route = $this->routeContainer->match($request->getPath(), $request->getMethod(), $parameters);
+    $route = $this->routeContainer->match($request->getPath(), $request->getMethod(), $parameters);
 
-		if ($route === null) {
-			return null;
-		}
+    if ($route === null) {
+      return null;
+    }
 
-		$action = $route->getAction();
-		$controller = key($action);
-		$action = reset($action);
+    $action = $route->getAction();
+    $controller = key($action);
+    $action = reset($action);
 
-		if (class_exists($controller) === false || is_subclass_of($controller, Controller::class) === false || is_callable([$controller, $action]) === false) {
-			throw new DispatchException('Invalid action `'.$controller.'::'.$action.'()`.');
-		}
+    if (class_exists($controller) === false || is_subclass_of($controller, Controller::class) === false || is_callable([$controller, $action]) === false) {
+      throw new DispatchException('Invalid action `' . $controller . '::' . $action . '()`.');
+    }
 
-		$this->requestStack->push($request);
+    $this->requestStack->push($request);
 
-		$controller = new $controller($this->routeContainer, $this->serviceContainer, $this->requestStack);
-		$response = call_user_func_array(array($controller, $action), $parameters);
+    $controller = new $controller($this->routeContainer, $this->serviceContainer, $this->requestStack);
+    $response = call_user_func_array(array($controller, $action), $parameters);
 
-		$this->requestStack->pop($request);
+    $this->requestStack->pop($request);
 
-		if (($response instanceof Response) === false) {
-			throw new ResponseException('Response must be instance of `'.Response::class.'`.');
-		}
+    if (($response instanceof Response) === false) {
+      throw new ResponseException('Response must be instance of `' . Response::class . '`.');
+    }
 
-		return $response;
-	}
+    return $response;
+  }
 }

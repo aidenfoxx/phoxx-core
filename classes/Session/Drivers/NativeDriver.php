@@ -12,52 +12,52 @@ class NativeDriver implements SessionDriver
 
   protected $sessionId;
 
-	protected $active = false;
+  protected $active = false;
 
-	public function __construct(?string $sessionName = null)
-	{
-		$this->sessionName = $sessionName !== null ? $sessionName : ini_get('session.name');
+  public function __construct(?string $sessionName = null)
+  {
+    $this->sessionName = $sessionName !== null ? $sessionName : ini_get('session.name');
 
-		session_register_shutdown();
-	}
+    session_register_shutdown();
+  }
 
-	public function getValue(string $index)
-	{
-		return $this->active === true && isset($_SESSION[$index]) === true ? $_SESSION[$index] : null;
-	}
+  public function getValue(string $index)
+  {
+    return $this->active === true && isset($_SESSION[$index]) === true ? $_SESSION[$index] : null;
+  }
 
-	public function setValue(string $index, $value): void
-	{
-		if ($this->active === true && isset($_SESSION) === true) {
-			$_SESSION[$index] = $value;
-		}
-	}
+  public function setValue(string $index, $value): void
+  {
+    if ($this->active === true && isset($_SESSION) === true) {
+      $_SESSION[$index] = $value;
+    }
+  }
 
-	public function removeValue(string $index): void
-	{
-		if ($this->active === true && isset($_SESSION) === true) {
-			unset($_SESSION[$index]);
-		}
-	}
+  public function removeValue(string $index): void
+  {
+    if ($this->active === true && isset($_SESSION) === true) {
+      unset($_SESSION[$index]);
+    }
+  }
 
-	public function active(): bool
-	{
-		return $this->active;
-	}
+  public function active(): bool
+  {
+    return $this->active;
+  }
 
-	public function open(): void
-	{
-		if ($this->active === true) {
-			return;
-		}
+  public function open(): void
+  {
+    if ($this->active === true) {
+      return;
+    }
 
-		if (headers_sent() === true) {
-			throw new ResponseException('Response headers already sent.');
-		}
+    if (headers_sent() === true) {
+      throw new ResponseException('Response headers already sent.');
+    }
 
-		if (session_status() === PHP_SESSION_ACTIVE) {
-			throw new SessionException('Native session already active.');
-		}
+    if (session_status() === PHP_SESSION_ACTIVE) {
+      throw new SessionException('Native session already active.');
+    }
 
     if (isset($_COOKIE[$this->sessionName]) === false) {
       $_COOKIE[$this->sessionName] = session_create_id();
@@ -66,21 +66,21 @@ class NativeDriver implements SessionDriver
     session_name($this->sessionName);
     session_id($_COOKIE[$this->sessionName]);
 
-		if (session_start() === false) {
-			throw new SessionException('Failed to start session.');
-		}
+    if (session_start() === false) {
+      throw new SessionException('Failed to start session.');
+    }
 
-		$this->active = true;
-	}
+    $this->active = true;
+  }
 
-	public function close(): void
-	{
-		if ($this->active === true && session_write_close() === false) {
-			throw new SessionException('Failed to close session.');
-		}
+  public function close(): void
+  {
+    if ($this->active === true && session_write_close() === false) {
+      throw new SessionException('Failed to close session.');
+    }
 
-		$this->active = false;
-	}
+    $this->active = false;
+  }
 
   public function regenerate(): void
   {
@@ -89,8 +89,8 @@ class NativeDriver implements SessionDriver
     }
   }
 
-	public function clear(): void
-	{
-		session_unset();
-	}
+  public function clear(): void
+  {
+    session_unset();
+  }
 }

@@ -9,7 +9,7 @@ use Phoxx\Core\Session\Interfaces\SessionDriver;
 
 class CacheDriver implements SessionDriver
 {
-  private static $prefix = 'sid_';
+  private const PREFIX = 'sid_';
 
   private $cache;
 
@@ -31,7 +31,7 @@ class CacheDriver implements SessionDriver
       return null;
     }
 
-    $sessionData = (array)$this->cache->getValue(self::$prefix.$this->sessionId);
+    $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
 
     return isset($sessionData[$index]) === true ? $sessionData[$index] : null;
   }
@@ -39,20 +39,20 @@ class CacheDriver implements SessionDriver
   public function setValue(string $index, $value): void
   {
     if ($this->active === true) {
-      $sessionData = (array)$this->cache->getValue(self::$prefix.$this->sessionId);
+      $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
       $sessionData[$index] = $value;
 
-      $this->cache->setValue(self::$prefix.$this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+      $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
     }
   }
 
   public function removeValue(string $index): void
   {
     if ($this->active === true) {
-      $sessionData = (array)$this->cache->getValue(self::$prefix.$this->sessionId);
+      $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
       unset($sessionData[$index]);
 
-      $this->cache->setValue(self::$prefix.$this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+      $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
     }
   }
 
@@ -93,20 +93,20 @@ class CacheDriver implements SessionDriver
   public function regenerate(): void
   {
     if ($this->active === true) {
-      $sessionData = (array)$this->cache->getValue(self::$prefix.$this->sessionId);
+      $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
 
       $_COOKIE[$this->sessionName] = session_create_id();
 
-      $this->cache->removeValue(self::$prefix.$this->sessionId);
+      $this->cache->removeValue(self::PREFIX . $this->sessionId);
       $this->sessionId = $_COOKIE[$this->sessionName];
-      $this->cache->setValue(self::$prefix.$this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+      $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
     }
   }
 
   public function clear(): void
   {
     if ($this->active === true) {
-      $this->cache->removeValue(self::$prefix.$this->sessionId);
+      $this->cache->removeValue(self::PREFIX . $this->sessionId);
     }
   }
 }

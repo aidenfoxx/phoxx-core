@@ -21,7 +21,7 @@ class File
   public function __construct(string $path)
   {
     if (is_file($path) === false) {
-      throw new FileException('Invalid file `'.$path.'`.');
+      throw new FileException('Invalid file `' . $path . '`.');
     }
 
     $pathInfo = pathinfo($this->path);
@@ -31,7 +31,7 @@ class File
     $this->directoryName = $pathInfo['dirname'];
     $this->baseName = $pathInfo['basename'];
     $this->extension = $pathInfo['extension'];
-    $this->mimetype ($mimetype = @mime_content_type($path)) !== false ? $mimetype : 'text/plain';
+    $this->mimetype = ($mimetype = @mime_content_type($path)) !== false ? $mimetype : 'text/plain';
   }
 
   public function getPath(): string

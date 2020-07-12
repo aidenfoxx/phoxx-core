@@ -11,66 +11,66 @@ use Phoxx\Core\File\Exceptions\FileException;
 
 class PhpDriver implements RendererDriver
 {
-	private static $extension = '.php';
+  private const EXTENSION = '.php';
 
-	protected $base;
+  protected $base;
 
-	protected $paths = [];
+  protected $paths = [];
 
-	public function __construct(string $base = PATH_BASE)
-	{
-		$this->base = $base;
-	}
+  public function __construct(string $base = PATH_BASE)
+  {
+    $this->base = $base;
+  }
 
-	public function addPath(string $path, ?string $namespace = null): void
-	{
-		$this->paths[$namespace][$path] = true;
-	}
+  public function addPath(string $path, ?string $namespace = null): void
+  {
+    $this->paths[$namespace][$path] = true;
+  }
 
-	public function render(View $view): string
-	{
-		$template = $view->getTemplate().self::$extension;
-		$namespace = (bool)preg_match('#^@([a-zA-Z-_]+)/#', $template, $match) === true ? $match[1] : null;
+  public function render(View $view): string
+  {
+    $template = $view->getTemplate() . self::EXTENSION;
+    $namespace = (bool)preg_match('#^@([a-zA-Z-_]+)/#', $template, $match) === true ? $match[1] : null;
 
-		if (isset($this->paths[$namespace]) === false) {
-			throw new RendererException('Invalid namespace for template `'.$template.'`.');
-		}
+    if (isset($this->paths[$namespace]) === false) {
+      throw new RendererException('Invalid namespace for template `' . $template . '`.');
+    }
 
-		foreach (array_keys($this->paths[$namespace]) as $path) {
-			/**
-			 * Resolve namespace.
-			 */
-			$path = $path.'/'.($namespace !== null ? substr($template, strlen($match[0])) : $template);
+    foreach (array_keys($this->paths[$namespace]) as $path) {
+      /**
+       * Resolve namespace.
+       */
+      $path = $path . '/' . ($namespace !== null ? substr($template, strlen($match[0])) : $template);
 
-			/**
-			 * Resolve relative path.
-			 */
-			$path = (bool)preg_match('#^(?:[a-zA-Z]:(?:\\\\|/)|/)#', $path) === true ? $path : $this->base.'/'.$path;
+      /**
+       * Resolve relative path.
+       */
+      $path = (bool)preg_match('#^(?:[a-zA-Z]:(?:\\\\|/)|/)#', $path) === true ? $path : $this->base . '/' . $path;
 
-			if (($path = realpath($path)) !== false) {
-				$resolved = $path;
-				break;
-			}
-		}
+      if (($path = realpath($path)) !== false) {
+        $resolved = $path;
+        break;
+      }
+    }
 
-		if (isset($resolved) === false) {
-			throw new FileException('Failed to resolve path for template `'.$template.'`.');
-		}
+    if (isset($resolved) === false) {
+      throw new FileException('Failed to resolve path for template `' . $template . '`.');
+    }
 
-		/**
-		 * Render template.
-		 */
-		$parameters = $view->getParameters();
+    /**
+     * Render template.
+     */
+    $parameters = $view->getParameters();
 
-		foreach ($parameters as &$parameter) {
-			$parameter = htmlspecialchars($parameter, ENT_QUOTES, 'UTF-8');
-		}
+    foreach ($parameters as &$parameter) {
+      $parameter = htmlspecialchars($parameter, ENT_QUOTES, 'UTF-8');
+    }
 
-		extract($parameters);
-		ob_start();
+    extract($parameters);
+    ob_start();
 
-		include $resolved;
+    include $resolved;
 
-		return ob_get_clean();
-	}
+    return ob_get_clean();
+  }
 }

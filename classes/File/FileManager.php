@@ -9,7 +9,7 @@ class FileManager
   public function copy(File $file, string $dest): File
   {
     if (@copy($this->path, $dest) === false) {
-      throw new FileException('Failed to copy file to destination `'.$dest.'`.');
+      throw new FileException('Failed to copy file to destination `' . $dest . '`.');
     }
 
     return new File($dest);
@@ -18,7 +18,7 @@ class FileManager
   public function move(File $file, string $dest): File
   {
     if (@rename($file->getPath(), $dest) === false) {
-      throw new FileException('Failed to move file to destination `'.$dest.'`.');
+      throw new FileException('Failed to move file to destination `' . $dest . '`.');
     }
 
     return new File($dest);
@@ -29,7 +29,7 @@ class FileManager
     $path = $file->getPath();
 
     if (@unlink($path) === false) {
-      throw new FileException('Failed to remove file `'.$path.'`.');
+      throw new FileException('Failed to remove file `' . $path . '`.');
     }
   }
 }

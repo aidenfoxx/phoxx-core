@@ -6,7 +6,7 @@ use Phoxx\Core\Renderer\View;
 
 interface RendererDriver
 {
-	public function addPath(string $path, string $namespace = ''): void;
-	
-	public function render(View $view): string;
+  public function addPath(string $path, string $namespace = ''): void;
+
+  public function render(View $view): string;
 }
