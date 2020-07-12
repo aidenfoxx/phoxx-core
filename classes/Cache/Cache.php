@@ -13,10 +13,10 @@ class Cache
 		$this->driver = $driver;
 	}
 
-  public function getDriver(): CacheDriver
-  {
-    return $this->driver;
-  }
+	public function getDriver(): CacheDriver
+	{
+		return $this->driver;
+	}
 
 	public function getValue(string $index)
 	{

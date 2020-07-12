@@ -49,11 +49,7 @@ class FileDriver implements CacheDriver
 
 		fclose($file);
 
-		try {
-			return unserialize($value);
-		} catch (EngineException $e) {
-			return null;
-		}
+		return ($output = @unserialize($value)) !== false || $value === 'b:0;' ? $output : null;
 	}
 
 	public function setValue(string $index, $value, int $lifetime = 0): void

@@ -24,11 +24,9 @@ class RedisDriver implements CacheDriver
 
 	public function getValue(string $index)
 	{
-		try {
-			return unserialize($this->redis->get($index));
-		} catch (EngineException $e) {
-			return null;
-		}
+		$value = $this->redis->get($index);
+
+		return ($output = @unserialize($value)) !== false || $value === 'b:0;' ? $output : null;
 	}
 
 	public function setValue(string $index, $value, int $lifetime = 0): void
