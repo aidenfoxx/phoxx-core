@@ -10,9 +10,9 @@ class File
 
   protected $name;
 
-  protected $directoryName;
-
   protected $baseName;
+
+  protected $directory;
 
   protected $extension;
 
@@ -28,9 +28,9 @@ class File
 
     $this->path = realpath($path);
     $this->name = $pathInfo['filename'];
-    $this->directoryName = $pathInfo['dirname'];
     $this->baseName = $pathInfo['basename'];
-    $this->extension = $pathInfo['extension'];
+    $this->directoryName = isset($pathInfo['dirname']) === true ? $pathInfo['dirname'] : null;
+    $this->extension = isset($pathInfo['extension']) === true ? $pathInfo['extension'] : null;
     $this->mimetype = ($mimetype = @mime_content_type($path)) !== false ? $mimetype : 'text/plain';
   }
 
@@ -44,17 +44,17 @@ class File
     return $this->name;
   }
 
-  public function getDirectoryName(): string
-  {
-    return $this->directoryName;
-  }
-
   public function getBaseName(): string
   {
     return $this->baseName;
   }
 
-  public function getExtension(): string
+  public function getDirectory(): string
+  {
+    return $this->directory;
+  }
+
+  public function getExtension(): ?string
   {
     return $this->extension;
   }

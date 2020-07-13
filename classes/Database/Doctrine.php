@@ -23,8 +23,15 @@ class Doctrine
 
   protected $paths = [];
 
-  public function __construct(string $name, string $user = 'root', string $password = '', string $prefix = 'foxx_', string $host = '127.0.0.1', int $port = 3306, ?Cache $cache = null)
-  {
+  public function __construct(
+    string $name,
+    string $user = 'root',
+    string $password = '',
+    string $prefix = 'foxx_',
+    string $host = '127.0.0.1',
+    int $port = 3306,
+    ?Cache $cache = null
+  ) {
     $eventManager = new EventManager();
     $eventManager->addEventListener(Events::loadClassMetadata, new TablePrefix($prefix));
     $eventManager->addEventListener(Events::prePersist, new ModelDate($prefix));

@@ -8,7 +8,6 @@ class ApcuDriver implements CacheDriver
 {
   public function getValue(string $index)
   {
-    $sucess = false;
     $value = apcu_fetch($index, $sucess);
 
     return $sucess === true ? $value : null;

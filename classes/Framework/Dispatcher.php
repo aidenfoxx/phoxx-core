@@ -20,8 +20,11 @@ class Dispatcher
 
   private $requestStack;
 
-  public function __construct(RouteContainer $routeContainer, ServiceContainer $serviceContainer, RequestStack $requestStack)
-  {
+  public function __construct(
+    RouteContainer $routeContainer,
+    ServiceContainer $serviceContainer,
+    RequestStack $requestStack
+  ) {
     $this->routeContainer = $routeContainer;
     $this->serviceContainer = $serviceContainer;
     $this->requestStack = $requestStack;
@@ -33,9 +36,7 @@ class Dispatcher
       throw new RequestException('Could not dispatch external request.');
     }
 
-    $route = $this->routeContainer->match($request->getPath(), $request->getMethod(), $parameters);
-
-    if ($route === null) {
+    if (($route = $this->routeContainer->match($request->getPath(), $request->getMethod(), $parameters)) === null) {
       return null;
     }
 
@@ -43,14 +44,18 @@ class Dispatcher
     $controller = key($action);
     $action = reset($action);
 
-    if (class_exists($controller) === false || is_subclass_of($controller, Controller::class) === false || is_callable([$controller, $action]) === false) {
+    if (
+      class_exists($controller) === false ||
+      is_subclass_of($controller, Controller::class) === false ||
+      is_callable([$controller, $action]) === false
+    ) {
       throw new DispatchException('Invalid action `' . $controller . '::' . $action . '()`.');
     }
 
     $this->requestStack->push($request);
 
     $controller = new $controller($this->routeContainer, $this->serviceContainer, $this->requestStack);
-    $response = call_user_func_array(array($controller, $action), $parameters);
+    $response = call_user_func_array([$controller, $action], $parameters);
 
     $this->requestStack->pop($request);
 

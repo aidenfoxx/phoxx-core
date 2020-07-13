@@ -11,14 +11,14 @@ class FileDriver implements CacheDriver
 {
   protected $path;
 
-  public function __construct(string $path = PATH_CACHE.'/default')
+  public function __construct(string $path = PATH_CACHE . '/default')
   {
     $this->path = $path;
   }
 
   protected function generatePath(string $index)
   {
-    return $this->path.'/'.implode(str_split(md5($index), 12), '/');
+    return $this->path . '/' . implode(str_split(md5($index), 12), '/');
   }
 
   public function getValue(string $index)
@@ -30,7 +30,7 @@ class FileDriver implements CacheDriver
     }
 
     if (($file = @fopen($path, 'r')) === false) {
-      throw new FileException('Failed to open file `'.$path.'`.');
+      throw new FileException('Failed to open file `' . $path . '`.');
     }
 
     if (($line = (int)fgets($file)) !== 0 && $line < time()) {
@@ -66,8 +66,8 @@ class FileDriver implements CacheDriver
       @mkdir($directory, 0777, true);
     }
 
-    if (file_put_contents($path, $lifetime.PHP_EOL.serialize($value)) === false) {
-      throw new FileException('Failed to write file `'.$path.'`.');
+    if (file_put_contents($path, $lifetime . PHP_EOL . serialize($value)) === false) {
+      throw new FileException('Failed to write file `' . $path . '`.');
     }
   }
 
@@ -76,14 +76,14 @@ class FileDriver implements CacheDriver
     $path = $this->generatePath($index);
 
     if (is_file($path) === true && @unlink($path) === false) {
-      throw new FileException('Failed to remove file `'.$path.'`.');
+      throw new FileException('Failed to remove file `' . $path . '`.');
     }
   }
 
   public function clear(): void
   {
     if (is_dir($this->path) === true && @unlink($this->path) === false) {
-      throw new FileException('Failed to remove directory `'.$this->path.'`.');
+      throw new FileException('Failed to remove directory `' . $this->path . '`.');
     }
   }
 }

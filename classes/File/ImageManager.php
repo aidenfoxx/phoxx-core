@@ -11,7 +11,7 @@ class ImageManager
     $this->imagick->setImageCompressionQuality($quality);
 
     if ($this->imagick->writeImage($this->path) === false) {
-      throw new FileException('Failed to write image `'.$this->path.'`.');
+      throw new FileException('Failed to write image `' . $this->path . '`.');
     }
   }
 
