@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./vendor/autoload.php">
+  <php>
+    <const name="PATH_BASE" value="./tests" />
+    <const name="PATH_CACHE" value="./tests/tmp" />
+    <const name="PATH_VENDOR" value="./vendor" />
+    <const name="PATH_PUBLIC" value="" />
+    <server name="SERVER_NAME" value="localhost" />
+  </php>
+  <testsuites>
+    <testsuite name="core">
+      <directory>./tests/src</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <log type="coverage-html" target="./report" />
+  </logging>
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">./src</directory>
+    </whitelist>
+  </filter>
+</phpunit>
