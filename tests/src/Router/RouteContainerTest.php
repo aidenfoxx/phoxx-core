@@ -71,7 +71,8 @@ final class RouteContainerTest extends TestCase
   public function testMatchNull(): void
   {
     $routeContainer = new RouteContainer();
+    $routeContainer->addRoute(new Route('PATH', ['CONTROLLER' => 'ACTION']));
 
-    $this->assertNull($routeContainer->match('PATH'));
+    $this->assertNull($routeContainer->match('INVALID'));
   }
 }
