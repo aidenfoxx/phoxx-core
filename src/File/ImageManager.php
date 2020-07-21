@@ -2,100 +2,186 @@
 
 namespace Phoxx\Core\File;
 
-use Phoxx\Core\File\FileExceptions\FileException;
-
 class ImageManager
 {
-  public function compress(float $quality): void
+  private function parseImage(Image $image)
   {
-    $this->imagick->setImageCompressionQuality($quality);
-
-    if ($this->imagick->writeImage($this->path) === false) {
-      throw new FileException('Failed to write image `' . $this->path . '`.');
-    }
-  }
-
-  public function convert(string $dest, string $format = self::FORMAT_JPG, string $background = '#ffffff'): void
-  {
-    $this->imagick->setImageBackgroundColor($background);
-
-    switch ($format) {
+    switch ($image->getFormat()) {
       case Image::FORMAT_BMP:
-        $this->imagick->setImageFormat('bmp');
+        $resource = imagecreatefrombmp($image->getPath());
         break;
 
       case Image::FORMAT_PNG:
-        $this->imagick->setImageFormat('png');
+        $resource = imagecreatefrompng($image->getPath());
+        break;
+
+      case Image::FORMAT_GIF:
+        $resource = imagecreatefromgif($image->getPath());
         break;
 
       default:
-        $this->imagick->setImageFormat('jpg');
+        $resource = imagecreatefromjpeg($image->getPath());
         break;
     }
 
-    if ($this->imagick->writeImage($dest) === false) {
-      throw new FileException('Failed to write image `' . $dest . '`.');
+    if ($resource === false) {
+      throw new ImageException('Failed to parse image `' . $image->getPath() . '`.');
     }
 
-    $this->path = $dest;
+    return $resource;
   }
 
-  public function resize(int $width, int $height = 0, string $scale = self::SCALE_FILL, string $background = '#ffffff'): void
+  private function writeImage($resource, string $dest, string $format, int $quality = -1): void
   {
+    switch ($format) {
+      case Image::FORMAT_BMP:
+        $response = imagebmp($resource, $dest, $quality);
+        break;
+
+      case Image::FORMAT_PNG:
+        $response = imagepng($resource, $dest, $quality);
+        break;
+
+      case Image::FORMAT_GIF:
+        $response = imagegif($resource, $dest, $quality);
+        break;
+
+      default:
+        $response = imagejpeg($resource, $dest, $quality);
+        break;
+    }
+
+    if ($response === false) {
+      throw new ImageException('Failed to parse image `' . $image->getPath() . '`.');
+    }
+  }
+
+  public function compress(Image $image, float $quality = -1): void
+  {
+    $input = $this->parseImage($image);
+
+    $this->writeImage($input, $image->getPath(), $image->getFormat(), $quality);
+
+    imagedestroy($input);
+  }
+
+  public function resize(
+    Image $image,
+    int $width,
+    int $height,
+    string $scale = self::SCALE_FILL,
+    ?string $background = null,
+    float $quality = -1
+  ): void {
+    $offsetX = 0;
+    $offsetY = 0;
+
+    $input = $this->parseImage($image);
+    $output = imagecreatetruecolor($width, $height);
+
     if ($width > 0 && $height > 0) {
-      $sourceWidth = $this->imagick->getImageWidth();
-      $sourceHeight = $this->imagick->getImageHeight();
-      $sourceRatio = $sourceWidth / $sourceHeight;
+      $resizeWidth = $width;
+      $resizeHeight = $height;
 
       $resizeRatio = $width / $height;
+      $sourceRatio = $image->getWidth() / $image->getHeight();
 
       switch ($scale) {
-        case self::SCALE_COVER:
-          if ($sourceRatio > $resizeRatio) {
-            $coverWidth = $sourceHeight * $resizeRatio;
-            $offset = $coverWidth / 2 - $sourceWidth / 2;
-
-            $this->imagick->extentImage($coverWidth, $sourceHeight, -$offset, 0);
-          } elseif ($sourceRatio < $resizeRatio) {
-            $coverHeight = $sourceWidth / $resizeRatio;
-            $offset = $coverHeight / 2 - $sourceHeight / 2;
-
-            // imagecopyresampled
-            $this->imagick->extentImage($sourceWidth, $coverHeight, 0, -$offset);
+        case Image::SCALE_COVER:
+          if ($resizeRatio > $sourceRatio) {
+            $height = $width * $sourceRatio;
+            $offsetY = $resizeHeight / 2 - $height / 2;
+          } elseif ($resizeRatio < $sourceRatio) {
+            $width = $height * $sourceRatio;
+            $offsetX = $resizeWidth / 2 - $width / 2;
           }
           break;
 
-        case self::SCALE_CONTAIN:
-          $this->imagick->setImageBackgroundColor($background);
+        case Image::SCALE_CONTAIN:
+          if ($background !== null) {
+            $fill = imagecolorallocatealpha(
+              $input,
+              (int)$background[0],
+              (int)$background[1],
+              (int)$background[2],
+              (float)$background[3]
+            );
 
-          if ($sourceRatio > $resizeRatio) {
-            $containHeight = $sourceWidth / $resizeRatio;
-            $offset = $containHeight / 2 - $sourceHeight / 2;
+            imagefill($output, 0, 0, $fill);
+          }
 
-            $this->imagick->extentImage($sourceWidth, $containHeight, 0, -$offset);
-          } elseif ($sourceRatio < $resizeRatio) {
-            $containWidth = $sourceHeight * $resizeRatio;
-            $offset = $containWidth / 2 - $sourceWidth / 2;
-
-            $this->imagick->extentImage($containWidth, $sourceHeight, -$offset, 0);
+          if ($resizeRatio > $sourceRatio) {
+            $width = $height * $sourceRatio;
+            $offsetX = $resizeWidth / 2 - $width / 2;
+          } elseif ($resizeRatio < $sourceRatio) {
+            $height = $width / $sourceRatio;
+            $offsetY = $resizeHeight / 2 - $height / 2;
           }
           break;
       }
     }
 
-    $this->imagick->scaleImage($width, $height);
+    imagecopyresampled($output, $input, $offsetX, $offsetY, 0, 0, $width, $height, $image->getWidth(), $image->getHeight());
 
-    if ($this->imagick->writeImage($this->path) === false) {
-      throw new FileException('Failed to write image `' . $this->path . '`.');
-    }
+    $this->writeImage($output, $image->getPath(), $image->getFormat(), $quality);
+
+    imagedestroy($input);
+    imagedestroy($output);
   }
 
-  public function rotate(int $angle, string $background = '#ffffff'): void
+  public function rotate(Image $image, int $angle, ?array $background = null, float $quality = -1): void
   {
-    $this->imagick->rotateImage($angle, $background);
+    $input = $this->parseImage($image);
 
-    if ($this->imagick->writeImage($this->path) === false) {
-      throw new FileException('Failed to write image `' . $this->path . '`.');
+    if ($background !== null) {
+      $fill =  ? imagecolorallocatealpha(
+        $input,
+        (int)$background[0],
+        (int)$background[1],
+        (int)$background[2],
+        (float)$background[3]
+      ) : 0;
+
+      $output = imagerotate($input, $angle, $fill);
+    } else {
+      $output = imagerotate($input, $angle, 0);
     }
+
+    $this->writeImage($output, $image->getPath(), $image->getFormat(), $quality);
+
+    imagedestroy($input);
+    imagedestroy($output);
+  }
+
+  public function convert(
+    Image $image,
+    string $dest,
+    string $format = self::FORMAT_JPG,
+    ?array $background = null,
+    int $quality = -1
+  ): Image {
+    $input = $this->parseImage($image);
+    $output = imagecreatetruecolor($image->getWidth(), $image->getHeight());
+
+    if ($background !== null) {
+      $fill = imagecolorallocatealpha(
+        $input,
+        (int)$background[0],
+        (int)$background[1],
+        (int)$background[2],
+        (float)$background[3]
+      );
+
+      imagefill($output, 0, 0, $fill);
+    }
+
+    imagecopy($output, $input, 0, 0, 0, 0, $image->getWidth(), $image->getHeight());
+
+    $this->writeImage($output, $dest, $format, $quality);
+
+    imagedestroy($input);
+    imagedestroy($output);
+
+    return new Image($dest);
   }
 }

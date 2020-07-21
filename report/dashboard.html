@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\XAMPP\PHP7\htdocs\phoxx-core\src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\XAMPP\PHP7\htdocs\phoxx-core\src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#7">Phoxx\Core\Cache\Drivers\ApcuDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#7">Phoxx\Core\Cache\Drivers\ArrayDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#8">Phoxx\Core\Session\Drivers\CacheDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#11">Phoxx\Core\Renderer\Drivers\TwigDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#13">Phoxx\Core\Renderer\Drivers\SmartyDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#10">Phoxx\Core\Renderer\Drivers\PhpDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/Drivers/MailDriver.php.html#9">Phoxx\Core\Mailer\Drivers\MailDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#7">Phoxx\Core\File\ImageManager</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/Image.php.html#7">Phoxx\Core\File\Image</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/FileManager.php.html#7">Phoxx\Core\File\FileManager</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#7">Phoxx\Core\File\File</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#7">Phoxx\Core\Database\Model</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/TablePrefix.php.html#8">Phoxx\Core\Database\Doctrine\Events\TablePrefix</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/ModelDate.php.html#9">Phoxx\Core\Database\Doctrine\Events\ModelDate</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#9">Phoxx\Core\Database\Doctrine\CacheInterface</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#17">Phoxx\Core\Database\Doctrine</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#9">Phoxx\Core\Cache\Drivers\RedisDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#9">Phoxx\Core\Cache\Drivers\MemcachedDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#8">Phoxx\Core\Cache\Drivers\FileDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#9">Phoxx\Core\Session\Drivers\NativeDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Response.php.html#5">Phoxx\Core\Http\Response</a></td><td class="text-right">58%</td></tr>
+       <tr><td><a href="Http/Request.php.html#5">Phoxx\Core\Http\Request</a></td><td class="text-right">63%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#9">Phoxx\Core\Session\Drivers\NativeDriver</a></td><td class="text-right">702</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#8">Phoxx\Core\Cache\Drivers\FileDriver</a></td><td class="text-right">420</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#8">Phoxx\Core\Session\Drivers\CacheDriver</a></td><td class="text-right">380</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#7">Phoxx\Core\File\ImageManager</a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#10">Phoxx\Core\Renderer\Drivers\PhpDriver</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#13">Phoxx\Core\Renderer\Drivers\SmartyDriver</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="File/File.php.html#7">Phoxx\Core\File\File</a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="Http/Request.php.html#5">Phoxx\Core\Http\Request</a></td><td class="text-right">128</td></tr>
+       <tr><td><a href="Mailer/Drivers/MailDriver.php.html#9">Phoxx\Core\Mailer\Drivers\MailDriver</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#9">Phoxx\Core\Cache\Drivers\MemcachedDriver</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#9">Phoxx\Core\Cache\Drivers\RedisDriver</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#7">Phoxx\Core\Cache\Drivers\ArrayDriver</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#17">Phoxx\Core\Database\Doctrine</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/TablePrefix.php.html#8">Phoxx\Core\Database\Doctrine\Events\TablePrefix</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#11">Phoxx\Core\Renderer\Drivers\TwigDriver</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="File/FileManager.php.html#7">Phoxx\Core\File\FileManager</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#7">Phoxx\Core\Cache\Drivers\ApcuDriver</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="File/Image.php.html#7">Phoxx\Core\File\Image</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/ModelDate.php.html#9">Phoxx\Core\Database\Doctrine\Events\ModelDate</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Response.php.html#5">Phoxx\Core\Http\Response</a></td><td class="text-right">14</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#9"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#153"><abbr title="Phoxx\Core\Http\Request::getQuery">getQuery</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#18"><abbr title="Phoxx\Core\Renderer\Drivers\PhpDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/Drivers/MailDriver.php.html#18"><abbr title="Phoxx\Core\Mailer\Drivers\MailDriver::send">send</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/Drivers/MailDriver.php.html#13"><abbr title="Phoxx\Core\Mailer\Drivers\MailDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Response.php.html#164"><abbr title="Phoxx\Core\Http\Response::removeHeader">removeHeader</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Response.php.html#159"><abbr title="Phoxx\Core\Http\Response::setHeader">setHeader</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Response.php.html#154"><abbr title="Phoxx\Core\Http\Response::getHeader">getHeader</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#178"><abbr title="Phoxx\Core\Http\Request::getContent">getContent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#173"><abbr title="Phoxx\Core\Http\Request::getFile">getFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#168"><abbr title="Phoxx\Core\Http\Request::getCookie">getCookie</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#158"><abbr title="Phoxx\Core\Http\Request::getRequest">getRequest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#139"><abbr title="Phoxx\Core\Http\Request::getUrl">getUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#28"><abbr title="Phoxx\Core\Renderer\Drivers\PhpDriver::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#134"><abbr title="Phoxx\Core\Http\Request::getUri">getUri</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#93"><abbr title="Phoxx\Core\File\ImageManager::rotate">rotate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#43"><abbr title="Phoxx\Core\File\ImageManager::resize">resize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#18"><abbr title="Phoxx\Core\File\ImageManager::convert">convert</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#9"><abbr title="Phoxx\Core\File\ImageManager::compress">compress</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/Image.php.html#42"><abbr title="Phoxx\Core\File\Image::getHeight">getHeight</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/Image.php.html#37"><abbr title="Phoxx\Core\File\Image::getWidth">getWidth</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/Image.php.html#25"><abbr title="Phoxx\Core\File\Image::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/FileManager.php.html#27"><abbr title="Phoxx\Core\File\FileManager::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/FileManager.php.html#18"><abbr title="Phoxx\Core\File\FileManager::move">move</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#23"><abbr title="Phoxx\Core\Renderer\Drivers\PhpDriver::addPath">addPath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#23"><abbr title="Phoxx\Core\Renderer\Drivers\SmartyDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#62"><abbr title="Phoxx\Core\File\File::getMimetype">getMimetype</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#87"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::close">close</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#85"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::regenerate">regenerate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#76"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::close">close</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#48"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::open">open</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#43"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::active">active</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#36"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#29"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#24"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#17"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#105"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#92"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::regenerate">regenerate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#63"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::open">open</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#44"><abbr title="Phoxx\Core\Renderer\Drivers\SmartyDriver::getSmarty">getSmarty</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#58"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::active">active</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#47"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#37"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#26"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#20"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#37"><abbr title="Phoxx\Core\Renderer\Drivers\TwigDriver::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#32"><abbr title="Phoxx\Core\Renderer\Drivers\TwigDriver::addPath">addPath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#27"><abbr title="Phoxx\Core\Renderer\Drivers\TwigDriver::getTwig">getTwig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#19"><abbr title="Phoxx\Core\Renderer\Drivers\TwigDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#55"><abbr title="Phoxx\Core\Renderer\Drivers\SmartyDriver::render">render</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#49"><abbr title="Phoxx\Core\Renderer\Drivers\SmartyDriver::addPath">addPath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/FileManager.php.html#9"><abbr title="Phoxx\Core\File\FileManager::copy">copy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#57"><abbr title="Phoxx\Core\File\File::getExtension">getExtension</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#16"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#13"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#31"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#24"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#19"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::getRedis">getRedis</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#13"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#45"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#40"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#35"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#28"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#23"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::addServer">addServer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#18"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::getMemcached">getMemcached</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#81"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#41"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#72"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#53"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#22"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#17"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::generatePath">generatePath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#12"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#33"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#28"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#20"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#11"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#26"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#21"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#36"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#25"><abbr title="Phoxx\Core\Database\Doctrine::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#52"><abbr title="Phoxx\Core\File\File::getDirectory">getDirectory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/TablePrefix.php.html#17"><abbr title="Phoxx\Core\Database\Doctrine\Events\TablePrefix::loadClassMetadata">loadClassMetadata</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#47"><abbr title="Phoxx\Core\File\File::getBaseName">getBaseName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#42"><abbr title="Phoxx\Core\File\File::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#37"><abbr title="Phoxx\Core\File\File::getPath">getPath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="File/File.php.html#21"><abbr title="Phoxx\Core\File\File::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#40"><abbr title="Phoxx\Core\Database\Model::setDateUpdated">setDateUpdated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#35"><abbr title="Phoxx\Core\Database\Model::setDateCreated">setDateCreated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#30"><abbr title="Phoxx\Core\Database\Model::getDateUpdated">getDateUpdated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#25"><abbr title="Phoxx\Core\Database\Model::getDateCreated">getDateCreated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#20"><abbr title="Phoxx\Core\Database\Model::getValidator">getValidator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Model.php.html#15"><abbr title="Phoxx\Core\Database\Model::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/TablePrefix.php.html#12"><abbr title="Phoxx\Core\Database\Doctrine\Events\TablePrefix::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#65"><abbr title="Phoxx\Core\Database\Doctrine::getConnection">getConnection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/ModelDate.php.html#19"><abbr title="Phoxx\Core\Database\Doctrine\Events\ModelDate::preUpdate">preUpdate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/ModelDate.php.html#11"><abbr title="Phoxx\Core\Database\Doctrine\Events\ModelDate::prePersist">prePersist</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#43"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::doGetStats">doGetStats</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#38"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::doFlush">doFlush</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#33"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::doDelete">doDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#28"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::doSave">doSave</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#23"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::doContains">doContains</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#18"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::doFetch">doFetch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine/CacheInterface.php.html#13"><abbr title="Phoxx\Core\Database\Doctrine\CacheInterface::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#75"><abbr title="Phoxx\Core\Database\Doctrine::addPath">addPath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#70"><abbr title="Phoxx\Core\Database\Doctrine::getEntityManager">getEntityManager</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#92"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Request.php.html#21"><abbr title="Phoxx\Core\Http\Request::__construct">__construct</abbr></a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#28"><abbr title="Phoxx\Core\Renderer\Drivers\PhpDriver::render">render</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#43"><abbr title="Phoxx\Core\File\ImageManager::resize">resize</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Mailer/Drivers/MailDriver.php.html#18"><abbr title="Phoxx\Core\Mailer\Drivers\MailDriver::send">send</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#55"><abbr title="Phoxx\Core\Renderer\Drivers\SmartyDriver::render">render</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#22"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::getValue">getValue</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Http/Request.php.html#139"><abbr title="Phoxx\Core\Http\Request::getUrl">getUrl</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#48"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::open">open</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/TablePrefix.php.html#17"><abbr title="Phoxx\Core\Database\Doctrine\Events\TablePrefix::loadClassMetadata">loadClassMetadata</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="File/File.php.html#21"><abbr title="Phoxx\Core\File\File::__construct">__construct</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Request.php.html#21"><abbr title="Phoxx\Core\Http\Request::__construct">__construct</abbr></a></td><td class="text-right">23</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#53"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::setValue">setValue</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#18"><abbr title="Phoxx\Core\File\ImageManager::convert">convert</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#11"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::getValue">getValue</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#26"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::getValue">getValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#20"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Request.php.html#173"><abbr title="Phoxx\Core\Http\Request::getFile">getFile</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#32"><abbr title="Phoxx\Core\Renderer\Drivers\TwigDriver::addPath">addPath</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Response.php.html#154"><abbr title="Phoxx\Core\Http\Response::getHeader">getHeader</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Request.php.html#168"><abbr title="Phoxx\Core\Http\Request::getCookie">getCookie</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#85"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::regenerate">regenerate</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#63"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::open">open</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#17"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#24"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::getValue">getValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#29"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::setValue">setValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#36"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::removeValue">removeValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#25"><abbr title="Phoxx\Core\Database\Doctrine::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cache/Drivers/RedisDriver.php.html#24"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::getValue">getValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#81"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::clear">clear</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Cache/Drivers/FileDriver.php.html#72"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::removeValue">removeValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/NativeDriver.php.html#76"><abbr title="Phoxx\Core\Session\Drivers\NativeDriver::close">close</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#37"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::setValue">setValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#47"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::removeValue">removeValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#105"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::clear">clear</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Renderer/Drivers/TwigDriver.php.html#19"><abbr title="Phoxx\Core\Renderer\Drivers\TwigDriver::__construct">__construct</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Session/Drivers/CacheDriver.php.html#92"><abbr title="Phoxx\Core\Session\Drivers\CacheDriver::regenerate">regenerate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Cache/Drivers/ApcuDriver.php.html#9"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::getValue">getValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Renderer/Drivers/SmartyDriver.php.html#49"><abbr title="Phoxx\Core\Renderer\Drivers\SmartyDriver::addPath">addPath</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/FileManager.php.html#9"><abbr title="Phoxx\Core\File\FileManager::copy">copy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Cache/Drivers/ArrayDriver.php.html#20"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::setValue">setValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Cache/Drivers/MemcachedDriver.php.html#28"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::getValue">getValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Database/Doctrine.php.html#75"><abbr title="Phoxx\Core\Database\Doctrine::addPath">addPath</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/ModelDate.php.html#11"><abbr title="Phoxx\Core\Database\Doctrine\Events\ModelDate::prePersist">prePersist</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Database/Doctrine/Events/ModelDate.php.html#19"><abbr title="Phoxx\Core\Database\Doctrine\Events\ModelDate::preUpdate">preUpdate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/File.php.html#57"><abbr title="Phoxx\Core\File\File::getExtension">getExtension</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/FileManager.php.html#18"><abbr title="Phoxx\Core\File\FileManager::move">move</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Renderer/Drivers/PhpDriver.php.html#23"><abbr title="Phoxx\Core\Renderer\Drivers\PhpDriver::addPath">addPath</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/FileManager.php.html#27"><abbr title="Phoxx\Core\File\FileManager::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/Image.php.html#25"><abbr title="Phoxx\Core\File\Image::__construct">__construct</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#9"><abbr title="Phoxx\Core\File\ImageManager::compress">compress</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="File/ImageManager.php.html#93"><abbr title="Phoxx\Core\File\ImageManager::rotate">rotate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Request.php.html#158"><abbr title="Phoxx\Core\Http\Request::getRequest">getRequest</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Request.php.html#178"><abbr title="Phoxx\Core\Http\Request::getContent">getContent</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Request.php.html#153"><abbr title="Phoxx\Core\Http\Request::getQuery">getQuery</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.10</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.20</a> with <a href="https://xdebug.org/">Xdebug 2.6.1</a> and <a href="https://phpunit.de/">PHPUnit 8.5.8</a> at Tue Jul 21 10:41:25 CEST 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([20,0,0,0,0,0,1,1,0,0,0,27], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([106,0,0,0,0,0,0,0,1,0,0,134], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,6,"<a href=\"Cache\/Cache.php.html#7\">Phoxx\\Core\\Cache\\Cache<\/a>"],[0,5,"<a href=\"Cache\/Drivers\/ApcuDriver.php.html#7\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver<\/a>"],[0,8,"<a href=\"Cache\/Drivers\/ArrayDriver.php.html#7\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver<\/a>"],[0,20,"<a href=\"Cache\/Drivers\/FileDriver.php.html#8\">Phoxx\\Core\\Cache\\Drivers\\FileDriver<\/a>"],[0,8,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#9\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver<\/a>"],[0,8,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#9\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver<\/a>"],[100,1,"<a href=\"Controllers\/AjaxController.php.html#7\">Phoxx\\Core\\Controllers\\AjaxController<\/a>"],[100,6,"<a href=\"Controllers\/Controller.php.html#11\">Phoxx\\Core\\Controllers\\Controller<\/a>"],[100,2,"<a href=\"Controllers\/FrontController.php.html#10\">Phoxx\\Core\\Controllers\\FrontController<\/a>"],[0,7,"<a href=\"Database\/Doctrine.php.html#17\">Phoxx\\Core\\Database\\Doctrine<\/a>"],[0,7,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#9\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface<\/a>"],[0,4,"<a href=\"Database\/Doctrine\/Events\/ModelDate.php.html#9\">Phoxx\\Core\\Database\\Doctrine\\Events\\ModelDate<\/a>"],[0,7,"<a href=\"Database\/Doctrine\/Events\/TablePrefix.php.html#8\">Phoxx\\Core\\Database\\Doctrine\\Events\\TablePrefix<\/a>"],[0,6,"<a href=\"Database\/Model.php.html#7\">Phoxx\\Core\\Database\\Model<\/a>"],[100,0,"<a href=\"File\/Exceptions\/FileException.php.html#7\">Phoxx\\Core\\File\\Exceptions\\FileException<\/a>"],[0,12,"<a href=\"File\/File.php.html#7\">Phoxx\\Core\\File\\File<\/a>"],[0,6,"<a href=\"File\/FileManager.php.html#7\">Phoxx\\Core\\File\\FileManager<\/a>"],[0,4,"<a href=\"File\/Image.php.html#7\">Phoxx\\Core\\File\\Image<\/a>"],[0,18,"<a href=\"File\/ImageManager.php.html#7\">Phoxx\\Core\\File\\ImageManager<\/a>"],[100,6,"<a href=\"Framework\/Application.php.html#10\">Phoxx\\Core\\Framework\\Application<\/a>"],[100,9,"<a href=\"Framework\/Dispatcher.php.html#14\">Phoxx\\Core\\Framework\\Dispatcher<\/a>"],[100,0,"<a href=\"Framework\/Exceptions\/DispatchException.php.html#7\">Phoxx\\Core\\Framework\\Exceptions\\DispatchException<\/a>"],[100,0,"<a href=\"Framework\/Exceptions\/ServiceException.php.html#7\">Phoxx\\Core\\Framework\\Exceptions\\ServiceException<\/a>"],[100,5,"<a href=\"Framework\/ServiceContainer.php.html#5\">Phoxx\\Core\\Framework\\ServiceContainer<\/a>"],[100,0,"<a href=\"Http\/Exceptions\/RequestException.php.html#7\">Phoxx\\Core\\Http\\Exceptions\\RequestException<\/a>"],[100,0,"<a href=\"Http\/Exceptions\/ResponseException.php.html#7\">Phoxx\\Core\\Http\\Exceptions\\ResponseException<\/a>"],[100,1,"<a href=\"Http\/Helpers\/SimpleRequest.php.html#7\">Phoxx\\Core\\Http\\Helpers\\SimpleRequest<\/a>"],[63.38028169014085,42,"<a href=\"Http\/Request.php.html#5\">Phoxx\\Core\\Http\\Request<\/a>"],[100,9,"<a href=\"Http\/RequestStack.php.html#5\">Phoxx\\Core\\Http\\RequestStack<\/a>"],[58.333333333333336,9,"<a href=\"Http\/Response.php.html#5\">Phoxx\\Core\\Http\\Response<\/a>"],[0,10,"<a href=\"Mailer\/Drivers\/MailDriver.php.html#9\">Phoxx\\Core\\Mailer\\Drivers\\MailDriver<\/a>"],[100,25,"<a href=\"Mailer\/Mail.php.html#7\">Phoxx\\Core\\Mailer\\Mail<\/a>"],[100,3,"<a href=\"Mailer\/Mailer.php.html#7\">Phoxx\\Core\\Mailer\\Mailer<\/a>"],[0,13,"<a href=\"Renderer\/Drivers\/PhpDriver.php.html#10\">Phoxx\\Core\\Renderer\\Drivers\\PhpDriver<\/a>"],[0,12,"<a href=\"Renderer\/Drivers\/SmartyDriver.php.html#13\">Phoxx\\Core\\Renderer\\Drivers\\SmartyDriver<\/a>"],[0,7,"<a href=\"Renderer\/Drivers\/TwigDriver.php.html#11\">Phoxx\\Core\\Renderer\\Drivers\\TwigDriver<\/a>"],[100,0,"<a href=\"Renderer\/Exceptions\/RendererException.php.html#7\">Phoxx\\Core\\Renderer\\Exceptions\\RendererException<\/a>"],[100,5,"<a href=\"Renderer\/Renderer.php.html#7\">Phoxx\\Core\\Renderer\\Renderer<\/a>"],[100,6,"<a href=\"Renderer\/View.php.html#5\">Phoxx\\Core\\Renderer\\View<\/a>"],[100,0,"<a href=\"Router\/Exceptions\/RouteException.php.html#7\">Phoxx\\Core\\Router\\Exceptions\\RouteException<\/a>"],[100,7,"<a href=\"Router\/Route.php.html#7\">Phoxx\\Core\\Router\\Route<\/a>"],[100,13,"<a href=\"Router\/RouteContainer.php.html#5\">Phoxx\\Core\\Router\\RouteContainer<\/a>"],[0,19,"<a href=\"Session\/Drivers\/CacheDriver.php.html#8\">Phoxx\\Core\\Session\\Drivers\\CacheDriver<\/a>"],[0,26,"<a href=\"Session\/Drivers\/NativeDriver.php.html#9\">Phoxx\\Core\\Session\\Drivers\\NativeDriver<\/a>"],[100,0,"<a href=\"Session\/Exceptions\/SessionException.php.html#7\">Phoxx\\Core\\Session\\Exceptions\\SessionException<\/a>"],[100,9,"<a href=\"Session\/Session.php.html#7\">Phoxx\\Core\\Session\\Session<\/a>"],[100,17,"<a href=\"Utilities\/Config.php.html#11\">Phoxx\\Core\\Utilities\\Config<\/a>"],[100,0,"<a href=\"Utilities\/Exceptions\/ConfigException.php.html#7\">Phoxx\\Core\\Utilities\\Exceptions\\ConfigException<\/a>"],[100,57,"<a href=\"Utilities\/Validator.php.html#5\">Phoxx\\Core\\Utilities\\Validator<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Cache\/Cache.php.html#11\">Phoxx\\Core\\Cache\\Cache::__construct<\/a>"],[100,1,"<a href=\"Cache\/Cache.php.html#16\">Phoxx\\Core\\Cache\\Cache::getDriver<\/a>"],[100,1,"<a href=\"Cache\/Cache.php.html#21\">Phoxx\\Core\\Cache\\Cache::getValue<\/a>"],[100,1,"<a href=\"Cache\/Cache.php.html#26\">Phoxx\\Core\\Cache\\Cache::setValue<\/a>"],[100,1,"<a href=\"Cache\/Cache.php.html#31\">Phoxx\\Core\\Cache\\Cache::removeValue<\/a>"],[100,1,"<a href=\"Cache\/Cache.php.html#36\">Phoxx\\Core\\Cache\\Cache::clear<\/a>"],[0,2,"<a href=\"Cache\/Drivers\/ApcuDriver.php.html#9\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::getValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/ApcuDriver.php.html#16\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::setValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/ApcuDriver.php.html#21\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::removeValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/ApcuDriver.php.html#26\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::clear<\/a>"],[0,4,"<a href=\"Cache\/Drivers\/ArrayDriver.php.html#11\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::getValue<\/a>"],[0,2,"<a href=\"Cache\/Drivers\/ArrayDriver.php.html#20\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::setValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/ArrayDriver.php.html#28\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::removeValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/ArrayDriver.php.html#33\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::clear<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/FileDriver.php.html#12\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::__construct<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/FileDriver.php.html#17\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::generatePath<\/a>"],[0,8,"<a href=\"Cache\/Drivers\/FileDriver.php.html#22\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::getValue<\/a>"],[0,4,"<a href=\"Cache\/Drivers\/FileDriver.php.html#53\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::setValue<\/a>"],[0,3,"<a href=\"Cache\/Drivers\/FileDriver.php.html#72\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::removeValue<\/a>"],[0,3,"<a href=\"Cache\/Drivers\/FileDriver.php.html#81\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::clear<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#13\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::__construct<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#18\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::getMemcached<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#23\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::addServer<\/a>"],[0,2,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#28\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::getValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#35\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::setValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#40\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::removeValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/MemcachedDriver.php.html#45\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::clear<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#13\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::__construct<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#19\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::getRedis<\/a>"],[0,3,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#24\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::getValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#31\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::setValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#36\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::removeValue<\/a>"],[0,1,"<a href=\"Cache\/Drivers\/RedisDriver.php.html#41\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::clear<\/a>"],[100,1,"<a href=\"Controllers\/AjaxController.php.html#9\">Phoxx\\Core\\Controllers\\AjaxController::render<\/a>"],[100,1,"<a href=\"Controllers\/Controller.php.html#17\">Phoxx\\Core\\Controllers\\Controller::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Controller.php.html#25\">Phoxx\\Core\\Controllers\\Controller::getService<\/a>"],[100,2,"<a href=\"Controllers\/Controller.php.html#30\">Phoxx\\Core\\Controllers\\Controller::main<\/a>"],[100,2,"<a href=\"Controllers\/Controller.php.html#35\">Phoxx\\Core\\Controllers\\Controller::active<\/a>"],[100,2,"<a href=\"Controllers\/FrontController.php.html#12\">Phoxx\\Core\\Controllers\\FrontController::render<\/a>"],[0,3,"<a href=\"Database\/Doctrine.php.html#25\">Phoxx\\Core\\Database\\Doctrine::__construct<\/a>"],[0,1,"<a href=\"Database\/Doctrine.php.html#65\">Phoxx\\Core\\Database\\Doctrine::getConnection<\/a>"],[0,1,"<a href=\"Database\/Doctrine.php.html#70\">Phoxx\\Core\\Database\\Doctrine::getEntityManager<\/a>"],[0,2,"<a href=\"Database\/Doctrine.php.html#75\">Phoxx\\Core\\Database\\Doctrine::addPath<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#13\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::__construct<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#18\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::doFetch<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#23\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::doContains<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#28\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::doSave<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#33\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::doDelete<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#38\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::doFlush<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/CacheInterface.php.html#43\">Phoxx\\Core\\Database\\Doctrine\\CacheInterface::doGetStats<\/a>"],[0,2,"<a href=\"Database\/Doctrine\/Events\/ModelDate.php.html#11\">Phoxx\\Core\\Database\\Doctrine\\Events\\ModelDate::prePersist<\/a>"],[0,2,"<a href=\"Database\/Doctrine\/Events\/ModelDate.php.html#19\">Phoxx\\Core\\Database\\Doctrine\\Events\\ModelDate::preUpdate<\/a>"],[0,1,"<a href=\"Database\/Doctrine\/Events\/TablePrefix.php.html#12\">Phoxx\\Core\\Database\\Doctrine\\Events\\TablePrefix::__construct<\/a>"],[0,6,"<a href=\"Database\/Doctrine\/Events\/TablePrefix.php.html#17\">Phoxx\\Core\\Database\\Doctrine\\Events\\TablePrefix::loadClassMetadata<\/a>"],[0,1,"<a href=\"Database\/Model.php.html#15\">Phoxx\\Core\\Database\\Model::__construct<\/a>"],[0,1,"<a href=\"Database\/Model.php.html#20\">Phoxx\\Core\\Database\\Model::getValidator<\/a>"],[0,1,"<a href=\"Database\/Model.php.html#25\">Phoxx\\Core\\Database\\Model::getDateCreated<\/a>"],[0,1,"<a href=\"Database\/Model.php.html#30\">Phoxx\\Core\\Database\\Model::getDateUpdated<\/a>"],[0,1,"<a href=\"Database\/Model.php.html#35\">Phoxx\\Core\\Database\\Model::setDateCreated<\/a>"],[0,1,"<a href=\"Database\/Model.php.html#40\">Phoxx\\Core\\Database\\Model::setDateUpdated<\/a>"],[0,5,"<a href=\"File\/File.php.html#21\">Phoxx\\Core\\File\\File::__construct<\/a>"],[0,1,"<a href=\"File\/File.php.html#37\">Phoxx\\Core\\File\\File::getPath<\/a>"],[0,1,"<a href=\"File\/File.php.html#42\">Phoxx\\Core\\File\\File::getName<\/a>"],[0,1,"<a href=\"File\/File.php.html#47\">Phoxx\\Core\\File\\File::getBaseName<\/a>"],[0,1,"<a href=\"File\/File.php.html#52\">Phoxx\\Core\\File\\File::getDirectory<\/a>"],[0,2,"<a href=\"File\/File.php.html#57\">Phoxx\\Core\\File\\File::getExtension<\/a>"],[0,1,"<a href=\"File\/File.php.html#62\">Phoxx\\Core\\File\\File::getMimetype<\/a>"],[0,2,"<a href=\"File\/FileManager.php.html#9\">Phoxx\\Core\\File\\FileManager::copy<\/a>"],[0,2,"<a href=\"File\/FileManager.php.html#18\">Phoxx\\Core\\File\\FileManager::move<\/a>"],[0,2,"<a href=\"File\/FileManager.php.html#27\">Phoxx\\Core\\File\\FileManager::delete<\/a>"],[0,2,"<a href=\"File\/Image.php.html#25\">Phoxx\\Core\\File\\Image::__construct<\/a>"],[0,1,"<a href=\"File\/Image.php.html#37\">Phoxx\\Core\\File\\Image::getWidth<\/a>"],[0,1,"<a href=\"File\/Image.php.html#42\">Phoxx\\Core\\File\\Image::getHeight<\/a>"],[0,2,"<a href=\"File\/ImageManager.php.html#9\">Phoxx\\Core\\File\\ImageManager::compress<\/a>"],[0,4,"<a href=\"File\/ImageManager.php.html#18\">Phoxx\\Core\\File\\ImageManager::convert<\/a>"],[0,10,"<a href=\"File\/ImageManager.php.html#43\">Phoxx\\Core\\File\\ImageManager::resize<\/a>"],[0,2,"<a href=\"File\/ImageManager.php.html#93\">Phoxx\\Core\\File\\ImageManager::rotate<\/a>"],[100,1,"<a href=\"Framework\/Application.php.html#16\">Phoxx\\Core\\Framework\\Application::__construct<\/a>"],[100,1,"<a href=\"Framework\/Application.php.html#24\">Phoxx\\Core\\Framework\\Application::getRouteContainer<\/a>"],[100,1,"<a href=\"Framework\/Application.php.html#29\">Phoxx\\Core\\Framework\\Application::getServiceContainer<\/a>"],[100,3,"<a href=\"Framework\/Application.php.html#34\">Phoxx\\Core\\Framework\\Application::send<\/a>"],[100,1,"<a href=\"Framework\/Dispatcher.php.html#22\">Phoxx\\Core\\Framework\\Dispatcher::__construct<\/a>"],[100,8,"<a href=\"Framework\/Dispatcher.php.html#32\">Phoxx\\Core\\Framework\\Dispatcher::dispatch<\/a>"],[100,3,"<a href=\"Framework\/ServiceContainer.php.html#9\">Phoxx\\Core\\Framework\\ServiceContainer::getService<\/a>"],[100,1,"<a href=\"Framework\/ServiceContainer.php.html#14\">Phoxx\\Core\\Framework\\ServiceContainer::addService<\/a>"],[100,1,"<a href=\"Framework\/ServiceContainer.php.html#19\">Phoxx\\Core\\Framework\\ServiceContainer::removeService<\/a>"],[100,1,"<a href=\"Http\/Helpers\/SimpleRequest.php.html#9\">Phoxx\\Core\\Http\\Helpers\\SimpleRequest::__construct<\/a>"],[75,18,"<a href=\"Http\/Request.php.html#21\">Phoxx\\Core\\Http\\Request::__construct<\/a>"],[100,1,"<a href=\"Http\/Request.php.html#124\">Phoxx\\Core\\Http\\Request::getMethod<\/a>"],[100,1,"<a href=\"Http\/Request.php.html#129\">Phoxx\\Core\\Http\\Request::getPath<\/a>"],[0,1,"<a href=\"Http\/Request.php.html#134\">Phoxx\\Core\\Http\\Request::getUri<\/a>"],[0,7,"<a href=\"Http\/Request.php.html#139\">Phoxx\\Core\\Http\\Request::getUrl<\/a>"],[0,2,"<a href=\"Http\/Request.php.html#153\">Phoxx\\Core\\Http\\Request::getQuery<\/a>"],[0,2,"<a href=\"Http\/Request.php.html#158\">Phoxx\\Core\\Http\\Request::getRequest<\/a>"],[100,2,"<a href=\"Http\/Request.php.html#163\">Phoxx\\Core\\Http\\Request::getServer<\/a>"],[0,3,"<a href=\"Http\/Request.php.html#168\">Phoxx\\Core\\Http\\Request::getCookie<\/a>"],[0,3,"<a href=\"Http\/Request.php.html#173\">Phoxx\\Core\\Http\\Request::getFile<\/a>"],[0,2,"<a href=\"Http\/Request.php.html#178\">Phoxx\\Core\\Http\\Request::getContent<\/a>"],[100,1,"<a href=\"Http\/RequestStack.php.html#9\">Phoxx\\Core\\Http\\RequestStack::push<\/a>"],[100,2,"<a href=\"Http\/RequestStack.php.html#14\">Phoxx\\Core\\Http\\RequestStack::pop<\/a>"],[100,3,"<a href=\"Http\/RequestStack.php.html#19\">Phoxx\\Core\\Http\\RequestStack::main<\/a>"],[100,3,"<a href=\"Http\/RequestStack.php.html#24\">Phoxx\\Core\\Http\\RequestStack::active<\/a>"],[100,1,"<a href=\"Http\/Response.php.html#137\">Phoxx\\Core\\Http\\Response::__construct<\/a>"],[100,1,"<a href=\"Http\/Response.php.html#144\">Phoxx\\Core\\Http\\Response::getContent<\/a>"],[100,1,"<a href=\"Http\/Response.php.html#149\">Phoxx\\Core\\Http\\Response::getStatus<\/a>"],[0,3,"<a href=\"Http\/Response.php.html#154\">Phoxx\\Core\\Http\\Response::getHeader<\/a>"],[0,1,"<a href=\"Http\/Response.php.html#159\">Phoxx\\Core\\Http\\Response::setHeader<\/a>"],[0,1,"<a href=\"Http\/Response.php.html#164\">Phoxx\\Core\\Http\\Response::removeHeader<\/a>"],[100,1,"<a href=\"Http\/Response.php.html#169\">Phoxx\\Core\\Http\\Response::getHeaders<\/a>"],[0,1,"<a href=\"Mailer\/Drivers\/MailDriver.php.html#13\">Phoxx\\Core\\Mailer\\Drivers\\MailDriver::__construct<\/a>"],[0,9,"<a href=\"Mailer\/Drivers\/MailDriver.php.html#18\">Phoxx\\Core\\Mailer\\Drivers\\MailDriver::send<\/a>"],[100,3,"<a href=\"Mailer\/Mail.php.html#27\">Phoxx\\Core\\Mailer\\Mail::__construct<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#41\">Phoxx\\Core\\Mailer\\Mail::getSubject<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#46\">Phoxx\\Core\\Mailer\\Mail::getView<\/a>"],[100,2,"<a href=\"Mailer\/Mail.php.html#51\">Phoxx\\Core\\Mailer\\Mail::getSender<\/a>"],[100,2,"<a href=\"Mailer\/Mail.php.html#56\">Phoxx\\Core\\Mailer\\Mail::getSenderName<\/a>"],[100,3,"<a href=\"Mailer\/Mail.php.html#61\">Phoxx\\Core\\Mailer\\Mail::getHeader<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#66\">Phoxx\\Core\\Mailer\\Mail::setHeader<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#71\">Phoxx\\Core\\Mailer\\Mail::getHeaders<\/a>"],[100,2,"<a href=\"Mailer\/Mail.php.html#76\">Phoxx\\Core\\Mailer\\Mail::addRecipient<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#81\">Phoxx\\Core\\Mailer\\Mail::getRecipients<\/a>"],[100,2,"<a href=\"Mailer\/Mail.php.html#86\">Phoxx\\Core\\Mailer\\Mail::addCc<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#91\">Phoxx\\Core\\Mailer\\Mail::getCc<\/a>"],[100,2,"<a href=\"Mailer\/Mail.php.html#96\">Phoxx\\Core\\Mailer\\Mail::addBcc<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#101\">Phoxx\\Core\\Mailer\\Mail::getBcc<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#106\">Phoxx\\Core\\Mailer\\Mail::addAttachment<\/a>"],[100,1,"<a href=\"Mailer\/Mail.php.html#111\">Phoxx\\Core\\Mailer\\Mail::getAttachments<\/a>"],[100,1,"<a href=\"Mailer\/Mailer.php.html#11\">Phoxx\\Core\\Mailer\\Mailer::__construct<\/a>"],[100,1,"<a href=\"Mailer\/Mailer.php.html#16\">Phoxx\\Core\\Mailer\\Mailer::getDriver<\/a>"],[100,1,"<a href=\"Mailer\/Mailer.php.html#21\">Phoxx\\Core\\Mailer\\Mailer::send<\/a>"],[0,1,"<a href=\"Renderer\/Drivers\/PhpDriver.php.html#18\">Phoxx\\Core\\Renderer\\Drivers\\PhpDriver::__construct<\/a>"],[0,2,"<a href=\"Renderer\/Drivers\/PhpDriver.php.html#23\">Phoxx\\Core\\Renderer\\Drivers\\PhpDriver::addPath<\/a>"],[0,10,"<a href=\"Renderer\/Drivers\/PhpDriver.php.html#28\">Phoxx\\Core\\Renderer\\Drivers\\PhpDriver::render<\/a>"],[0,1,"<a href=\"Renderer\/Drivers\/SmartyDriver.php.html#23\">Phoxx\\Core\\Renderer\\Drivers\\SmartyDriver::__construct<\/a>"],[0,1,"<a href=\"Renderer\/Drivers\/SmartyDriver.php.html#44\">Phoxx\\Core\\Renderer\\Drivers\\SmartyDriver::getSmarty<\/a>"],[0,2,"<a href=\"Renderer\/Drivers\/SmartyDriver.php.html#49\">Phoxx\\Core\\Renderer\\Drivers\\SmartyDriver::addPath<\/a>"],[0,8,"<a href=\"Renderer\/Drivers\/SmartyDriver.php.html#55\">Phoxx\\Core\\Renderer\\Drivers\\SmartyDriver::render<\/a>"],[0,2,"<a href=\"Renderer\/Drivers\/TwigDriver.php.html#19\">Phoxx\\Core\\Renderer\\Drivers\\TwigDriver::__construct<\/a>"],[0,1,"<a href=\"Renderer\/Drivers\/TwigDriver.php.html#27\">Phoxx\\Core\\Renderer\\Drivers\\TwigDriver::getTwig<\/a>"],[0,3,"<a href=\"Renderer\/Drivers\/TwigDriver.php.html#32\">Phoxx\\Core\\Renderer\\Drivers\\TwigDriver::addPath<\/a>"],[0,1,"<a href=\"Renderer\/Drivers\/TwigDriver.php.html#37\">Phoxx\\Core\\Renderer\\Drivers\\TwigDriver::render<\/a>"],[100,1,"<a href=\"Renderer\/Renderer.php.html#11\">Phoxx\\Core\\Renderer\\Renderer::__construct<\/a>"],[100,1,"<a href=\"Renderer\/Renderer.php.html#16\">Phoxx\\Core\\Renderer\\Renderer::getDriver<\/a>"],[100,2,"<a href=\"Renderer\/Renderer.php.html#21\">Phoxx\\Core\\Renderer\\Renderer::addPath<\/a>"],[100,1,"<a href=\"Renderer\/Renderer.php.html#26\">Phoxx\\Core\\Renderer\\Renderer::render<\/a>"],[100,1,"<a href=\"Renderer\/View.php.html#11\">Phoxx\\Core\\Renderer\\View::__construct<\/a>"],[100,1,"<a href=\"Renderer\/View.php.html#17\">Phoxx\\Core\\Renderer\\View::getTemplate<\/a>"],[100,2,"<a href=\"Renderer\/View.php.html#22\">Phoxx\\Core\\Renderer\\View::getParameter<\/a>"],[100,1,"<a href=\"Renderer\/View.php.html#27\">Phoxx\\Core\\Renderer\\View::setParameter<\/a>"],[100,1,"<a href=\"Renderer\/View.php.html#32\">Phoxx\\Core\\Renderer\\View::getParameters<\/a>"],[100,1,"<a href=\"Router\/Route.php.html#15\">Phoxx\\Core\\Router\\Route::__construct<\/a>"],[100,1,"<a href=\"Router\/Route.php.html#22\">Phoxx\\Core\\Router\\Route::getPattern<\/a>"],[100,1,"<a href=\"Router\/Route.php.html#27\">Phoxx\\Core\\Router\\Route::getAction<\/a>"],[100,1,"<a href=\"Router\/Route.php.html#32\">Phoxx\\Core\\Router\\Route::getMethod<\/a>"],[100,3,"<a href=\"Router\/Route.php.html#37\">Phoxx\\Core\\Router\\Route::reverse<\/a>"],[100,3,"<a href=\"Router\/RouteContainer.php.html#9\">Phoxx\\Core\\Router\\RouteContainer::getRoute<\/a>"],[100,1,"<a href=\"Router\/RouteContainer.php.html#16\">Phoxx\\Core\\Router\\RouteContainer::addRoute<\/a>"],[100,2,"<a href=\"Router\/RouteContainer.php.html#24\">Phoxx\\Core\\Router\\RouteContainer::removeRoute<\/a>"],[100,7,"<a href=\"Router\/RouteContainer.php.html#33\">Phoxx\\Core\\Router\\RouteContainer::match<\/a>"],[0,3,"<a href=\"Session\/Drivers\/CacheDriver.php.html#20\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::__construct<\/a>"],[0,3,"<a href=\"Session\/Drivers\/CacheDriver.php.html#26\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::getValue<\/a>"],[0,2,"<a href=\"Session\/Drivers\/CacheDriver.php.html#37\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::setValue<\/a>"],[0,2,"<a href=\"Session\/Drivers\/CacheDriver.php.html#47\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::removeValue<\/a>"],[0,1,"<a href=\"Session\/Drivers\/CacheDriver.php.html#58\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::active<\/a>"],[0,3,"<a href=\"Session\/Drivers\/CacheDriver.php.html#63\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::open<\/a>"],[0,1,"<a href=\"Session\/Drivers\/CacheDriver.php.html#87\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::close<\/a>"],[0,2,"<a href=\"Session\/Drivers\/CacheDriver.php.html#92\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::regenerate<\/a>"],[0,2,"<a href=\"Session\/Drivers\/CacheDriver.php.html#105\">Phoxx\\Core\\Session\\Drivers\\CacheDriver::clear<\/a>"],[0,3,"<a href=\"Session\/Drivers\/NativeDriver.php.html#17\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::__construct<\/a>"],[0,3,"<a href=\"Session\/Drivers\/NativeDriver.php.html#24\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::getValue<\/a>"],[0,3,"<a href=\"Session\/Drivers\/NativeDriver.php.html#29\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::setValue<\/a>"],[0,3,"<a href=\"Session\/Drivers\/NativeDriver.php.html#36\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::removeValue<\/a>"],[0,1,"<a href=\"Session\/Drivers\/NativeDriver.php.html#43\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::active<\/a>"],[0,6,"<a href=\"Session\/Drivers\/NativeDriver.php.html#48\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::open<\/a>"],[0,3,"<a href=\"Session\/Drivers\/NativeDriver.php.html#76\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::close<\/a>"],[0,3,"<a href=\"Session\/Drivers\/NativeDriver.php.html#85\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::regenerate<\/a>"],[0,1,"<a href=\"Session\/Drivers\/NativeDriver.php.html#92\">Phoxx\\Core\\Session\\Drivers\\NativeDriver::clear<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#11\">Phoxx\\Core\\Session\\Session::__construct<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#16\">Phoxx\\Core\\Session\\Session::getDriver<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#21\">Phoxx\\Core\\Session\\Session::getValue<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#26\">Phoxx\\Core\\Session\\Session::setValue<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#31\">Phoxx\\Core\\Session\\Session::removeValue<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#36\">Phoxx\\Core\\Session\\Session::active<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#41\">Phoxx\\Core\\Session\\Session::open<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#46\">Phoxx\\Core\\Session\\Session::close<\/a>"],[100,1,"<a href=\"Session\/Session.php.html#51\">Phoxx\\Core\\Session\\Session::clear<\/a>"],[100,2,"<a href=\"Utilities\/Config.php.html#21\">Phoxx\\Core\\Utilities\\Config::__construct<\/a>"],[100,2,"<a href=\"Utilities\/Config.php.html#27\">Phoxx\\Core\\Utilities\\Config::addPath<\/a>"],[100,13,"<a href=\"Utilities\/Config.php.html#32\">Phoxx\\Core\\Utilities\\Config::getFile<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#105\">Phoxx\\Core\\Utilities\\Validator::isFalse<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#110\">Phoxx\\Core\\Utilities\\Validator::isTrue<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#115\">Phoxx\\Core\\Utilities\\Validator::isEqual<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#120\">Phoxx\\Core\\Utilities\\Validator::isExact<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#125\">Phoxx\\Core\\Utilities\\Validator::isMore<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#130\">Phoxx\\Core\\Utilities\\Validator::isLess<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#135\">Phoxx\\Core\\Utilities\\Validator::isNull<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#140\">Phoxx\\Core\\Utilities\\Validator::isAlpha<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#145\">Phoxx\\Core\\Utilities\\Validator::isAlphaNumeric<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#150\">Phoxx\\Core\\Utilities\\Validator::isArray<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#155\">Phoxx\\Core\\Utilities\\Validator::isBool<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#160\">Phoxx\\Core\\Utilities\\Validator::isDigit<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#165\">Phoxx\\Core\\Utilities\\Validator::isDouble<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#170\">Phoxx\\Core\\Utilities\\Validator::isFloat<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#175\">Phoxx\\Core\\Utilities\\Validator::isInt<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#180\">Phoxx\\Core\\Utilities\\Validator::isLong<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#185\">Phoxx\\Core\\Utilities\\Validator::isLower<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#190\">Phoxx\\Core\\Utilities\\Validator::isEmpty<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#195\">Phoxx\\Core\\Utilities\\Validator::isNumeric<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#200\">Phoxx\\Core\\Utilities\\Validator::isObject<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#205\">Phoxx\\Core\\Utilities\\Validator::isMatch<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#210\">Phoxx\\Core\\Utilities\\Validator::isSet<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#215\">Phoxx\\Core\\Utilities\\Validator::isString<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#220\">Phoxx\\Core\\Utilities\\Validator::isUpper<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#225\">Phoxx\\Core\\Utilities\\Validator::isInArray<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#230\">Phoxx\\Core\\Utilities\\Validator::isEmail<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#235\">Phoxx\\Core\\Utilities\\Validator::isPhone<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#240\">Phoxx\\Core\\Utilities\\Validator::notEqual<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#245\">Phoxx\\Core\\Utilities\\Validator::notExact<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#250\">Phoxx\\Core\\Utilities\\Validator::notNull<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#255\">Phoxx\\Core\\Utilities\\Validator::notAlpha<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#260\">Phoxx\\Core\\Utilities\\Validator::notAlphaNumeric<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#265\">Phoxx\\Core\\Utilities\\Validator::notArray<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#270\">Phoxx\\Core\\Utilities\\Validator::notBool<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#275\">Phoxx\\Core\\Utilities\\Validator::notDigit<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#280\">Phoxx\\Core\\Utilities\\Validator::notDouble<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#285\">Phoxx\\Core\\Utilities\\Validator::notFloat<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#290\">Phoxx\\Core\\Utilities\\Validator::notInt<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#295\">Phoxx\\Core\\Utilities\\Validator::notLong<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#300\">Phoxx\\Core\\Utilities\\Validator::notLower<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#305\">Phoxx\\Core\\Utilities\\Validator::notEmpty<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#310\">Phoxx\\Core\\Utilities\\Validator::notNumeric<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#315\">Phoxx\\Core\\Utilities\\Validator::notObject<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#320\">Phoxx\\Core\\Utilities\\Validator::notMatch<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#325\">Phoxx\\Core\\Utilities\\Validator::notSet<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#330\">Phoxx\\Core\\Utilities\\Validator::notString<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#335\">Phoxx\\Core\\Utilities\\Validator::notUpper<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#340\">Phoxx\\Core\\Utilities\\Validator::notInArray<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#345\">Phoxx\\Core\\Utilities\\Validator::custom<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#356\">Phoxx\\Core\\Utilities\\Validator::errors<\/a>"],[100,6,"<a href=\"Utilities\/Validator.php.html#373\">Phoxx\\Core\\Utilities\\Validator::validate<\/a>"],[100,1,"<a href=\"Utilities\/Validator.php.html#393\">Phoxx\\Core\\Utilities\\Validator::clear<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

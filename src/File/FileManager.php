@@ -8,7 +8,7 @@ class FileManager
 {
   public function copy(File $file, string $dest): File
   {
-    if (@copy($this->path, $dest) === false) {
+    if (@copy($file->getPath(), $dest) === false) {
       throw new FileException('Failed to copy file to destination `' . $dest . '`.');
     }
 

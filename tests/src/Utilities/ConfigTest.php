@@ -49,7 +49,7 @@ final class ConfigTest extends TestCase
     $mockDriver->expects($this->once())
                ->method('getValue')
                ->with($this->equalTo(realpath(PATH_BASE . '/config/config.php')))
-               ->willReturn([ 'CONFIG' => 'VALUE' ]);
+               ->willReturn(['CONFIG' => 'VALUE']);
 
     $config = new Config(new Cache($mockDriver));
     $config->addPath('./config');
@@ -62,7 +62,7 @@ final class ConfigTest extends TestCase
     $mockDriver = $this->createMock(CacheDriver::class);
     $mockDriver->expects($this->once())
                ->method('setValue')
-               ->with($this->equalTo(realpath(PATH_BASE . '/config/config.php')), [ 'CONFIG' => 'VALUE' ]);
+               ->with($this->equalTo(realpath(PATH_BASE . '/config/config.php')), ['CONFIG' => 'VALUE']);
 
     $config = new Config(new Cache($mockDriver));
     $config->addPath('./config');

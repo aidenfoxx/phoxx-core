@@ -4,7 +4,6 @@ namespace Phoxx\Core\Framework;
 
 use Phoxx\Core\Controllers\Controller;
 use Phoxx\Core\Framework\Exceptions\DispatchException;
-use Phoxx\Core\Framework\ServiceContainer;
 use Phoxx\Core\Http\Exceptions\RequestException;
 use Phoxx\Core\Http\Exceptions\ResponseException;
 use Phoxx\Core\Http\Request;

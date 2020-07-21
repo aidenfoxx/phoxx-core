@@ -4,7 +4,7 @@ namespace Phoxx\Core\Controllers;
 
 use Phoxx\Core\Http\Response;
 
-abstract class RestController extends Controller
+abstract class AjaxController extends Controller
 {
   public function render(array $data, int $status = Response::HTTP_OK, array $headers = []): Response
   {

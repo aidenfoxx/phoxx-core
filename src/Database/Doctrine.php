@@ -10,7 +10,6 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\Common\EventManager;
 
 use Phoxx\Core\Cache\Cache;
-use Phoxx\Core\Cache\Drivers\ArrayDriver;
 use Phoxx\Core\Database\Doctrine\CacheInterface;
 use Phoxx\Core\Database\Doctrine\Events\TablePrefix;
 use Phoxx\Core\Database\Doctrine\Events\ModelDate;

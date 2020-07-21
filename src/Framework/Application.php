@@ -2,8 +2,6 @@
 
 namespace Phoxx\Core\Framework;
 
-use Phoxx\Core\Framework\Dispatcher;
-use Phoxx\Core\Framework\ServiceContainer;
 use Phoxx\Core\Http\Exceptions\ResponseException;
 use Phoxx\Core\Http\RequestStack;
 use Phoxx\Core\Http\Response;

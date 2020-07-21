@@ -2,6 +2,8 @@
 <ruleset name="phoxx-mvc/core">
   <description>phoxx-mvc/core</description>
 
+  <config name="installed_paths" value="../../slevomat/coding-standard"/>
+
   <rule ref="PSR12">
     <exclude name="PSR12.Files.FileHeader.SpacingInsideBlock"/>
   </rule>
@@ -41,6 +43,18 @@
   <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
 
   <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
+
+  <rule ref="SlevomatCodingStandard.Functions.UnusedParameter"/>
+
+  <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
+
+  <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+
+  <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+
+  <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+
+  <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
 
   <!--<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>-->
 </ruleset>

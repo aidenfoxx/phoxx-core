@@ -1,8 +1,11 @@
 .php_cs.cache
 .phpunit.result.cache
 
-report/*
-!report/.gitkeep
+tests/report/*
+!tests/report/.gitkeep
+
+tests/cache/*
+!tests/cache/.gitkeep
 
 vendor/*
 !vendor/.gitkeep

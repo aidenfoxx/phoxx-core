@@ -2,8 +2,6 @@
 
 namespace Phoxx\Core\Http;
 
-use Phoxx\Core\Http\Exceptions\ResponseException;
-
 class Response
 {
   public const HTTP_CONTINUE = 100;

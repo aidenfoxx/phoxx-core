@@ -2,8 +2,6 @@
 
 namespace Phoxx\Core\Renderer\Drivers;
 
-use Exception;
-
 use Phoxx\Core\Renderer\View;
 use Phoxx\Core\Renderer\Interfaces\RendererDriver;
 use Phoxx\Core\Renderer\Exceptions\RendererException;

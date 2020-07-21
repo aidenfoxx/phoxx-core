@@ -3,7 +3,6 @@
 namespace Phoxx\Core\Mailer;
 
 use Phoxx\Core\Mailer\Interfaces\MailerDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
 class Mailer
 {

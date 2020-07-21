@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\XAMPP\PHP7\htdocs\phoxx-core\src\Cache</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">C:\XAMPP\PHP7\htdocs\phoxx-core\src</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Cache</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#7">Phoxx\Core\Cache\Drivers\ApcuDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#7">Phoxx\Core\Cache\Drivers\ArrayDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#8">Phoxx\Core\Cache\Drivers\FileDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#9">Phoxx\Core\Cache\Drivers\MemcachedDriver</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#9">Phoxx\Core\Cache\Drivers\RedisDriver</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Drivers/FileDriver.php.html#8">Phoxx\Core\Cache\Drivers\FileDriver</a></td><td class="text-right">420</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#7">Phoxx\Core\Cache\Drivers\ArrayDriver</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#9">Phoxx\Core\Cache\Drivers\MemcachedDriver</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#9">Phoxx\Core\Cache\Drivers\RedisDriver</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#7">Phoxx\Core\Cache\Drivers\ApcuDriver</a></td><td class="text-right">30</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#9"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#13"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#36"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#31"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#24"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#19"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::getRedis">getRedis</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#13"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#45"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#40"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#35"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#28"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#23"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::addServer">addServer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#18"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::getMemcached">getMemcached</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#81"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#16"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#72"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#53"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#22"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#17"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::generatePath">generatePath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#12"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#33"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#28"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#20"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::setValue">setValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#11"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::getValue">getValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#26"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#21"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::removeValue">removeValue</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#41"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::clear">clear</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Drivers/FileDriver.php.html#22"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::getValue">getValue</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#11"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::getValue">getValue</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#53"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::setValue">setValue</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#72"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::removeValue">removeValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Drivers/FileDriver.php.html#81"><abbr title="Phoxx\Core\Cache\Drivers\FileDriver::clear">clear</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Drivers/RedisDriver.php.html#24"><abbr title="Phoxx\Core\Cache\Drivers\RedisDriver::getValue">getValue</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Drivers/ApcuDriver.php.html#9"><abbr title="Phoxx\Core\Cache\Drivers\ApcuDriver::getValue">getValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Drivers/ArrayDriver.php.html#20"><abbr title="Phoxx\Core\Cache\Drivers\ArrayDriver::setValue">setValue</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Drivers/MemcachedDriver.php.html#28"><abbr title="Phoxx\Core\Cache\Drivers\MemcachedDriver::getValue">getValue</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.10</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.20</a> with <a href="https://xdebug.org/">Xdebug 2.6.1</a> and <a href="https://phpunit.de/">PHPUnit 8.5.8</a> at Tue Jul 21 10:41:25 CEST 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([5,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([27,0,0,0,0,0,0,0,0,0,0,6], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,6,"<a href=\"Cache.php.html#7\">Phoxx\\Core\\Cache\\Cache<\/a>"],[0,5,"<a href=\"Drivers\/ApcuDriver.php.html#7\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver<\/a>"],[0,8,"<a href=\"Drivers\/ArrayDriver.php.html#7\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver<\/a>"],[0,20,"<a href=\"Drivers\/FileDriver.php.html#8\">Phoxx\\Core\\Cache\\Drivers\\FileDriver<\/a>"],[0,8,"<a href=\"Drivers\/MemcachedDriver.php.html#9\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver<\/a>"],[0,8,"<a href=\"Drivers\/RedisDriver.php.html#9\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Cache.php.html#11\">Phoxx\\Core\\Cache\\Cache::__construct<\/a>"],[100,1,"<a href=\"Cache.php.html#16\">Phoxx\\Core\\Cache\\Cache::getDriver<\/a>"],[100,1,"<a href=\"Cache.php.html#21\">Phoxx\\Core\\Cache\\Cache::getValue<\/a>"],[100,1,"<a href=\"Cache.php.html#26\">Phoxx\\Core\\Cache\\Cache::setValue<\/a>"],[100,1,"<a href=\"Cache.php.html#31\">Phoxx\\Core\\Cache\\Cache::removeValue<\/a>"],[100,1,"<a href=\"Cache.php.html#36\">Phoxx\\Core\\Cache\\Cache::clear<\/a>"],[0,2,"<a href=\"Drivers\/ApcuDriver.php.html#9\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::getValue<\/a>"],[0,1,"<a href=\"Drivers\/ApcuDriver.php.html#16\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::setValue<\/a>"],[0,1,"<a href=\"Drivers\/ApcuDriver.php.html#21\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::removeValue<\/a>"],[0,1,"<a href=\"Drivers\/ApcuDriver.php.html#26\">Phoxx\\Core\\Cache\\Drivers\\ApcuDriver::clear<\/a>"],[0,4,"<a href=\"Drivers\/ArrayDriver.php.html#11\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::getValue<\/a>"],[0,2,"<a href=\"Drivers\/ArrayDriver.php.html#20\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::setValue<\/a>"],[0,1,"<a href=\"Drivers\/ArrayDriver.php.html#28\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::removeValue<\/a>"],[0,1,"<a href=\"Drivers\/ArrayDriver.php.html#33\">Phoxx\\Core\\Cache\\Drivers\\ArrayDriver::clear<\/a>"],[0,1,"<a href=\"Drivers\/FileDriver.php.html#12\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::__construct<\/a>"],[0,1,"<a href=\"Drivers\/FileDriver.php.html#17\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::generatePath<\/a>"],[0,8,"<a href=\"Drivers\/FileDriver.php.html#22\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::getValue<\/a>"],[0,4,"<a href=\"Drivers\/FileDriver.php.html#53\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::setValue<\/a>"],[0,3,"<a href=\"Drivers\/FileDriver.php.html#72\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::removeValue<\/a>"],[0,3,"<a href=\"Drivers\/FileDriver.php.html#81\">Phoxx\\Core\\Cache\\Drivers\\FileDriver::clear<\/a>"],[0,1,"<a href=\"Drivers\/MemcachedDriver.php.html#13\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::__construct<\/a>"],[0,1,"<a href=\"Drivers\/MemcachedDriver.php.html#18\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::getMemcached<\/a>"],[0,1,"<a href=\"Drivers\/MemcachedDriver.php.html#23\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::addServer<\/a>"],[0,2,"<a href=\"Drivers\/MemcachedDriver.php.html#28\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::getValue<\/a>"],[0,1,"<a href=\"Drivers\/MemcachedDriver.php.html#35\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::setValue<\/a>"],[0,1,"<a href=\"Drivers\/MemcachedDriver.php.html#40\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::removeValue<\/a>"],[0,1,"<a href=\"Drivers\/MemcachedDriver.php.html#45\">Phoxx\\Core\\Cache\\Drivers\\MemcachedDriver::clear<\/a>"],[0,1,"<a href=\"Drivers\/RedisDriver.php.html#13\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::__construct<\/a>"],[0,1,"<a href=\"Drivers\/RedisDriver.php.html#19\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::getRedis<\/a>"],[0,3,"<a href=\"Drivers\/RedisDriver.php.html#24\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::getValue<\/a>"],[0,1,"<a href=\"Drivers\/RedisDriver.php.html#31\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::setValue<\/a>"],[0,1,"<a href=\"Drivers\/RedisDriver.php.html#36\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::removeValue<\/a>"],[0,1,"<a href=\"Drivers\/RedisDriver.php.html#41\">Phoxx\\Core\\Cache\\Drivers\\RedisDriver::clear<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

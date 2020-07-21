@@ -5,8 +5,6 @@ namespace Phoxx\Core\Cache\Drivers;
 use Phoxx\Core\Cache\Interfaces\CacheDriver;
 use Phoxx\Core\File\Exceptions\FileException;
 
-use EngineException;
-
 class FileDriver implements CacheDriver
 {
   protected $path;

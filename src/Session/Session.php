@@ -3,7 +3,6 @@
 namespace Phoxx\Core\Session;
 
 use Phoxx\Core\Session\Interfaces\SessionDriver;
-use Phoxx\Core\Framework\Interfaces\ServiceProvider;
 
 class Session
 {

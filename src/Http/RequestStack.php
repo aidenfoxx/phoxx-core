@@ -2,8 +2,6 @@
 
 namespace Phoxx\Core\Http;
 
-use Phoxx\Core\Http\Request;
-
 class RequestStack
 {
   protected $requests = [];

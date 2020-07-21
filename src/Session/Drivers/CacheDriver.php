@@ -3,8 +3,6 @@
 namespace Phoxx\Core\Session\Drivers;
 
 use Phoxx\Core\Cache\Cache;
-use Phoxx\Core\Http\Exceptions\ResponseException;
-use Phoxx\Core\Session\Exceptions\SessionException;
 use Phoxx\Core\Session\Interfaces\SessionDriver;
 
 class CacheDriver implements SessionDriver

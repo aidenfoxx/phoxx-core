@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RouteTest extends TestCase
 {
-  public function testGetValues()
+  public function testRotue()
   {
     $route = new Route('PATH', ['CONTROLLER' => 'ACTION'], 'POST');
 
