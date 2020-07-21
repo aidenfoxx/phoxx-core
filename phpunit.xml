@@ -13,7 +13,7 @@
     </testsuite>
   </testsuites>
   <logging>
-    <log type="coverage-html" target="./report" />
+    <log type="coverage-html" target="./tests/report" />
   </logging>
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="true">
