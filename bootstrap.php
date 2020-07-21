@@ -8,7 +8,7 @@ use Phoxx\Core\Cache\Drivers\ApcuDriver;
 use Phoxx\Core\Cache\Drivers\ArrayDriver;
 use Phoxx\Core\Cache\Drivers\FileDriver;
 use Phoxx\Core\Cache\Drivers\MemcachedDriver;
-use Phoxx\Core\Cache\Drivers\ReditDriver;
+use Phoxx\Core\Cache\Drivers\RedisDriver;
 use Phoxx\Core\Database\Doctrine;
 use Phoxx\Core\File\FileManager;
 use Phoxx\Core\File\ImageManager;
@@ -119,19 +119,6 @@ function generate_renderer(Config $config): Renderer
 function generate_mailer(Config $config, Renderer $renderer): Mailer
 {
   switch ((string)$config->getFile('core')->CORE_MAILER) {
-    case 'smtp':
-      $smtp =  $config->getFile('mailer/smtp');
-      $driver = new SmtpDriver(
-        $renderer,
-        (string)$smtp->SMTP_HOST,
-        (int)$smtp->SMTP_PORT,
-        (bool)$smtp->SMTP_SSL,
-        (bool)$smtp->SMTP_AUTH,
-        (string)$smtp->SMTP_USER,
-        (string)$smtp->SMTP_PASSWORD
-      );
-      break;
-
     default:
       $driver = new MailDriver($renderer);
       break;
@@ -184,4 +171,7 @@ register_bootstrap(function (Application $application) {
   $application->getServiceContainer()->addService($renderer);
   $application->getServiceContainer()->addService($mailer);
   $application->getServiceContainer()->addService($session);
+
+  $application->getServiceContainer()->addService(new ImageManager());
+  $application->getServiceContainer()->addService(new FileManager());
 });
