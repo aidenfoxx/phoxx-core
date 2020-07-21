@@ -121,7 +121,18 @@ class ImageManager
       }
     }
 
-    imagecopyresampled($output, $input, $offsetX, $offsetY, 0, 0, $width, $height, $image->getWidth(), $image->getHeight());
+    imagecopyresampled(
+      $output,
+      $input,
+      $offsetX,
+      $offsetY,
+      0,
+      0,
+      $width,
+      $height,
+      $image->getWidth(),
+      $image->getHeight()
+    );
 
     $this->writeImage($output, $image->getPath(), $image->getFormat(), $quality);
 
@@ -134,13 +145,13 @@ class ImageManager
     $input = $this->parseImage($image);
 
     if ($background !== null) {
-      $fill =  ? imagecolorallocatealpha(
+      $fill = imagecolorallocatealpha(
         $input,
         (int)$background[0],
         (int)$background[1],
         (int)$background[2],
         (float)$background[3]
-      ) : 0;
+      );
 
       $output = imagerotate($input, $angle, $fill);
     } else {
