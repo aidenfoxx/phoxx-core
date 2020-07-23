@@ -20,10 +20,6 @@ class Image extends File
 
   public const SCALE_CONTAIN = 'contain';
 
-  protected $width;
-
-  protected $height;
-
   protected $format;
 
   public function __construct(string $path)
