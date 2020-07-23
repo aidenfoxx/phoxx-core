@@ -2,12 +2,13 @@
 
 namespace Phoxx\Core\Database;
 
-use Doctrine\ORM\Events;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\Driver\XmlDriver;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\Common\EventManager;
 
 use Phoxx\Core\Cache\Cache;
 use Phoxx\Core\Database\Doctrine\CacheInterface;

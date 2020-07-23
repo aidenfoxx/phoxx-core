@@ -139,11 +139,10 @@ class Request
   public function getUrl(): string
   {
     if (isset($this->url) === false) {
-      $protocol = isset($this->server['HTTPS']) ? 'https://' : 'http://';
+      $protocol = isset($this->server['HTTPS']) === true ? 'https://' : 'http://';
       $host = $this->server['SERVER_NAME'];
-      $port = !isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 80 || isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 443 ? ':' . $this->server['SERVER_PORT'] : '';
+      $port = isset($this->server['HTTPS']) === false && (int)$this->server['SERVER_PORT'] !== 80 || isset($this->server['HTTPS']) === true && (int)$this->server['SERVER_PORT'] !== 443 ? ':' . $this->server['SERVER_PORT'] : '';
 
-      // TODO: Investigate if template strings are faster/better.
       $this->url = $protocol . $host . $port;
     }
 
