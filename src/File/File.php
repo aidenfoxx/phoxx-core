@@ -31,7 +31,7 @@ class File
 
     $this->name = $pathInfo['filename'];
     $this->baseName = $pathInfo['basename'];
-    $this->directoryName = isset($pathInfo['dirname']) === true ? $pathInfo['dirname'] : null;
+    $this->directory = isset($pathInfo['dirname']) === true ? $pathInfo['dirname'] : null;
     $this->extension = isset($pathInfo['extension']) === true ? $pathInfo['extension'] : null;
   }
 
@@ -50,7 +50,7 @@ class File
     return $this->baseName;
   }
 
-  public function getDirectory(): string
+  public function getDirectory(): ?string
   {
     return $this->directory;
   }
