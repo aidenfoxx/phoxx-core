@@ -27,7 +27,7 @@ class File
     $this->path = realpath($path);
     $this->mimetype = ($mimetype = @mime_content_type($path)) !== false ? $mimetype : 'text/plain';
 
-    $pathInfo = pathinfo($this->path);
+    $pathInfo = pathinfo($path);
 
     $this->name = $pathInfo['filename'];
     $this->baseName = $pathInfo['basename'];
