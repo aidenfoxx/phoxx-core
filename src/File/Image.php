@@ -24,6 +24,8 @@ class Image extends File
 
   protected $height;
 
+  protected $format;
+
   public function __construct(string $path)
   {
     parent::__construct($path);
