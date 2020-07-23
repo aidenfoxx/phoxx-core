@@ -52,78 +52,75 @@ class ImageManager
     }
 
     if ($response === false) {
-      throw new ImageException('Failed to parse image `' . $image->getPath() . '`.');
+      throw new ImageException('Failed to write image `' . $image->getPath() . '`.');
     }
   }
 
   public function compress(Image $image, float $quality = -1): void
   {
-    $input = $this->parseImage($image);
+    $source = $this->parseImage($image);
 
-    $this->writeImage($input, $image->getPath(), $image->getFormat(), $quality);
+    $this->writeImage($source, $image->getPath(), $image->getFormat(), $quality);
 
-    imagedestroy($input);
+    imagedestroy($source);
   }
 
   public function resize(
     Image $image,
     int $width,
-    int $height,
-    string $scale = self::SCALE_FILL,
-    ?string $background = null,
+    int $height = -1,
+    string $scale = Image::SCALE_FILL,
+    ?array $background = null,
     float $quality = -1
   ): void {
+    if ($width === 0 || $height === 0 || $width < 0 && $height < 0) {
+      throw new ImageException('Invalid resize dimensions.');
+    }
+
     $offsetX = 0;
     $offsetY = 0;
 
-    $input = $this->parseImage($image);
-    $output = imagecreatetruecolor($width, $height);
+    $sourceRatio = $image->getWidth() / $image->getHeight();
 
-    if ($width > 0 && $height > 0) {
+    $width = $width < 0 ? $height * $sourceRatio : $width;
+    $height = $height < 0 ? $width * $sourceRatio : $height;
+
+    if ($scale === Image::SCALE_COVER || $scale === Image::SCALE_CONTAIN) {
       $resizeWidth = $width;
       $resizeHeight = $height;
-
       $resizeRatio = $width / $height;
-      $sourceRatio = $image->getWidth() / $image->getHeight();
 
-      switch ($scale) {
-        case Image::SCALE_COVER:
-          if ($resizeRatio > $sourceRatio) {
-            $height = $width * $sourceRatio;
-            $offsetY = $resizeHeight / 2 - $height / 2;
-          } elseif ($resizeRatio < $sourceRatio) {
-            $width = $height * $sourceRatio;
-            $offsetX = $resizeWidth / 2 - $width / 2;
-          }
-          break;
-
-        case Image::SCALE_CONTAIN:
-          if ($background !== null) {
-            $fill = imagecolorallocatealpha(
-              $input,
-              (int)$background[0],
-              (int)$background[1],
-              (int)$background[2],
-              (float)$background[3]
-            );
-
-            imagefill($output, 0, 0, $fill);
-          }
-
-          if ($resizeRatio > $sourceRatio) {
-            $width = $height * $sourceRatio;
-            $offsetX = $resizeWidth / 2 - $width / 2;
-          } elseif ($resizeRatio < $sourceRatio) {
-            $height = $width / $sourceRatio;
-            $offsetY = $resizeHeight / 2 - $height / 2;
-          }
-          break;
+      if (
+        $scale === Image::SCALE_COVER && $resizeRatio > $sourceRatio ||
+        $scale === Image::SCALE_CONTAIN && $resizeRatio < $sourceRatio
+      ) {
+        $height = $width / $sourceRatio;
+        $offsetY = $resizeHeight / 2 - $height / 2;
+      } elseif (
+        $scale === Image::SCALE_COVER && $resizeRatio < $sourceRatio ||
+        $scale === Image::SCALE_CONTAIN && $resizeRatio > $sourceRatio
+      ) {
+        $width = $height * $sourceRatio;
+        $offsetX = $resizeWidth / 2 - $width / 2;
       }
+    }
+
+    $source = $this->parseImage($image);
+    $output = imagecreatetruecolor($width, $height);
+
+    if ($background !== null) {
+      imagefill($output, 0, 0, imagecolorallocatealpha(
+        $source,
+        (int)$background[0],
+        (int)$background[1],
+        (int)$background[2],
+        (float)$background[3]
+      ));
     }
 
     imagecopyresampled(
       $output,
-      $input,
+      $source,
       $offsetX,
       $offsetY,
       0,
@@ -136,31 +133,29 @@ class ImageManager
 
     $this->writeImage($output, $image->getPath(), $image->getFormat(), $quality);
 
-    imagedestroy($input);
+    imagedestroy($source);
     imagedestroy($output);
   }
 
   public function rotate(Image $image, int $angle, ?array $background = null, float $quality = -1): void
   {
-    $input = $this->parseImage($image);
+    $source = $this->parseImage($image);
 
     if ($background !== null) {
-      $fill = imagecolorallocatealpha(
-        $input,
+      $output = imagerotate($source, $angle, imagecolorallocatealpha(
+        $source,
         (int)$background[0],
         (int)$background[1],
         (int)$background[2],
         (float)$background[3]
-      );
-
-      $output = imagerotate($input, $angle, $fill);
+      ));
     } else {
-      $output = imagerotate($input, $angle, 0);
+      $output = imagerotate($source, $angle, 0);
     }
 
     $this->writeImage($output, $image->getPath(), $image->getFormat(), $quality);
 
-    imagedestroy($input);
+    imagedestroy($source);
     imagedestroy($output);
   }
 
@@ -171,26 +166,24 @@ class ImageManager
     ?array $background = null,
     int $quality = -1
   ): Image {
-    $input = $this->parseImage($image);
+    $source = $this->parseImage($image);
     $output = imagecreatetruecolor($image->getWidth(), $image->getHeight());
 
     if ($background !== null) {
-      $fill = imagecolorallocatealpha(
-        $input,
+      imagefill($output, 0, 0, imagecolorallocatealpha(
+        $source,
         (int)$background[0],
         (int)$background[1],
         (int)$background[2],
         (float)$background[3]
-      );
-
-      imagefill($output, 0, 0, $fill);
+      ));
     }
 
-    imagecopy($output, $input, 0, 0, 0, 0, $image->getWidth(), $image->getHeight());
+    imagecopy($output, $source, 0, 0, 0, 0, $image->getWidth(), $image->getHeight());
 
     $this->writeImage($output, $dest, $format, $quality);
 
-    imagedestroy($input);
+    imagedestroy($source);
     imagedestroy($output);
 
     return new Image($dest);
