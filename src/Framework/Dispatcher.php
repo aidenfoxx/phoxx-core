@@ -58,7 +58,7 @@ abstract class Dispatcher
 
     $this->requestStack->pop($request);
 
-    if ($response instanceof Response) {
+    if (($response instanceof Response) === false) {
       throw new ResponseException('Response must be instance of `' . Response::class . '`.');
     }
 
