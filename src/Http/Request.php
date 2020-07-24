@@ -112,7 +112,11 @@ class Request
      * excluding reserved paths.
      */
     if (strcasecmp($server['SERVER_NAME'], $_SERVER['SERVER_NAME']) === 0 && in_array($server['PATH_INFO'], self::$reservedPaths) === false) {
-      $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen(dirname($server['SCRIPT_NAME'])))) !== '/' ? $path : '';
+      $basePath = dirname($server['SCRIPT_NAME']);
+
+      if ($basePath !== '/' && $basePath !== '') {
+        $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen($basePath))) !== '/' ? $path : '';
+      }
     }
 
     $this->query = $query;
