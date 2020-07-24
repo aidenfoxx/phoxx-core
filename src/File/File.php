@@ -2,7 +2,7 @@
 
 namespace Phoxx\Core\File;
 
-use Phoxx\Core\File\FileExceptions\FileException;
+use Phoxx\Core\File\Exceptions\FileException;
 
 class File
 {
