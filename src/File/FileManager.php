@@ -6,22 +6,22 @@ use Phoxx\Core\File\FileExceptions\FileException;
 
 class FileManager
 {
-  public function copy(File $file, string $dest): File
+  public function copy(File $file, string $dest): void
   {
-    if (@copy($file->getPath(), $dest) === false) {
-      throw new FileException('Failed to copy file to destination `' . $dest . '`.');
-    }
+    $path = $file->getPath();
 
-    return new File($dest);
+    if (@copy($path, $dest) === false) {
+      throw new FileException('Failed to copy file `' . $path . '` to destination `' . $dest . '`.');
+    }
   }
 
-  public function move(File $file, string $dest): File
+  public function move(File $file, string $dest): void
   {
-    if (@rename($file->getPath(), $dest) === false) {
-      throw new FileException('Failed to move file to destination `' . $dest . '`.');
-    }
+    $path = $file->getPath();
 
-    return new File($dest);
+    if (@rename($path, $dest) === false) {
+      throw new FileException('Failed to move file `' . $path . '` to destination `' . $dest . '`.');
+    }
   }
 
   public function delete(File $file): void

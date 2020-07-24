@@ -65,14 +65,8 @@ class ImageManager
     imagedestroy($source);
   }
 
-  public function resize(
-    Image $image,
-    int $width,
-    int $height = -1,
-    string $scale = Image::SCALE_FILL,
-    ?array $background = null,
-    float $quality = -1
-  ): void {
+  public function resize(Image $image, int $width, int $height = -1, string $scale = Image::SCALE_FILL, ?array $background = null, float $quality = -1): void
+  {
     if ($width === 0 || $height === 0 || $width < 0 && $height < 0) {
       throw new ImageException('Invalid resize dimensions.');
     }
@@ -159,13 +153,8 @@ class ImageManager
     imagedestroy($output);
   }
 
-  public function convert(
-    Image $image,
-    string $dest,
-    string $format = self::FORMAT_JPG,
-    ?array $background = null,
-    int $quality = -1
-  ): Image {
+  public function convert(Image $image, string $dest, string $format = Image::FORMAT_JPG, ?array $background = null, int $quality = -1): void
+  {
     $source = $this->parseImage($image);
     $output = imagecreatetruecolor($image->getWidth(), $image->getHeight());
 
@@ -185,7 +174,5 @@ class ImageManager
 
     imagedestroy($source);
     imagedestroy($output);
-
-    return new Image($dest);
   }
 }
