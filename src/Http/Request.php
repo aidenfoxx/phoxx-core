@@ -108,13 +108,10 @@ class Request
     $server['REQUEST_URI'] = (empty($server['PATH_INFO']) === false ? $server['PATH_INFO'] : '/') . (empty($server['QUERY_STRING']) === false ? '?' . $server['QUERY_STRING'] : '');
 
     /**
-     * Resolve PATH_INFO for internal requests,
-     * excluding reserved paths.
+     * Resolve PATH_INFO to URL rewrite.
      */
-    if (strcasecmp($server['SERVER_NAME'], $_SERVER['SERVER_NAME']) === 0 && in_array($server['PATH_INFO'], self::$reservedPaths) === false) {
-      if ($server['SCRIPT_NAME'] !== '' && ($baseDir = dirname($server['SCRIPT_NAME'])) !== '/') {
-        $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen($baseDir))) !== '/' ? $path : '';
-      }
+    if (strlen($basePath = @dirname($server['SCRIPT_NAME'])) > 1 && strpos($server['PATH_INFO'], $basePath) === 0) {
+      $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen($basePath))) !== '/' ? $path : '';
     }
 
     $this->query = $query;
@@ -137,7 +134,7 @@ class Request
 
   public function getBasePath(): string
   {
-    return dirname($this->server['SCRIPT_NAME']);
+    return strlen($basePath = @dirname($this->server['SCRIPT_NAME'])) > 1 ? $basePath : '';
   }
 
   public function getUri(): string
