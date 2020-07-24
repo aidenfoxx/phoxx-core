@@ -76,8 +76,14 @@ class ImageManager
 
     $sourceRatio = $image->getWidth() / $image->getHeight();
 
+    /**
+     * Generate height/width to match source
+     * aspect ratio.
+     */
     $width = $width < 0 ? $height * $sourceRatio : $width;
     $height = $height < 0 ? $width * $sourceRatio : $height;
+
+    $output = imagecreatetruecolor($width, $height);
 
     if ($scale === Image::SCALE_COVER || $scale === Image::SCALE_CONTAIN) {
       $resizeWidth = $width;
@@ -100,7 +106,6 @@ class ImageManager
     }
 
     $source = $this->parseImage($image);
-    $output = imagecreatetruecolor($width, $height);
 
     if ($background !== null) {
       imagefill($output, 0, 0, imagecolorallocatealpha(
