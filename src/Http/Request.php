@@ -4,6 +4,8 @@ namespace Phoxx\Core\Http;
 
 class Request
 {
+  private static $reservedPaths = ['_404_', '_500_'];
+
   protected $url;
 
   protected $query = [];
@@ -109,8 +111,8 @@ class Request
      * Resolve PATH_INFO for internal requests,
      * excluding reserved paths.
      */
-    if (strcasecmp($server['SERVER_NAME'], $_SERVER['SERVER_NAME']) === 0 && in_array($server['PATH_INFO'], ['_404_', '_500_']) === false) {
-      $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen(PATH_PUBLIC))) !== '/' ? $path : '';
+    if (strcasecmp($server['SERVER_NAME'], $_SERVER['SERVER_NAME']) === 0 && in_array($server['PATH_INFO'], self::$reservedPaths) === false) {
+      $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen(dirname($server['SCRIPT_NAME'])))) !== '/' ? $path : '';
     }
 
     $this->query = $query;
@@ -129,6 +131,11 @@ class Request
   public function getPath(): string
   {
     return $this->server['PATH_INFO'];
+  }
+
+  public function getBasePath(): string
+  {
+    return dirname($this->server['SCRIPT_NAME']);
   }
 
   public function getUri(): string
