@@ -134,7 +134,7 @@ class ImageManager
         (int)$background[0],
         (int)$background[1],
         (int)$background[2],
-        (float)$background[3]
+        (int)$background[3] * 127
       ));
     }
 
@@ -176,7 +176,7 @@ class ImageManager
         (int)$background[0],
         (int)$background[1],
         (int)$background[2],
-        (float)$background[3]
+        (int)$background[3]  * 127
       ));
     }
 
