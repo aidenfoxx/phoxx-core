@@ -127,11 +127,11 @@ function generate_mailer(Config $config, Renderer $renderer): Mailer
   return new Mailer($driver);
 }
 
-function generate_session(Config $config): Session
+function generate_session(Config $config, Cache $cache): Session
 {
   switch ((string)$config->getFile('core')->CORE_SESSION) {
     case 'cache':
-      $driver = new CacheDriver((string)$config->getFile('core')->CORE_SESSION_NAME);
+      $driver = new CacheDriver($cache, (string)$config->getFile('core')->CORE_SESSION_NAME);
       break;
 
     default:
@@ -163,7 +163,7 @@ register_bootstrap(function (Application $application) {
   $doctrine = generate_doctrine($config, $cache);
   $renderer = generate_renderer($config);
   $mailer = generate_mailer($config, $renderer);
-  $session = generate_session($config);
+  $session = generate_session($config, $cache);
 
   $application->getServiceContainer()->addService($cache);
   $application->getServiceContainer()->addService($config);

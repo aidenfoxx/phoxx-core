@@ -31,6 +31,10 @@ abstract class Dispatcher
 
   public function dispatch(Request $request): ?Response
   {
+    /**
+     * TODO: This fails on // urls due to parse_url in
+     * Request treating / as the location.
+     */
     if (strcasecmp($request->getServer('SERVER_NAME'), $_SERVER['SERVER_NAME']) !== 0) {
       throw new RequestException('Could not dispatch external request.');
     }
