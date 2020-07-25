@@ -10,8 +10,6 @@ class NativeDriver implements SessionDriver
 {
   protected $sessionName;
 
-  protected $sessionId;
-
   protected $active = false;
 
   public function __construct(?string $sessionName = null)
@@ -85,7 +83,7 @@ class NativeDriver implements SessionDriver
   public function regenerate(): void
   {
     if ($this->active === true && session_regenerate_id() === true) {
-      $_COOKIE[$this->sessionName] = session_name();
+      $_COOKIE[$this->sessionName] = session_id();
     }
   }
 

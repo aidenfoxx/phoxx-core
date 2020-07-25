@@ -2,8 +2,9 @@
 
 namespace Phoxx\Core\Mailer\Drivers;
 
-use Phoxx\Core\Mailer\Mail;
+use Phoxx\Core\Mailer\Exceptions\MailException;
 use Phoxx\Core\Mailer\Interfaces\MailerDriver;
+use Phoxx\Core\Mailer\Mail;
 use Phoxx\Core\Renderer\Renderer;
 
 class MailDriver implements MailerDriver
@@ -15,7 +16,7 @@ class MailDriver implements MailerDriver
     $this->renderer = $renderer;
   }
 
-  public function send(Mail $mail): bool
+  public function send(Mail $mail): void
   {
     $from = null;
     $to = [];
@@ -49,11 +50,8 @@ class MailDriver implements MailerDriver
     $headers['Cc'] = implode(',', $cc);
     $headers['Bcc'] = implode(',', $bcc);
 
-    return mail(
-      implode(',', $to),
-      $mail->getSubject(),
-      $this->renderer->render($mail->getTemplate()),
-      $headers
-    );
+    if (mail(implode(',', $to), $mail->getSubject(), $this->renderer->render($mail->getTemplate()), $headers) === false) {
+      throw new MailException('Failed to send send mail.');
+    }
   }
 }

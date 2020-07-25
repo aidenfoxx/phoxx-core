@@ -17,6 +17,19 @@ class CacheDriver implements SessionDriver
 
   protected $active = false;
 
+  private function setCookie(): void
+  {
+    setcookie(
+      $this->sessionName,
+      $this->sessionId,
+      (int)ini_get('session.cookie_lifetime'),
+      ini_get('session.cookie_path'),
+      ini_get('session.cookie_domain'),
+      (bool)ini_get('session.cookie_secure'),
+      (bool)ini_get('session.cookie_httponly')
+    );
+  }
+
   public function __construct(Cache $cache, ?string $sessionName = null)
   {
     $this->cache = $cache;
@@ -66,6 +79,10 @@ class CacheDriver implements SessionDriver
       return;
     }
 
+    if (headers_sent() === true) {
+      throw new ResponseException('Response headers already sent.');
+    }
+
     if (isset($_COOKIE[$this->sessionName]) === false) {
       $_COOKIE[$this->sessionName] = session_create_id();
     }
@@ -73,15 +90,7 @@ class CacheDriver implements SessionDriver
     $this->sessionId = $_COOKIE[$this->sessionName];
     $this->active = true;
 
-    setcookie(
-      $this->sessionName,
-      $this->sessionId,
-      (int)ini_get('session.cookie_lifetime'),
-      ini_get('session.cookie_path'),
-      ini_get('session.cookie_domain'),
-      (bool)ini_get('session.cookie_secure'),
-      (bool)ini_get('session.cookie_httponly')
-    );
+    $this->setCookie();
   }
 
   public function close(): void
@@ -99,6 +108,8 @@ class CacheDriver implements SessionDriver
       $this->cache->removeValue(self::PREFIX . $this->sessionId);
       $this->sessionId = $_COOKIE[$this->sessionName];
       $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+
+      $this->setCookie();
     }
   }
 

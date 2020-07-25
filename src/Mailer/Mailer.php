@@ -18,7 +18,7 @@ class Mailer
     return $this->driver;
   }
 
-  public function send(Mail $mail): bool
+  public function send(Mail $mail): void
   {
     return $this->driver->send($mail);
   }
