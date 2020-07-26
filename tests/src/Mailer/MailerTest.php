@@ -16,9 +16,9 @@ final class MailerTest extends TestCase
   public function testGetDriver()
   {
     $mockDriver = $this->createMock(MailerDriver::class);
-    $session = new Mailer($mockDriver);
+    $mailer = new Mailer($mockDriver);
 
-    $this->assertSame($mockDriver, $session->getDriver());
+    $this->assertSame($mockDriver, $mailer->getDriver());
   }
 
   public function testSend()
@@ -27,16 +27,9 @@ final class MailerTest extends TestCase
     $mockDriver = $this->createMock(MailerDriver::class);
     $mockDriver->expects($this->at(0))
                ->method('send')
-               ->with($mail)
-               ->willReturn(true);
-    $mockDriver->expects($this->at(1))
-               ->method('send')
-               ->with($mail)
-               ->willReturn(false);
+               ->with($mail);
 
-    $session = new Mailer($mockDriver);
-
-    $this->assertSame(true, $session->send($mail));
-    $this->assertSame(false, $session->send($mail));
+    $mailer = new Mailer($mockDriver);
+    $mailer->send($mail);
   }
 }

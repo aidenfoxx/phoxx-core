@@ -1,7 +1,8 @@
 <?php
 
-namespace Phoxx\Core\Controllers;
+namespace Phoxx\Core\Controllers\Helpers;
 
+use Phoxx\Core\Controllers\Controller;
 use Phoxx\Core\Http\Response;
 
 abstract class AjaxController extends Controller

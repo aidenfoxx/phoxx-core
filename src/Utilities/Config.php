@@ -47,9 +47,8 @@ class Config
       /**
        * Resolve relative path.
        */
-      $path = (bool)preg_match('#^(?:[a-zA-Z]:(?:\\\\|/)|/)#', $path) === false
-        ? $this->base . '/' . $path . '/' . $config
-        : $path . '/' . $config;
+      $path = $path . '/' . $config;
+      $path = (bool)preg_match('#^(?:[a-zA-Z]:(?:\\\\|/)|/)#', $path) === false ? $this->base . '/' . $path : $path;
 
       if (($path = realpath($path)) !== false) {
         $resolved = $path;

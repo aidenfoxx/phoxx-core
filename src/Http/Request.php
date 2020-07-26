@@ -4,8 +4,6 @@ namespace Phoxx\Core\Http;
 
 class Request
 {
-  private static $reservedPaths = ['_404_', '_500_'];
-
   protected $url;
 
   protected $query = [];

@@ -20,6 +20,6 @@ class Mailer
 
   public function send(Mail $mail): void
   {
-    return $this->driver->send($mail);
+    $this->driver->send($mail);
   }
 }

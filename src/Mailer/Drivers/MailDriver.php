@@ -16,6 +16,12 @@ class MailDriver implements MailerDriver
     $this->renderer = $renderer;
   }
 
+  /**
+   * Send mail using native mail function.
+   * @param  Mail $mail Mail content
+   * @return void
+   * @throws MailException If mail fails to send
+   */
   public function send(Mail $mail): void
   {
     $from = null;

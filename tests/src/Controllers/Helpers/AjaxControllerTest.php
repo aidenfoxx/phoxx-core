@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Phoxx\Core\Tests\Controllers;
+namespace Phoxx\Core\Tests\Controllers\Helpers;
 
-use Phoxx\Core\Controllers\AjaxController;
+use Phoxx\Core\Controllers\Helpers\AjaxController;
 use Phoxx\Core\Framework\ServiceContainer;
 use Phoxx\Core\Http\RequestStack;
 use Phoxx\Core\Http\Response;

@@ -34,13 +34,13 @@ class Route
     return $this->method;
   }
 
-  public function reverse(array $parameters = []): string
+  public function getPath(array $parameters = []): string
   {
     /**
      * Replace named parameters in route.
      */
     return preg_replace_callback('#\(\?<([a-zA-Z0-9_-]+)>[^\)]+\)#', function (array $match) use ($parameters) {
-      [$pattern, $parameter] = $match;
+      list($pattern, $parameter) = $match;
 
       if (isset($parameters[$parameter]) === true && (bool)preg_match('#^' . $pattern . '$#', $parameters[$parameter]) === true) {
         return (string)$parameters[$parameter];

@@ -20,26 +20,26 @@ final class RouteTest extends TestCase
     $this->assertSame('POST', $route->getMethod());
   }
 
-  public function testReverse(): void
+  public function testGetPath(): void
   {
     $route = new Route('PATH', ['CONTROLLER' => 'ACTION']);
 
-    $this->assertSame('PATH', $route->reverse());
+    $this->assertSame('PATH', $route->getPath());
   }
 
-  public function testReverseWithParameters(): void
+  public function testGetPathWithParameters(): void
   {
     $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION']);
 
-    $this->assertSame('PATH/VALUE', $route->reverse(['PARAMETER' => 'VALUE']));
+    $this->assertSame('PATH/VALUE', $route->getPath(['PARAMETER' => 'VALUE']));
   }
 
-  public function testReverseException(): void
+  public function testGetPathException(): void
   {
     $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION']);
 
     $this->expectException(RouteException::class);
 
-    $route->reverse();
+    $route->getPath();
   }
 }

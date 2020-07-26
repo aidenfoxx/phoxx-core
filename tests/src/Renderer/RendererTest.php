@@ -15,9 +15,9 @@ final class RendererTest extends TestCase
   public function testGetDriver()
   {
     $mockDriver = $this->createMock(RendererDriver::class);
-    $session = new Renderer($mockDriver);
+    $renderer = new Renderer($mockDriver);
 
-    $this->assertSame($mockDriver, $session->getDriver());
+    $this->assertSame($mockDriver, $renderer->getDriver());
   }
 
   public function testAddPath()
@@ -30,8 +30,8 @@ final class RendererTest extends TestCase
                  $this->equalTo('NAMESPACE')
                );
 
-    $session = new Renderer($mockDriver);
-    $session->addPath('PATH', 'NAMESPACE');
+    $renderer = new Renderer($mockDriver);
+    $renderer->addPath('PATH', 'NAMESPACE');
   }
 
   public function testRender()
@@ -43,8 +43,8 @@ final class RendererTest extends TestCase
                ->with($view)
                ->willReturn('OUTPUT');
 
-    $session = new Renderer($mockDriver);
+    $renderer = new Renderer($mockDriver);
 
-    $this->assertSame('OUTPUT', $session->render($view));
+    $this->assertSame('OUTPUT', $renderer->render($view));
   }
 }

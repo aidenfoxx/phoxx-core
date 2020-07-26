@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Phoxx\Core\Tests\Controllers;
+namespace Phoxx\Core\Tests\Controllers\Helpers;
 
-use Phoxx\Core\Controllers\FrontController;
+use Phoxx\Core\Controllers\Helpers\FrontController;
 use Phoxx\Core\Framework\Exceptions\ServiceException;
 use Phoxx\Core\Framework\ServiceContainer;
 use Phoxx\Core\Http\RequestStack;

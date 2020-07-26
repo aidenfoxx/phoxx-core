@@ -145,7 +145,8 @@ function generate_session(Config $config, Cache $cache): Session
 /**
 * Bootstrap application.
 */
-register_bootstrap(function (Application $application) {
+// phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
+register_bootstrap(function (RouteContainer $routeContainer, ServiceContainer $serviceContainer) {
   $cache = generate_cache();
   $config = generate_config($cache);
 
@@ -165,13 +166,13 @@ register_bootstrap(function (Application $application) {
   $mailer = generate_mailer($config, $renderer);
   $session = generate_session($config, $cache);
 
-  $application->getServiceContainer()->addService($cache);
-  $application->getServiceContainer()->addService($config);
-  $application->getServiceContainer()->addService($doctrine);
-  $application->getServiceContainer()->addService($renderer);
-  $application->getServiceContainer()->addService($mailer);
-  $application->getServiceContainer()->addService($session);
+  $serviceContainer->addService($cache);
+  $serviceContainer->addService($config);
+  $serviceContainer->addService($doctrine);
+  $serviceContainer->addService($renderer);
+  $serviceContainer->addService($mailer);
+  $serviceContainer->addService($session);
 
-  $application->getServiceContainer()->addService(new ImageManager());
-  $application->getServiceContainer()->addService(new FileManager());
+  $serviceContainer->addService(new ImageManager());
+  $serviceContainer->addService(new FileManager());
 });

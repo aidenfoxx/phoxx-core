@@ -1,17 +1,15 @@
 <?php
 
-namespace Phoxx\Core\Framework;
+namespace Phoxx\Core\Http;
 
 use Phoxx\Core\Controllers\Controller;
-use Phoxx\Core\Framework\Exceptions\DispatchException;
+use Phoxx\Core\Framework\ServiceContainer;
 use Phoxx\Core\Http\Exceptions\RequestException;
 use Phoxx\Core\Http\Exceptions\ResponseException;
-use Phoxx\Core\Http\Request;
-use Phoxx\Core\Http\RequestStack;
-use Phoxx\Core\Http\Response;
+use Phoxx\Core\Router\Exceptions\RouteException;
 use Phoxx\Core\Router\RouteContainer;
 
-abstract class Dispatcher
+class Dispatcher
 {
   private $routeContainer;
 
@@ -48,7 +46,7 @@ abstract class Dispatcher
       is_subclass_of($controller, Controller::class) === false ||
       is_callable([$controller, $action]) === false
     ) {
-      throw new DispatchException('Invalid action `' . $controller . '::' . $action . '()`.');
+      throw new RouteException('Invalid action `' . $controller . '::' . $action . '()`.');
     }
 
     $this->requestStack->push($request);
@@ -63,5 +61,19 @@ abstract class Dispatcher
     }
 
     return $response;
+  }
+
+  public function send(Response $response): void
+  {
+    if (headers_sent() === true) {
+      throw new ResponseException('Response headers already sent.');
+    }
+
+    foreach ($response->getHeaders() as $name => $value) {
+      header($name . ': ' . $value);
+    }
+
+    http_response_code($response->getStatus());
+    print($response->getContent());
   }
 }
