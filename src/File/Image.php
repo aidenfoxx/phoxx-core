@@ -26,20 +26,22 @@ class Image extends File
   {
     parent::__construct($path);
 
-    switch (@exif_imagetype($path)) {
-      case IMAGETYPE_BMP:
+    switch ($this->mimetype) {
+      case 'image/bmp':
+      case 'image/x-ms-bmp':
         $this->format = self::FORMAT_BMP;
         break;
 
-      case IMAGETYPE_PNG:
+      case 'image/png':
         $this->format = self::FORMAT_PNG;
         break;
 
-      case IMAGETYPE_GIF:
+      case 'image/gif':
         $this->format = self::FORMAT_GIF;
         break;
 
-      case IMAGETYPE_JPEG:
+      case 'image/jpg':
+      case 'image/jpeg':
         $this->format = self::FORMAT_JPG;
         break;
 
