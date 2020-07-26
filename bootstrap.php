@@ -12,6 +12,7 @@ use Phoxx\Core\Cache\Drivers\RedisDriver;
 use Phoxx\Core\Database\Doctrine;
 use Phoxx\Core\File\FileManager;
 use Phoxx\Core\File\ImageManager;
+use Phoxx\Core\Framework\ServiceContainer;
 use Phoxx\Core\Mailer\Drivers\MailDriver;
 use Phoxx\Core\Mailer\Mailer;
 use Phoxx\Core\Renderer\Drivers\PhpDriver;
