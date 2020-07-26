@@ -2,6 +2,8 @@
 
 namespace Phoxx\Core\File;
 
+use Phoxx\Core\File\Exceptions\ImageException;
+
 class ImageManager
 {
   private function parseImage(Image $image)
@@ -35,23 +37,24 @@ class ImageManager
   {
     switch ($format) {
       case Image::FORMAT_BMP:
-        $response = (bool)@imagebmp($resource, $dest, $quality);
+        $response = @imagebmp($resource, $dest, $quality);
         break;
 
       case Image::FORMAT_PNG:
-        $response = (bool)@imagepng($resource, $dest, $quality);
+        $response = @imagepng($resource, $dest, $quality);
         break;
 
       case Image::FORMAT_GIF:
-        $response = (bool)@imagegif($resource, $dest, $quality);
+        $response = @imagegif($resource, $dest, $quality);
         break;
 
       default:
-        $response = (bool)@imagejpeg($resource, $dest, $quality);
+        $response = @imagejpeg($resource, $dest, $quality);
         break;
     }
 
-    if ($response === false) {
+    // NOTE: $response can be undocumented null.
+    if ((bool)$response === false) {
       throw new ImageException('Failed to write image `' . $dest . '`.');
     }
   }
@@ -166,7 +169,7 @@ class ImageManager
   ): void {
     $source = $this->parseImage($image);
 
-    if (($output = @imagecreatetruecolor($width, $height)) === false) {
+    if (($output = @imagecreatetruecolor($image->getWidth(), $image->getHeight())) === false) {
       throw new ImageException('Failed to convert image.');
     }
 
