@@ -43,7 +43,7 @@ class PhpDriver implements RendererDriver
       /**
        * Resolve relative path.
        */
-      $path = $path . '/' . $config;
+      $path = $path . '/' . $template;
       $path = (bool)preg_match('#^(?:[a-zA-Z]:(?:\\\\|/)|/)#', $path) === false ? $this->base . '/' . $path : $path;
 
       if (($path = realpath($path)) !== false) {
