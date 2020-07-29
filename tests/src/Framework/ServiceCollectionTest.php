@@ -16,7 +16,7 @@ final class ServiceContainerTest extends TestCase
   {
     $service = new stdClass();
     $serviceContainer = new ServiceContainer();
-    $serviceContainer->addService($service);
+    $serviceContainer->setService($service);
 
     $this->assertSame($service, $serviceContainer->getService(stdClass::class));
   }
@@ -28,11 +28,20 @@ final class ServiceContainerTest extends TestCase
     $this->assertNull($serviceContainer->getService('SERVICE'));
   }
 
+  public function testSetNamedService(): void
+  {
+    $service = new stdClass();
+    $serviceContainer = new ServiceContainer();
+    $serviceContainer->setService($service, '/SERVICE');
+
+    $this->assertSame($service, $serviceContainer->getService('/SERVICE'));
+  }
+
   public function testRemoveService(): void
   {
     $service = new stdClass();
     $serviceContainer = new ServiceContainer();
-    $serviceContainer->addService($service);
+    $serviceContainer->setService($service);
     $serviceContainer->removeService(stdClass::class);
 
     $this->assertNull($serviceContainer->getService(stdClass::class));

@@ -353,7 +353,7 @@ class Validator
    * Returns any errors currently set.
    * @return Array Array of error messages
    */
-  public function errors(): array
+  public function getErrors(): array
   {
     return $this->errors;
   }

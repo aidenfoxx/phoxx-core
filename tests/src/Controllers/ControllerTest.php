@@ -20,7 +20,7 @@ final class ControllerTest extends TestCase
   {
     $service = new stdClass();
     $serviceContainer = new ServiceContainer();
-    $serviceContainer->addService($service);
+    $serviceContainer->setService($service);
 
     $controller = $this->getMockForAbstractClass(Controller::class, [
       new RouteContainer(),

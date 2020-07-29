@@ -19,21 +19,6 @@ class Route
     $this->method = strtoupper($method);
   }
 
-  public function getPattern(): string
-  {
-    return $this->pattern;
-  }
-
-  public function getAction(): array
-  {
-    return $this->action;
-  }
-
-  public function getMethod(): string
-  {
-    return $this->method;
-  }
-
   public function getPath(array $parameters = []): string
   {
     /**
@@ -47,5 +32,20 @@ class Route
       }
       throw new RouteException('Incorrect value for parameter `' . $parameter . '`.');
     }, $this->pattern);
+  }
+
+  public function getPattern(): string
+  {
+    return $this->pattern;
+  }
+
+  public function getAction(): array
+  {
+    return $this->action;
+  }
+
+  public function getMethod(): string
+  {
+    return $this->method;
   }
 }

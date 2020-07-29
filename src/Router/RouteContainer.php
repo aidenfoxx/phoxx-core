@@ -13,7 +13,7 @@ class RouteContainer
     return isset($this->routes[$method][$pattern]) === true ? $this->routes[$method][$pattern] : null;
   }
 
-  public function addRoute(Route $route): void
+  public function setRoute(Route $route): void
   {
     $method = $route->getMethod();
     $pattern = $route->getPattern();

@@ -33,17 +33,17 @@ final class ConfigTest extends TestCase
     ];
   }
 
-  public function testGetFile(): void
+  public function testOpenConfig(): void
   {
     $config = new Config();
     $config->addPath('./config');
     $config->addPath('./config/namespace', 'namespace');
 
-    $this->assertSame('VALUE', $config->getFile('config')->CONFIG);
-    $this->assertSame('VALUE', $config->getFile('@namespace/config')->NAMESPACED);
+    $this->assertSame('VALUE', $config->open('config')->CONFIG);
+    $this->assertSame('VALUE', $config->open('@namespace/config')->NAMESPACED);
   }
 
-  public function testGetCachedFile(): void
+  public function testOpenCachedConfig(): void
   {
     $mockDriver = $this->createMock(CacheDriver::class);
     $mockDriver->expects($this->once())
@@ -54,10 +54,10 @@ final class ConfigTest extends TestCase
     $config = new Config(new Cache($mockDriver));
     $config->addPath('./config');
 
-    $this->assertSame('VALUE', $config->getFile('config')->CONFIG);
+    $this->assertSame('VALUE', $config->open('config')->CONFIG);
   }
 
-  public function testSetCachedFile(): void
+  public function testSetCachedConfig(): void
   {
     $mockDriver = $this->createMock(CacheDriver::class);
     $mockDriver->expects($this->once())
@@ -67,7 +67,7 @@ final class ConfigTest extends TestCase
     $config = new Config(new Cache($mockDriver));
     $config->addPath('./config');
 
-    $this->assertSame('VALUE', $config->getFile('config')->CONFIG);
+    $this->assertSame('VALUE', $config->open('config')->CONFIG);
   }
 
   /**
@@ -78,19 +78,19 @@ final class ConfigTest extends TestCase
     $config = new Config(null, $basePath);
     $config->addPath($path);
 
-    $this->assertSame('VALUE', $config->getFile('config')->CONFIG);
+    $this->assertSame('VALUE', $config->open('config')->CONFIG);
   }
 
   /**
    * @dataProvider fileExceptionsProvider
    */
-  public function testGetFileExceptions(string $file, string $exception): void
+  public function testExceptions(string $file, string $exception): void
   {
     $config = new Config();
     $config->addPath('./config');
 
     $this->expectException($exception);
 
-    $config->getFile($file);
+    $config->open($file);
   }
 }

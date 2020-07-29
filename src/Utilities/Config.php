@@ -29,7 +29,7 @@ class Config
     $this->paths[$namespace][$path] = true;
   }
 
-  public function getFile(string $config): ?stdClass
+  public function open(string $config): ?stdClass
   {
     /**
      * Resolve namespace.

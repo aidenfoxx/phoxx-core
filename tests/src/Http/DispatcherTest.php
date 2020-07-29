@@ -76,7 +76,7 @@ namespace Phoxx\Core\Tests\Http
     public function testDispatch(): void
     {
       $routeContainer = new RouteContainer();
-      $routeContainer->addRoute(new Route('PATH', [TestController::class => 'success']));
+      $routeContainer->setRoute(new Route('PATH', [TestController::class => 'success']));
 
       $dispatcher = $this->getMockForAbstractClass(Dispatcher::class, [
         $routeContainer,
@@ -117,7 +117,7 @@ namespace Phoxx\Core\Tests\Http
     public function testDispatchInvalidRoutes(array $action, string $exception): void
     {
       $routeContainer = new RouteContainer();
-      $routeContainer->addRoute(new Route('PATH', $action));
+      $routeContainer->setRoute(new Route('PATH', $action));
 
       $dispatcher = $this->getMockForAbstractClass(Dispatcher::class, [
         $routeContainer,

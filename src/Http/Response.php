@@ -161,11 +161,6 @@ class Response
     $this->headers[$key] = $value;
   }
 
-  public function removeHeader(string $key): void
-  {
-    unset($this->headers[$key]);
-  }
-
   public function getHeaders(): array
   {
     return $this->headers;

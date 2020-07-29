@@ -11,9 +11,9 @@ class ServiceContainer
     return isset($this->services[$index]) === true ? $this->services[$index] : null;
   }
 
-  public function addService(object $service): void
+  public function setService(object $service, ?string $className = null): void
   {
-    $this->services[get_class($service)] = $service;
+    $this->services[$className !== null ? $className : get_class($service)] = $service;
   }
 
   public function removeService(string $index): void

@@ -27,14 +27,14 @@ abstract class Model
     return $this->dateCreated;
   }
 
-  public function getDateUpdated(): int
-  {
-    return $this->dateUpdated;
-  }
-
   public function setDateCreated(int $date): void
   {
     $this->dateCreated = $date;
+  }
+
+  public function getDateUpdated(): int
+  {
+    return $this->dateUpdated;
   }
 
   public function setDateUpdated(int $date): void

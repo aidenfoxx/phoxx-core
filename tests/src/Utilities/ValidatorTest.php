@@ -132,10 +132,10 @@ final class ValidatorTest extends TestCase
     $validator = new Validator();
 
     $this->assertTrue($validator->validate([array_merge([$method], $success)], 'ERROR'));
-    $this->assertCount(0, $validator->errors());
+    $this->assertCount(0, $validator->getErrors());
 
     $this->assertFalse($validator->validate([array_merge([$method], $error)], 'ERROR'));
-    $this->assertSame(['ERROR'], $validator->errors());
+    $this->assertSame(['ERROR'], $validator->getErrors());
   }
 
   public function testMultipleValidate()
@@ -146,13 +146,13 @@ final class ValidatorTest extends TestCase
       [Validator::IS_MORE, 10, 5],
       [Validator::IS_LESS, 10, 15],
     ], 'ERROR'));
-    $this->assertCount(0, $validator->errors());
+    $this->assertCount(0, $validator->getErrors());
 
     $this->assertFalse($validator->validate([
       [Validator::IS_MORE, 20, 5],
       [Validator::IS_LESS, 20, 15],
     ], 'ERROR'));
-    $this->assertSame(['ERROR'], $validator->errors());
+    $this->assertSame(['ERROR'], $validator->getErrors());
   }
 
   public function testClearErrors()
@@ -160,10 +160,10 @@ final class ValidatorTest extends TestCase
     $validator = new Validator();
 
     $this->assertFalse($validator->validate([[Validator::IS_TRUE, false]], 'ERROR'));
-    $this->assertSame(['ERROR'], $validator->errors());
+    $this->assertSame(['ERROR'], $validator->getErrors());
 
     $validator->clear();
 
-    $this->assertCount(0, $validator->errors());
+    $this->assertCount(0, $validator->getErrors());
   }
 }

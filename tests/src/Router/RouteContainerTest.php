@@ -31,7 +31,7 @@ final class RouteContainerTest extends TestCase
   {
     $route = new Route('PATH', ['CONTROLLER' => 'ACTION'], $method);
     $routeContainer = new RouteContainer();
-    $routeContainer->addRoute($route);
+    $routeContainer->setRoute($route);
 
     $this->assertSame($route, $routeContainer->getRoute('PATH', $method));
   }
@@ -49,7 +49,7 @@ final class RouteContainerTest extends TestCase
   public function testRemoveRoute($method): void
   {
     $routeContainer = new RouteContainer();
-    $routeContainer->addRoute(new Route('PATH', ['CONTROLLER' => 'ACTION'], $method));
+    $routeContainer->setRoute(new Route('PATH', ['CONTROLLER' => 'ACTION'], $method));
     $routeContainer->removeRoute('PATH', $method);
 
     $this->assertNull($routeContainer->getRoute('PATH'));
@@ -62,7 +62,7 @@ final class RouteContainerTest extends TestCase
   {
     $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION'], $method);
     $routeContainer = new RouteContainer();
-    $routeContainer->addRoute($route);
+    $routeContainer->setRoute($route);
 
     $this->assertSame($route, $routeContainer->match('PATH/VALUE', $method, $parameters));
     $this->assertSame($parameters, ['PARAMETER' => 'VALUE']);
@@ -71,7 +71,7 @@ final class RouteContainerTest extends TestCase
   public function testMatchNull(): void
   {
     $routeContainer = new RouteContainer();
-    $routeContainer->addRoute(new Route('PATH', ['CONTROLLER' => 'ACTION']));
+    $routeContainer->setRoute(new Route('PATH', ['CONTROLLER' => 'ACTION']));
 
     $this->assertNull($routeContainer->match('INVALID'));
     $this->assertNull($routeContainer->match('PATH', 'POST'));

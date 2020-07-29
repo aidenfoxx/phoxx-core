@@ -53,7 +53,7 @@ class ImageManager
         break;
     }
 
-    // NOTE: $response can be undocumented null.
+    // NOTE: $response can be null.
     if ((bool)$response === false) {
       throw new ImageException('Failed to write image `' . $dest . '`.');
     }

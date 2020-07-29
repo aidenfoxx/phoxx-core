@@ -47,7 +47,8 @@ class Request
       'REQUEST_TIME' => time()
     ], $server);
 
-    $components = parse_url($uri);
+    // NOTE: Fix for // returning / as host.
+    $components = parse_url(preg_replace('#^\/\/#', '/', $uri));
 
     /**
      * Parse out URI data into server.
