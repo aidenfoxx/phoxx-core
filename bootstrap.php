@@ -167,13 +167,13 @@ register_bootstrap(function (RouteContainer $routeContainer, ServiceContainer $s
   $mailer = generate_mailer($config, $renderer);
   $session = generate_session($config, $cache);
 
-  $serviceContainer->addService($cache);
-  $serviceContainer->addService($config);
-  $serviceContainer->addService($doctrine);
-  $serviceContainer->addService($renderer);
-  $serviceContainer->addService($mailer);
-  $serviceContainer->addService($session);
+  $serviceContainer->setService($cache);
+  $serviceContainer->setService($config);
+  $serviceContainer->setService($doctrine);
+  $serviceContainer->setService($renderer);
+  $serviceContainer->setService($mailer);
+  $serviceContainer->setService($session);
 
-  $serviceContainer->addService(new ImageManager());
-  $serviceContainer->addService(new FileManager());
+  $serviceContainer->setService(new ImageManager());
+  $serviceContainer->setService(new FileManager());
 });
