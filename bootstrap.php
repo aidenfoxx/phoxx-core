@@ -34,20 +34,20 @@ function generate_cache(): Cache
   $config = new Config();
   $config->addPath(PATH_BASE . '/config');
 
-  switch ((string)$config->getFile('core')->CORE_CACHE) {
+  switch ((string)$config->open('core')->CORE_CACHE) {
     case 'apcu':
       $driver = new ApcuDriver();
       break;
 
     case 'memcached':
       $driver = new MemcachedDriver();
-      foreach ((array)$config->getFile('cache/memcached')->MEMCACHED_HOSTS as $host) {
+      foreach ((array)$config->open('cache/memcached')->MEMCACHED_HOSTS as $host) {
         $driver->addServer((string)$host[0], (int)$host[1], (int)$host[2]);
       }
       break;
 
     case 'redis':
-      $driver = new RedisDriver((string)$config->getFile('cache/redis')->REDIS_HOST, (int)$redis->REDIS_PORT);
+      $driver = new RedisDriver((string)$config->open('cache/redis')->REDIS_HOST, (int)$redis->REDIS_PORT);
       break;
 
     case 'file':
@@ -74,7 +74,7 @@ function generate_config(Cache $cache): Config
 
 function generate_doctrine(Config $config, Cache $cache): Doctrine
 {
-  $database = $config->getFile('database');
+  $database = $config->open('database');
 
   $doctrine = new Doctrine(
     (string)$database->DATABASE_NAME,
@@ -92,14 +92,14 @@ function generate_doctrine(Config $config, Cache $cache): Doctrine
 
 function generate_renderer(Config $config): Renderer
 {
-  switch ((string)$config->getFile('core')->CORE_RENDERER) {
+  switch ((string)$config->open('core')->CORE_RENDERER) {
     case 'twig':
-      $twig = $config->getFile('renderer/twig');
+      $twig = $config->open('renderer/twig');
       $driver = new TwigDriver((bool)$twig->TWIG_CACHE);
       break;
 
     case 'smarty':
-      $smarty = $config->getFile('renderer/smarty');
+      $smarty = $config->open('renderer/smarty');
       $driver = new SmartyDriver(
         (bool)$smarty->SMARTY_CACHE,
         (bool)$smarty->SMARTY_FORCE_COMPILE
@@ -119,7 +119,7 @@ function generate_renderer(Config $config): Renderer
 
 function generate_mailer(Config $config, Renderer $renderer): Mailer
 {
-  switch ((string)$config->getFile('core')->CORE_MAILER) {
+  switch ((string)$config->open('core')->CORE_MAILER) {
     default:
       $driver = new MailDriver($renderer);
       break;
@@ -130,13 +130,13 @@ function generate_mailer(Config $config, Renderer $renderer): Mailer
 
 function generate_session(Config $config, Cache $cache): Session
 {
-  switch ((string)$config->getFile('core')->CORE_SESSION) {
+  switch ((string)$config->open('core')->CORE_SESSION) {
     case 'cache':
-      $driver = new CacheDriver($cache, (string)$config->getFile('core')->CORE_SESSION_NAME);
+      $driver = new CacheDriver($cache, (string)$config->open('core')->CORE_SESSION_NAME);
       break;
 
     default:
-      $driver = new NativeDriver((string)$config->getFile('core')->CORE_SESSION_NAME);
+      $driver = new NativeDriver((string)$config->open('core')->CORE_SESSION_NAME);
       break;
   }
 
@@ -154,7 +154,7 @@ register_bootstrap(function (RouteContainer $routeContainer, ServiceContainer $s
   /**
    * Register error handler.
    */
-  if ((bool)$config->getFile('core')->CORE_DEBUG === true) {
+  if ((bool)$config->open('core')->CORE_DEBUG === true) {
     error_reporting(E_ALL);
 
     $whoops = new Whoops();
