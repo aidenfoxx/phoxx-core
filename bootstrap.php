@@ -9,7 +9,8 @@ use Phoxx\Core\Cache\Drivers\ArrayDriver;
 use Phoxx\Core\Cache\Drivers\FileDriver;
 use Phoxx\Core\Cache\Drivers\MemcachedDriver;
 use Phoxx\Core\Cache\Drivers\RedisDriver;
-use Phoxx\Core\Database\Doctrine;
+use Phoxx\Core\Database\Connection;
+use Phoxx\Core\Database\EntityManager;
 use Phoxx\Core\File\FileManager;
 use Phoxx\Core\File\ImageManager;
 use Phoxx\Core\Framework\ServiceContainer;
@@ -72,22 +73,26 @@ function generate_config(Cache $cache): Config
   return $config;
 }
 
-function generate_doctrine(Config $config, Cache $cache): Doctrine
+function generate_connection(Config $config): Connection
 {
   $database = $config->open('database');
 
-  $doctrine = new Doctrine(
+  return new Connection(
     (string)$database->DATABASE_NAME,
     (string)$database->DATABASE_USER,
     (string)$database->DATABASE_PASSWORD,
     (string)$database->DATABASE_PREFIX,
     (string)$database->DATABASE_HOST,
-    (int)$database->DATABASE_PORT,
-    $cache
+    (int)$database->DATABASE_PORT
   );
-  $doctrine->addPath(PATH_BASE . '/doctrine');
+}
 
-  return $doctrine;
+function generate_entity_manager(Connection $connection, Cache $cache): EntityManager
+{
+  $entityManager = new EntityManager($connection, $cache);
+  $entityManager->addPath(PATH_BASE . '/doctrine');
+
+  return $entityManager;
 }
 
 function generate_renderer(Config $config): Renderer
@@ -162,14 +167,16 @@ register_bootstrap(function (RouteContainer $routeContainer, ServiceContainer $s
     $whoops->register();
   }
 
-  $doctrine = generate_doctrine($config, $cache);
+  $connection = generate_connection($config);
+  $entityManager = generate_entity_manager($connection, $cache);
   $renderer = generate_renderer($config);
   $mailer = generate_mailer($config, $renderer);
   $session = generate_session($config, $cache);
 
   $serviceContainer->setService($cache);
   $serviceContainer->setService($config);
-  $serviceContainer->setService($doctrine);
+  $serviceContainer->setService($connection);
+  $serviceContainer->setService($entityManager);
   $serviceContainer->setService($renderer);
   $serviceContainer->setService($mailer);
   $serviceContainer->setService($session);
