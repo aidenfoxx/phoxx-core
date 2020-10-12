@@ -4,7 +4,6 @@
     <const name="PATH_BASE" value="./tests" />
     <const name="PATH_CACHE" value="./tests/cache" />
     <const name="PATH_VENDOR" value="./vendor" />
-    <const name="PATH_PUBLIC" value="" />
     <server name="SERVER_NAME" value="localhost" />
   </php>
   <testsuites>
