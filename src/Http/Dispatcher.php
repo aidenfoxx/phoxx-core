@@ -11,19 +11,19 @@ use Phoxx\Core\Router\RouteContainer;
 
 class Dispatcher
 {
-  private $routeContainer;
+  private $router;
 
-  private $serviceContainer;
+  private $services;
 
   private $requestStack;
 
   public function __construct(
-    RouteContainer $routeContainer,
-    ServiceContainer $serviceContainer,
+    RouteContainer $router,
+    ServiceContainer $services,
     RequestStack $requestStack
   ) {
-    $this->routeContainer = $routeContainer;
-    $this->serviceContainer = $serviceContainer;
+    $this->router = $router;
+    $this->services = $services;
     $this->requestStack = $requestStack;
   }
 
@@ -33,7 +33,7 @@ class Dispatcher
       throw new RequestException('Could not dispatch external request.');
     }
 
-    if (($route = $this->routeContainer->match($request->getPath(), $request->getMethod(), $parameters)) === null) {
+    if (($route = $this->router->match($request->getPath(), $request->getMethod(), $parameters)) === null) {
       return null;
     }
 
@@ -49,12 +49,12 @@ class Dispatcher
       throw new RouteException('Invalid action `' . $controller . '::' . $action . '()`.');
     }
 
-    $this->requestStack->push($request);
+    array_push($this->requestStack, $request);
 
-    $controller = new $controller($this->routeContainer, $this->serviceContainer, $this->requestStack);
+    $controller = new $controller($this->router, $this->services, $this->requestStack);
     $response = call_user_func_array([$controller, $action], $parameters);
 
-    $this->requestStack->pop($request);
+    array_pop($this->requestStack);
 
     if (($response instanceof Response) === false) {
       throw new ResponseException('Response must be instance of `' . Response::class . '`.');
