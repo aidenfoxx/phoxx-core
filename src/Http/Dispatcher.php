@@ -9,22 +9,12 @@ use Phoxx\Core\Http\Exceptions\ResponseException;
 use Phoxx\Core\Router\Exceptions\RouteException;
 use Phoxx\Core\Router\RouteContainer;
 
-class Dispatcher
+class Router
 {
-  private $router;
-
   private $services;
 
-  private $requestStack;
-
-  public function __construct(
-    RouteContainer $router,
-    ServiceContainer $services,
-    RequestStack $requestStack
-  ) {
-    $this->router = $router;
+  public function __construct(ServiceContainer $services) {
     $this->services = $services;
-    $this->requestStack = $requestStack;
   }
 
   public function dispatch(Request $request): ?Response
@@ -51,7 +41,7 @@ class Dispatcher
 
     array_push($this->requestStack, $request);
 
-    $controller = new $controller($this->router, $this->services, $this->requestStack);
+    $controller = new $controller($this, $this->services);
     $response = call_user_func_array([$controller, $action], $parameters);
 
     array_pop($this->requestStack);
@@ -63,6 +53,7 @@ class Dispatcher
     return $response;
   }
 
+  /** TODO: Handle this in bootstrap.
   public function send(Response $response): void
   {
     if (headers_sent() === true) {
@@ -75,5 +66,5 @@ class Dispatcher
 
     http_response_code($response->getStatus());
     print($response->getContent());
-  }
+  }*/
 }
