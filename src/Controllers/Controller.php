@@ -10,16 +10,16 @@ use Phoxx\Core\Router\RouteContainer;
 
 abstract class Controller extends Dispatcher
 {
-  private $serviceContainer;
+  private $services;
 
   private $requestStack;
 
   public function __construct(
-    RouteContainer $routeContainer,
-    ServiceContainer $serviceContainer,
-    RequestStack $requestStack
+    RouteContainer $router,
+    ServiceContainer $services,
+    array $requestStack = []
   ) {
-    parent::__construct($routeContainer, $serviceContainer, $requestStack);
+    parent::__construct($router, $services, $requestStack);
 
     $this->serviceContainer = $serviceContainer;
     $this->requestStack = $requestStack;
@@ -27,16 +27,16 @@ abstract class Controller extends Dispatcher
 
   public function getService(string $service)
   {
-    return $this->serviceContainer->getService($service);
+    return $this->services->getService($service);
   }
 
   public function main(): ?Request
   {
-    return $this->requestStack->main();
+    return ($request = reset($this->requests)) !== false ? $request : null;
   }
 
   public function active(): ?Request
   {
-    return $this->requestStack->active();
+    return ($request = end($this->requests)) !== false ? $request : null;
   }
 }
