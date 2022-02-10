@@ -21,12 +21,12 @@ class Request
   public function __construct(
     string $uri,
     string $method = 'GET',
-    array $query = [],
-    array $request = [],
-    array $server = [],
-    array $cookies = [],
-    array $files = [],
-    string $content = null
+    array $query = $_GET,
+    array $request = $_POST,
+    array $server = $_SERVER,
+    array $cookies = $_COOKIE,
+    array $files = $_FILES,
+    string $content = file_get_contents('php://input')
   ) {
     /**
      * Define required application variables.
