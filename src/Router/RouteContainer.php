@@ -4,6 +4,7 @@ namespace Phoxx\Core\Router;
 
 class RouteContainer
 {
+  // TODO: $routes should contain sub-arrays for each method
   protected $routes = [];
 
   public function getRoute(string $pattern, string $method = 'GET'): ?Route
