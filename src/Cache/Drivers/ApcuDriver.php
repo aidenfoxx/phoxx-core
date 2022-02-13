@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Phoxx\Core\Cache\Drivers;
 
-use Phoxx\Core\Cache\Interfaces\CacheDriver;
+use Phoxx\Core\Cache\Cache;
 
-class ApcuDriver implements CacheDriver
+class ApcuDriver implements Cache
 {
   public function getValue(string $index)
   {
     $value = apcu_fetch($index, $sucess);
 
-    return $sucess === true ? $value : null;
+    return $sucess ? $value : null;
   }
 
   public function setValue(string $index, $value, int $lifetime = 0): void

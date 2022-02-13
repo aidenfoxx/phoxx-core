@@ -20,19 +20,19 @@ class File
 
   public function __construct(string $path)
   {
-    if (is_file($path) === false) {
+    if (!is_file($path)) {
       throw new FileException('Invalid file `' . $path . '`.');
     }
 
     $this->path = realpath($path);
-    $this->mimetype = ($mimetype = @mime_content_type($path)) !== false ? $mimetype : 'text/plain';
+    $this->mimetype = $mimetype = @mime_content_type($path) ? $mimetype : 'text/plain';
 
     $pathInfo = pathinfo($path);
 
     $this->name = $pathInfo['filename'];
     $this->baseName = $pathInfo['basename'];
-    $this->directory = isset($pathInfo['dirname']) === true ? $pathInfo['dirname'] : null;
-    $this->extension = isset($pathInfo['extension']) === true ? $pathInfo['extension'] : null;
+    $this->directory = isset($pathInfo['dirname']) ? $pathInfo['dirname'] : null;
+    $this->extension = isset($pathInfo['extension']) ? $pathInfo['extension'] : null;
   }
 
   public function getPath(): string

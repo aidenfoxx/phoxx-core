@@ -1,0 +1,29 @@
+TESTS COMPLETED:
+
+ValidatorTest
+ServicesTest
+ConfigTest
+ViewTest
+
+TESTS OUTSTANDING:
+
+NativeDriverTest
+CacheDriverTest
+TwigDriverTest
+SmartyDriverTest <-- Reference ConfigTest
+PHPDriverTest <-- Reference ConfigTest
+MailTest
+MailDriverTest
+SystemRequestTest
+RouteTest
+RouterTest
+ResponseTest
+RequestTest
+ModelTest
+DoctrineTest
+CacheInterfaceTest
+TablePrefixTest
+ModelDateTest
+FrontControllerTest
+ControllerTest
+AjaxControllerTest

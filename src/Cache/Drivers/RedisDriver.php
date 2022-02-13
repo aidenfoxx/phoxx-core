@@ -2,11 +2,11 @@
 
 namespace Phoxx\Core\Cache\Drivers;
 
-use Phoxx\Core\Cache\Interfaces\CacheDriver;
+use Phoxx\Core\Cache\Cache;
 
 use Redis;
 
-class RedisDriver implements CacheDriver
+class RedisDriver implements Cache
 {
   private $redis;
 

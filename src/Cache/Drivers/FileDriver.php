@@ -2,10 +2,10 @@
 
 namespace Phoxx\Core\Cache\Drivers;
 
-use Phoxx\Core\Cache\Interfaces\CacheDriver;
-use Phoxx\Core\File\Exceptions\FileException;
+use Phoxx\Core\Cache\Cache;
+use Phoxx\Core\Exceptions\FileException;
 
-class FileDriver implements CacheDriver
+class FileDriver implements Cache
 {
   protected $path;
 
@@ -23,11 +23,11 @@ class FileDriver implements CacheDriver
   {
     $path = $this->generatePath($index);
 
-    if (is_file($path) === false) {
+    if (!is_file($path)) {
       return null;
     }
 
-    if (($file = @fopen($path, 'r')) === false) {
+    if (!($file = @fopen($path, 'r'))) {
       throw new FileException('Failed to open file `' . $path . '`.');
     }
 
@@ -36,9 +36,7 @@ class FileDriver implements CacheDriver
       return null;
     }
 
-    /**
-     * Load and parse file.
-     */
+    // Load and parse file
     $value = '';
 
     while (($line = fgets($file)) !== false) {
@@ -55,16 +53,14 @@ class FileDriver implements CacheDriver
     $path = $this->generatePath($index);
     $lifetime = $lifetime !== 0 ? time() + $lifetime : $lifetime;
 
-    /**
-     * Create dir if none exists.
-     */
+    // Create dir if none exists.
     $directory = pathinfo($path, PATHINFO_DIRNAME);
 
-    if (is_dir($directory) === false) {
+    if (!is_dir($directory)) {
       @mkdir($directory, 0777, true);
     }
 
-    if (file_put_contents($path, $lifetime . PHP_EOL . serialize($value)) === false) {
+    if (!file_put_contents($path, $lifetime . PHP_EOL . serialize($value))) {
       throw new FileException('Failed to write file `' . $path . '`.');
     }
   }
@@ -73,14 +69,14 @@ class FileDriver implements CacheDriver
   {
     $path = $this->generatePath($index);
 
-    if (is_file($path) === true && @unlink($path) === false) {
+    if (is_file($path) && !@unlink($path)) {
       throw new FileException('Failed to remove file `' . $path . '`.');
     }
   }
 
   public function clear(): void
   {
-    if (is_dir($this->path) === true && @unlink($this->path) === false) {
+    if (is_dir($this->path)&& !@unlink($this->path)) {
       throw new FileException('Failed to remove directory `' . $this->path . '`.');
     }
   }

@@ -32,7 +32,7 @@ class EntityManager extends DoctrineEntityManager
     $config->setProxyNamespace('DoctrineProxy');
     $config->setAutoGenerateProxyClasses(true);
 
-    if ($cache !== null) {
+    if ($cache) {
       $doctrineCache = new CacheInterface($cache);
 
       $config->setQueryCacheImpl($doctrineCache);
@@ -45,7 +45,7 @@ class EntityManager extends DoctrineEntityManager
 
   public function addPath(string $path): void
   {
-    if (isset($this->paths[$path]) === false) {
+    if (!isset($this->paths[$path])) {
       $this->paths[$path] = true;
       $this->getConfiguration()->setMetadataDriverImpl(new XmlDriver(array_keys($this->paths)));
     }

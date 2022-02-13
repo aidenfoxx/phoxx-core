@@ -3,9 +3,9 @@
 namespace Phoxx\Core\Session\Drivers;
 
 use Phoxx\Core\Cache\Cache;
-use Phoxx\Core\Session\Interfaces\SessionDriver;
+use Phoxx\Core\Session\Session;
 
-class CacheDriver implements SessionDriver
+class CacheDriver implements Session
 {
   private const PREFIX = 'sid_';
 
@@ -33,23 +33,23 @@ class CacheDriver implements SessionDriver
   public function __construct(Cache $cache, ?string $sessionName = null)
   {
     $this->cache = $cache;
-    $this->sessionName = $sessionName !== null ? $sessionName : ini_get('session.name');
+    $this->sessionName = $sessionName ? $sessionName : ini_get('session.name');
   }
 
   public function getValue(string $index)
   {
-    if ($this->active === false) {
+    if (!$this->active) {
       return null;
     }
 
     $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
 
-    return isset($sessionData[$index]) === true ? $sessionData[$index] : null;
+    return isset($sessionData[$index]) ? $sessionData[$index] : null;
   }
 
   public function setValue(string $index, $value): void
   {
-    if ($this->active === true) {
+    if ($this->active) {
       $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
       $sessionData[$index] = $value;
 
@@ -59,7 +59,7 @@ class CacheDriver implements SessionDriver
 
   public function removeValue(string $index): void
   {
-    if ($this->active === true) {
+    if ($this->active) {
       $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
 
       unset($sessionData[$index]);
@@ -75,15 +75,15 @@ class CacheDriver implements SessionDriver
 
   public function open(): void
   {
-    if ($this->active === true) {
+    if ($this->active) {
       return;
     }
 
-    if (headers_sent() === true) {
+    if (headers_sent()) {
       throw new ResponseException('Response headers already sent.');
     }
 
-    if (isset($_COOKIE[$this->sessionName]) === false) {
+    if (!isset($_COOKIE[$this->sessionName])) {
       $_COOKIE[$this->sessionName] = session_create_id();
     }
 
@@ -100,7 +100,7 @@ class CacheDriver implements SessionDriver
 
   public function regenerate(): void
   {
-    if ($this->active === true) {
+    if ($this->active) {
       $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
 
       $_COOKIE[$this->sessionName] = session_create_id();
@@ -115,7 +115,7 @@ class CacheDriver implements SessionDriver
 
   public function clear(): void
   {
-    if ($this->active === true) {
+    if ($this->active) {
       $this->cache->removeValue(self::PREFIX . $this->sessionId);
     }
   }

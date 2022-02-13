@@ -22,22 +22,25 @@ class CacheInterface extends CacheProvider
 
   protected function doContains($key)
   {
-    return $this->cache->getValue((string)$key) !== null;
+    return (bool)$this->cache->getValue((string)$key);
   }
 
   protected function doSave($key, $value, $lifetime = 0)
   {
     $this->cache->setValue((string)$key, $value, (int)$lifetime);
+    return true;
   }
 
   protected function doDelete($key)
   {
     $this->cache->removeValue((string)$key, $value);
+    return true;
   }
 
   protected function doFlush()
   {
     $this->cache->clear();
+    return true;
   }
 
   protected function doGetStats()

@@ -2,12 +2,12 @@
 
 namespace Phoxx\Core\Renderer\Drivers;
 
-use Phoxx\Core\Renderer\View;
-use Phoxx\Core\Renderer\Interfaces\RendererDriver;
-use Phoxx\Core\Renderer\Exceptions\RendererException;
+use Phoxx\Core\Exceptions\RendererException;
 use Phoxx\Core\File\Exceptions\FileException;
+use Phoxx\Core\Renderer\Renderer;
+use Phoxx\Core\Renderer\View;
 
-class PhpDriver implements RendererDriver
+class PHPDriver implements Renderer
 {
   private const EXTENSION = '.php';
 
@@ -27,38 +27,33 @@ class PhpDriver implements RendererDriver
 
   public function render(View $view): string
   {
-    /**
-     * Resolve namespace.
-     */
+    // Resolve namespace
     preg_match('#^@([a-zA-Z-_]+)[\\\\/](.+)$#', $view->getTemplate(), $match);
 
-    $namespace = isset($match[1]) === true ? $match[1] : null;
-    $template =  isset($match[2]) === true ? $match[2] . self::EXTENSION : $view->getTemplate() . self::EXTENSION;
+    $namespace = isset($match[1]) ? $match[1] : null;
+    $template =  isset($match[2]) ? $match[2] . self::EXTENSION : $view->getTemplate() . self::EXTENSION;
 
-    if ((bool)preg_match('#^(?:[a-zA-Z]:[\\\\/]|/)#', $template) === true || isset($this->paths[$namespace]) === false) {
+    // Reject on absolute path or missing namespace
+    if (preg_match('#^(?:[a-zA-Z]:[\\\\/]|/)#', $template) || !isset($this->paths[$namespace])) {
       throw new RendererException('Failed to find path for template `' . $template . '`.');
     }
 
     foreach (array_keys($this->paths[$namespace]) as $path) {
-      /**
-       * Resolve relative path.
-       */
+      // Resolve relative paths
       $path = $path . '/' . $template;
-      $path = (bool)preg_match('#^(?:[a-zA-Z]:(?:\\\\|/)|/)#', $path) === false ? $this->base . '/' . $path : $path;
+      $path = !preg_match('#^(?:[a-zA-Z]:[\\\\/]|/)#', $path) ? $this->base . '/' . $path : $path;
 
-      if (($path = realpath($path)) !== false) {
+      if ($path = realpath($path)) {
         $resolved = $path;
         break;
       }
     }
 
-    if (isset($resolved) === false) {
+    if (!isset($resolved)) {
       throw new FileException('Failed to resolve path for template `' . $template . '`.');
     }
 
-    /**
-     * Render template.
-     */
+    // Render template
     $parameters = $view->getParameters();
 
     foreach ($parameters as &$parameter) {

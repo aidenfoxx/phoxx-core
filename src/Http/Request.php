@@ -21,16 +21,14 @@ class Request
   public function __construct(
     string $uri,
     string $method = 'GET',
-    array $query = $_GET,
-    array $request = $_POST,
-    array $server = $_SERVER,
-    array $cookies = $_COOKIE,
-    array $files = $_FILES,
-    string $content = file_get_contents('php://input')
+    array $query = [],
+    array $request = [],
+    array $server = [],
+    array $cookies = [],
+    array $files = [],
+    ?string $content = null
   ) {
-    /**
-     * Define required application variables.
-     */
+    // Define required application variables
     $server = array_replace([
       'PATH_INFO' => '',
       'SERVER_NAME' => 'localhost',
@@ -50,14 +48,12 @@ class Request
     // NOTE: Fix for // returning / as host.
     $components = parse_url(preg_replace('#^\/\/#', '/', $uri));
 
-    /**
-     * Parse out URI data into server.
-     */
-    if (isset($components['path']) === true) {
+    // Parse out URI data into server
+    if (isset($components['path'])) {
       $server['PATH_INFO'] = $components['path'] !== '/' ? $components['path'] : '';
     }
 
-    if (isset($components['scheme']) === true) {
+    if (isset($components['scheme'])) {
       if ($components['scheme'] === 'https') {
         $server['HTTPS'] = 'on';
         $server['SERVER_PORT'] = 443;
@@ -67,35 +63,35 @@ class Request
       }
     }
 
-    if (isset($components['host']) === true) {
+    if (isset($components['host'])) {
       $server['SERVER_NAME'] = $components['host'];
       $server['HTTP_HOST'] = $components['host'];
     }
 
-    if (isset($components['port']) === true) {
+    if (isset($components['port'])) {
       $server['SERVER_PORT'] = $components['port'];
       $server['HTTP_HOST'] = $server['HTTP_HOST'] . ':' . $components['port'];
     }
 
-    if (isset($components['user']) === true) {
+    if (isset($components['user'])) {
       $server['PHP_AUTH_USER'] = $components['user'];
     }
 
-    if (isset($components['pass']) === true) {
+    if (isset($components['pass'])) {
       $server['PHP_AUTH_PW'] = $components['pass'];
     }
 
-    if (isset($components['query']) === true) {
+    if (isset($components['query'])) {
       parse_str(html_entity_decode($components['query']), $uriQuery);
 
-      if (empty($query) === false) {
+      if (!empty($query)) {
         $query = array_replace($uriQuery, $query);
         $server['QUERY_STRING'] = http_build_query($query, '', '&');
       } else {
         $query = $uriQuery;
         $server['QUERY_STRING'] = $components['query'];
       }
-    } elseif (empty($query) === false) {
+    } elseif (!empty($query)) {
       $server['QUERY_STRING'] = http_build_query($query, '', '&');
     }
 
@@ -104,11 +100,9 @@ class Request
     }
 
     $server['REQUEST_METHOD'] = strtoupper($method);
-    $server['REQUEST_URI'] = (empty($server['PATH_INFO']) === false ? $server['PATH_INFO'] : '/') . (empty($server['QUERY_STRING']) === false ? '?' . $server['QUERY_STRING'] : '');
+    $server['REQUEST_URI'] = (!empty($server['PATH_INFO']) ? $server['PATH_INFO'] : '/') . (!empty($server['QUERY_STRING']) ? '?' . $server['QUERY_STRING'] : '');
 
-    /**
-     * Resolve PATH_INFO to URL rewrite.
-     */
+    // Resolve PATH_INFO to URL rewrite
     if (strlen($basePath = @dirname($server['SCRIPT_NAME'])) > 1 && strpos($server['PATH_INFO'], $basePath) === 0) {
       $server['PATH_INFO'] = ($path = substr($server['PATH_INFO'], strlen($basePath))) !== '/' ? $path : '';
     }
@@ -143,10 +137,10 @@ class Request
 
   public function getUrl(): string
   {
-    if (isset($this->url) === false) {
-      $protocol = isset($this->server['HTTPS']) === true ? 'https://' : 'http://';
+    if (!isset($this->url)) {
+      $protocol = isset($this->server['HTTPS']) ? 'https://' : 'http://';
       $host = $this->server['SERVER_NAME'];
-      $port = isset($this->server['HTTPS']) === false && (int)$this->server['SERVER_PORT'] !== 80 || isset($this->server['HTTPS']) === true && (int)$this->server['SERVER_PORT'] !== 443 ? ':' . $this->server['SERVER_PORT'] : '';
+      $port = !isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 80 || isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 443 ? ':' . $this->server['SERVER_PORT'] : '';
 
       $this->url = $protocol . $host . $port;
     }
@@ -156,27 +150,27 @@ class Request
 
   public function getQuery(string $index)
   {
-    return isset($this->query[$index]) === true ? $this->query[$index] : null;
+    return isset($this->query[$index]) ? $this->query[$index] : null;
   }
 
   public function getRequest(string $index)
   {
-    return isset($this->request[$index]) === true ? $this->request[$index] : null;
+    return isset($this->request[$index]) ? $this->request[$index] : null;
   }
 
   public function getServer(string $index)
   {
-    return isset($this->server[$index]) === true ? $this->server[$index] : null;
+    return isset($this->server[$index]) ? $this->server[$index] : null;
   }
 
   public function getCookie(string $index): ?string
   {
-    return isset($this->cookies[$index]) === true ? (string)$this->cookies[$index] : null;
+    return isset($this->cookies[$index]) ? (string)$this->cookies[$index] : null;
   }
 
   public function getFile(string $index): ?array
   {
-    return isset($this->files[$index]) === true ? (array)$this->files[$index] : null;
+    return isset($this->files[$index]) ? (array)$this->files[$index] : null;
   }
 
   public function getContent(): ?string

@@ -100,7 +100,7 @@ class Validator
 
   public const NOT_IN_ARRAY = 'notInArray';
 
-  public const CUSTOM = 'CUSTOM';
+  public const CUSTOM = 'custom';
 
   private static function isFalse($var1): bool
   {
@@ -375,8 +375,8 @@ class Validator
     foreach ($rules as $rule) {
       $function = array_shift($rule);
 
-      if (is_callable([$this, $function]) === false || call_user_func_array([$this, $function], $rule) === false) {
-        if ($error !== null) {
+      if (!is_callable([$this, $function]) || !call_user_func_array([$this, $function], $rule)) {
+        if ($error) {
           $this->errors[] = $error;
         }
 

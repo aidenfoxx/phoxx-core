@@ -2,54 +2,21 @@
 
 namespace Phoxx\Core\Session;
 
-use Phoxx\Core\Session\Interfaces\SessionDriver;
-
-class Session
+interface Session
 {
-  protected $driver;
+  public function getValue(string $index);
 
-  public function __construct(SessionDriver $driver)
-  {
-    $this->driver = $driver;
-  }
+  public function setValue(string $index, $value): void;
 
-  public function getDriver(): SessionDriver
-  {
-    return $this->driver;
-  }
+  public function removeValue(string $index): void;
 
-  public function getValue(string $index)
-  {
-    return $this->driver->getValue($index);
-  }
+  public function active(): bool;
 
-  public function setValue(string $index, $value): void
-  {
-    $this->driver->setValue($index, $value);
-  }
+  public function open(): void;
 
-  public function removeValue(string $index): void
-  {
-    $this->driver->removeValue($index);
-  }
+  public function close(): void;
 
-  public function active(): bool
-  {
-    return $this->driver->active();
-  }
+  public function regenerate(): void;
 
-  public function open(): void
-  {
-    $this->driver->open();
-  }
-
-  public function close(): void
-  {
-    $this->driver->close();
-  }
-
-  public function clear(): void
-  {
-    $this->driver->clear();
-  }
+  public function clear(): void;
 }

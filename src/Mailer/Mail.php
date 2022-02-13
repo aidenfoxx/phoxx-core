@@ -60,7 +60,7 @@ class Mail
 
   public function getHeader(string $key): ?string
   {
-    return isset($this->headers[$key]) === true ? $this->headers[$key] : null;
+    return isset($this->headers[$key]) ? $this->headers[$key] : null;
   }
 
   public function setHeader(string $key, string $value): void

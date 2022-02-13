@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Phoxx\Core\Cache\Drivers;
 
-use Phoxx\Core\Cache\Interfaces\CacheDriver;
+use Phoxx\Core\Cache\Cache;
 
-class ArrayDriver implements CacheDriver
+class ArrayDriver implements Cache
 {
   protected $cache = [];
 
   public function getValue(string $index)
   {
-    if (isset($this->cache[$index]) === false) {
+    if (!isset($this->cache[$index])) {
       return null;
     }
 

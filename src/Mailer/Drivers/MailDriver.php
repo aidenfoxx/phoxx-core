@@ -2,12 +2,12 @@
 
 namespace Phoxx\Core\Mailer\Drivers;
 
-use Phoxx\Core\Mailer\Exceptions\MailException;
-use Phoxx\Core\Mailer\Interfaces\MailerDriver;
+use Phoxx\Core\Exceptions\MailException;
 use Phoxx\Core\Mailer\Mail;
+use Phoxx\Core\Mailer\Mailer;
 use Phoxx\Core\Renderer\Renderer;
 
-class MailDriver implements MailerDriver
+class MailDriver implements Mailer
 {
   private $renderer;
 
@@ -29,8 +29,8 @@ class MailDriver implements MailerDriver
     $cc = [];
     $bcc = [];
 
-    if (($email = $mail->getSender()) !== null) {
-      if (($name = $mail->getSenderName()) !== null) {
+    if ($email = $mail->getSender()) {
+      if ($name = $mail->getSenderName()) {
         $from = $name . ' <' . $email . '>';
       } else {
         $from = $email;
@@ -38,15 +38,15 @@ class MailDriver implements MailerDriver
     }
 
     foreach ($mail->getRecipients() as $email => $name) {
-      $to[] = empty($name) === false ? $name . ' <' . $email . '>' : $email;
+      $to[] = !empty($name) ? $name . ' <' . $email . '>' : $email;
     }
 
     foreach ($mail->getCc() as $email => $name) {
-      $cc[] = empty($name) === false ? $name . ' <' . $email . '>' : $email;
+      $cc[] = !empty($name) ? $name . ' <' . $email . '>' : $email;
     }
 
     foreach ($mail->getBcc() as $email => $name) {
-      $bcc[] = empty($name) === false ? $name . ' <' . $email . '>' : $email;
+      $bcc[] = !empty($name) ? $name . ' <' . $email . '>' : $email;
     }
 
     $headers = [];
@@ -56,7 +56,7 @@ class MailDriver implements MailerDriver
     $headers['Cc'] = implode(',', $cc);
     $headers['Bcc'] = implode(',', $bcc);
 
-    if (mail(implode(',', $to), $mail->getSubject(), $this->renderer->render($mail->getTemplate()), $headers) === false) {
+    if (!mail(implode(',', $to), $mail->getSubject(), $this->renderer->render($mail->getTemplate()), $headers)) {
       throw new MailException('Failed to send send mail.');
     }
   }

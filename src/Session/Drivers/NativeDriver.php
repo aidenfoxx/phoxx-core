@@ -2,11 +2,11 @@
 
 namespace Phoxx\Core\Session\Drivers;
 
-use Phoxx\Core\Http\Exceptions\ResponseException;
-use Phoxx\Core\Session\Exceptions\SessionException;
-use Phoxx\Core\Session\Interfaces\SessionDriver;
+use Phoxx\Core\Exceptions\SessionException;
+use Phoxx\Core\Exceptions\ResponseException;
+use Phoxx\Core\Session\Session;
 
-class NativeDriver implements SessionDriver
+class NativeDriver implements Session
 {
   protected $sessionName;
 
@@ -14,26 +14,26 @@ class NativeDriver implements SessionDriver
 
   public function __construct(?string $sessionName = null)
   {
-    $this->sessionName = $sessionName !== null ? $sessionName : ini_get('session.name');
+    $this->sessionName = $sessionName ? $sessionName : ini_get('session.name');
 
     session_register_shutdown();
   }
 
   public function getValue(string $index)
   {
-    return $this->active === true && isset($_SESSION[$index]) === true ? $_SESSION[$index] : null;
+    return $this->active && isset($_SESSION[$index]) ? $_SESSION[$index] : null;
   }
 
   public function setValue(string $index, $value): void
   {
-    if ($this->active === true && isset($_SESSION) === true) {
+    if ($this->active && isset($_SESSION)) {
       $_SESSION[$index] = $value;
     }
   }
 
   public function removeValue(string $index): void
   {
-    if ($this->active === true && isset($_SESSION) === true) {
+    if ($this->active && isset($_SESSION)) {
       unset($_SESSION[$index]);
     }
   }
@@ -45,11 +45,11 @@ class NativeDriver implements SessionDriver
 
   public function open(): void
   {
-    if ($this->active === true) {
+    if ($this->active) {
       return;
     }
 
-    if (headers_sent() === true) {
+    if (headers_sent()) {
       throw new ResponseException('Response headers already sent.');
     }
 
@@ -57,14 +57,14 @@ class NativeDriver implements SessionDriver
       throw new SessionException('Native session already active.');
     }
 
-    if (isset($_COOKIE[$this->sessionName]) === false) {
+    if (!isset($_COOKIE[$this->sessionName])) {
       $_COOKIE[$this->sessionName] = session_create_id();
     }
 
     session_name($this->sessionName);
     session_id($_COOKIE[$this->sessionName]);
 
-    if (session_start() === false) {
+    if (!session_start()) {
       throw new SessionException('Failed to start session.');
     }
 
@@ -73,7 +73,7 @@ class NativeDriver implements SessionDriver
 
   public function close(): void
   {
-    if ($this->active === true && session_write_close() === false) {
+    if ($this->active && !session_write_close()) {
       throw new SessionException('Failed to close session.');
     }
 
@@ -82,7 +82,7 @@ class NativeDriver implements SessionDriver
 
   public function regenerate(): void
   {
-    if ($this->active === true && session_regenerate_id() === true) {
+    if ($this->active && session_regenerate_id()) {
       $_COOKIE[$this->sessionName] = session_id();
     }
   }

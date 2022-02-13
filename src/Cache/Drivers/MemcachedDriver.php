@@ -4,9 +4,9 @@ namespace Phoxx\Core\Cache\Drivers;
 
 use Memcached;
 
-use Phoxx\Core\Cache\Interfaces\CacheDriver;
+use Phoxx\Core\Cache\Cache;
 
-class MemcachedDriver implements CacheDriver
+class MemcachedDriver implements Cache
 {
   private $memcached;
 
