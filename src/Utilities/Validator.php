@@ -319,7 +319,7 @@ class Validator
 
   private static function notMatch($var1, $var2): bool
   {
-    return !(bool)preg_match($var1, $var2);
+    return !preg_match($var1, $var2);
   }
 
   private static function notSet($var1): bool
@@ -359,11 +359,12 @@ class Validator
   }
 
   /**
-   * Perform validation(s) and store an
-   * error on faliure. Rule(s) format:
+   * Perform validation(s) and set an error on faliure.
+   * 
+   * Rule format:
    * [
-   *    [Validator::CALLBACK, ...$variables],
-   *    [Validator::CALLBACK, ...$variables],
+   *    [Validator::CALLBACK, ...vars],
+   *    [Validator::CALLBACK, ...vars],
    *    ...
    * ]
    * @param  string $error Error message

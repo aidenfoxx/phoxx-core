@@ -1,13 +1,5 @@
-composer.lock
-
 .php_cs.cache
 .phpunit.result.cache
 
-tests/report/*
-!tests/report/.gitkeep
-
-tests/cache/*
-!tests/cache/.gitkeep
-
-vendor/*
-!vendor/.gitkeep
+reports
+vendor

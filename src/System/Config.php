@@ -32,12 +32,12 @@ class Config
     // Resolve namespace
     preg_match('#^@([a-zA-Z-_]+)[\\\\/](.+)$#', $config, $match);
 
-    $namespace = isset($match[1]) ? $match[1] : null;
+    $namespace = $match[1] ?? null;
     $config = isset($match[2]) ? $match[2] . self::EXTENSION : $config . self::EXTENSION;
 
     // Reject on absolute path or missing namespace
     if (preg_match('#^(?:[a-zA-Z]:[\\\\/]|/)#', $config) || !isset($this->paths[$namespace])) {
-      throw new ConfigException('Failed to find path for file `' . $config . '`.');
+      throw new ConfigException('Failed to match path for file `' . $config . '`.');
     }
 
     foreach (array_keys($this->paths[$namespace]) as $path) {

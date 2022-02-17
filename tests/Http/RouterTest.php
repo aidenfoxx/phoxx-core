@@ -1,183 +1,174 @@
 <?php declare(strict_types=1);
 
-namespace Phoxx\Core\Http
-{
-  use Phoxx\Core\Tests\Http\DispatcherTest;
+namespace Phoxx\Core\Tests\Http;
 
-  function headers_sent(): bool
+use Phoxx\Core\Controllers\Controller;
+use Phoxx\Core\Exceptions\RequestException;
+use Phoxx\Core\Exceptions\ResponseException;
+use Phoxx\Core\Exceptions\RouteException;
+use Phoxx\Core\Http\Response;
+use Phoxx\Core\Http\Route;
+use Phoxx\Core\Http\Router;
+use Phoxx\Core\Http\Request;
+use Phoxx\Core\System\Services;
+
+use PHPUnit\Framework\TestCase;
+
+final class TestController extends Controller
+{
+  static public $router;
+
+  static public $services;
+
+  static public $main;
+
+  static public $active;
+
+  public function __construct(Router $router, Services $services)
   {
-    return DispatcherTest::$headersSent;
+    parent::__construct($router, $services);
+
+    self::$router = $router;
+    self::$services = $services;
   }
 
-  function header(string $header): void
+  public function action(): Response
   {
-    DispatcherTest::$headers[] = $header;
+    return new Response();
+  }
+
+  public function invalid(): bool
+  {
+    return false;
+  }
+
+  public function subaction(): Response
+  {
+    if ($this->active() === $this->main()) {
+      return $this->dispatch(new Request($this->active()->getPath()));
+    }
+
+    self::$main = $this->main();
+    self::$active = $this->active();
+
+    return new Response();
   }
 }
 
-namespace Phoxx\Core\Tests\Http
+final class InvalidController {
+  
+}
+
+final class RouterTest extends TestCase
 {
-  use Phoxx\Core\Controllers\Controller;
-  use Phoxx\Core\Framework\ServiceContainer;
-  use Phoxx\Core\Http\Dispatcher;
-  use Phoxx\Core\Http\Exceptions\RequestException;
-  use Phoxx\Core\Http\Exceptions\ResponseException;
-  use Phoxx\Core\Http\Helpers\SimpleRequest;
-  use Phoxx\Core\Http\RequestStack;
-  use Phoxx\Core\Http\Response;
-  use Phoxx\Core\Router\Exceptions\RouteException;
-  use Phoxx\Core\Router\Route;
-  use Phoxx\Core\Router\RouteContainer;
-
-  use PHPUnit\Framework\TestCase;
-
-  final class TestController extends Controller
+  public function invalidActions(): array
   {
-    public function success(): Response
-    {
-      return new Response('RESPONSE');
-    }
-
-    public function unexpected(): string
-    {
-      return 'RESPONSE';
-    }
+    return [
+      [['UndefinedController' => 'action']],
+      [[InvalidController::class => 'action']],
+      [[TestController::class => 'undefined']],
+    ];
   }
 
-  // phpcs:ignore PSR1.Classes.ClassDeclaration
-  final class DispatcherTest extends TestCase
+  public function setUp(): void
   {
-    public static $headers = [];
+    TestController::$router = null;
+    TestController::$services = null;
+    TestController::$main = null;
+    TestController::$active = null;
+  }
 
-    public static $headersSent = false;
+  public function testShouldCreateRouter(): void
+  {
+    $router = new Router(new Services());
 
-    public function responseStatusProvider(): array
-    {
-      return [[200], [404], [500]];
-    }
+    $this->assertNull($router->main());
+    $this->assertNull($router->active());
+  }
 
-    public function routeExceptionsProvider(): array
-    {
-      return [
-        [['INVALID_CONTROLLER' => 'success'], RouteException::class],
-        [[TestController::class => 'invalid'], RouteException::class],
-        [[TestController::class => 'unexpected'], ResponseException::class],
-      ];
-    }
+  public function testShouldDispatch(): void
+  {
+    $router = new Router(new Services());
+    $router->addRoute(new Route('PATH', [TestController::class => 'action']));
 
-    public function setUp(): void
-    {
-      self::$headers = [];
-      self::$headersSent = false;
-    }
+    $this->assertInstanceOf(Response::class, $router->dispatch(new Request('PATH')));
+    $this->assertInstanceOf(Router::class, TestController::$router);
+    $this->assertInstanceOf(Services::class, TestController::$services);
+  }
 
-    public function testDispatch(): void
-    {
-      $routeContainer = new RouteContainer();
-      $routeContainer->setRoute(new Route('PATH', [TestController::class => 'success']));
+  public function testShouldDispatchNull(): void
+  {
+    $router = new Router(new Services());
 
-      $dispatcher = $this->getMockForAbstractClass(Dispatcher::class, [
-        $routeContainer,
-        new ServiceContainer(),
-        new RequestStack()
-      ]);
+    $this->assertNull($router->dispatch(new Request('PATH')));
+  }
 
-      $this->assertInstanceOf(Response::class, $dispatcher->dispatch(new SimpleRequest('PATH')));
-    }
+  public function testShouldRejectExternalRequest(): void
+  {
+    $router = new Router(new Services());
 
-    public function testDispatchUndefinedRoute(): void
-    {
-      $dispatcher = $this->getMockForAbstractClass(Dispatcher::class, [
-        new RouteContainer(),
-        new ServiceContainer(),
-        new RequestStack()
-      ]);
+    $this->expectException(RequestException::class);
 
-      $this->assertNull($dispatcher->dispatch(new SimpleRequest('PATH')));
-    }
+    $router->dispatch(new Request('http://www.test.com'));
+  }
 
-    public function testDispatchExternalRequest(): void
-    {
-      $dispatcher = $this->getMockForAbstractClass(Dispatcher::class, [
-        new RouteContainer(),
-        new ServiceContainer(),
-        new RequestStack()
-      ]);
+  public function testShouldRejectInvalidResponse(): void
+  {
+    $router = new Router(new Services());
+    $router->addRoute(new Route('PATH', [TestController::class => 'invalid']));
 
-      $this->expectException(RequestException::class);
+    $this->expectException(ResponseException::class);
 
-      $dispatcher->dispatch(new SimpleRequest('http://www.test.com'));
-    }
+    $router->dispatch(new Request('PATH'));
+  }
 
-    /**
-     * @dataProvider routeExceptionsProvider
-     */
-    public function testDispatchInvalidRoutes(array $action, string $exception): void
-    {
-      $routeContainer = new RouteContainer();
-      $routeContainer->setRoute(new Route('PATH', $action));
+  /**
+   * @dataProvider invalidActions
+   */
+  public function testShouldRejectInvalidAction(array $action): void
+  {
+    $router = new Router(new Services());
+    $router->addRoute(new Route('PATH', $action));
 
-      $dispatcher = $this->getMockForAbstractClass(Dispatcher::class, [
-        $routeContainer,
-        new ServiceContainer(),
-        new RequestStack()
-      ]);
+    $this->expectException(RouteException::class);
 
-      $this->expectException($exception);
+    $router->dispatch(new Request('PATH'));
+  }
 
-      $dispatcher->dispatch(new SimpleRequest('PATH'));
-    }
+  public function testShouldMatchRoute(): void
+  {
+    $router = new Router(new Services());
+    $router->addRoute(new Route('(?<param1>[A-Z]+)\/(?<param2>[0-9]+)\/([A-Z]+)', [TestController::class => 'action']));
 
-    /**
-     * @dataProvider responseStatusProvider
-     */
-    public function testSend(int $status): void
-    {
-      $dispatcher = new Dispatcher(
-        new RouteContainer(),
-        new ServiceContainer(),
-        new RequestStack()
-      );
+    $router->match('TEST/123/IGNORE', 'GET', $parameters);
 
-      $this->expectOutputString('RESPONSE');
+    $this->assertSame(['param1' => 'TEST',  'param2' => '123'], $parameters);
+  }
 
-      $dispatcher->send(new Response('RESPONSE', $status));
+  public function testShouldMatchNullOnRouteNotFound(): void
+  {
+    $router = new Router(new Services());
+    $router->addRoute(new Route('PATH', [TestController::class => 'action']));
 
-      $this->assertSame($status, http_response_code());
-    }
+    $this->assertNull($router->match('INVALID'));
+  }
 
-    public function testSendHeaders(): void
-    {
-      $dispatcher = new Dispatcher(
-        new RouteContainer(),
-        new ServiceContainer(),
-        new RequestStack()
-      );
-      $dispatcher->send(new Response('RESPONSE', 200, [
-        'HEADER_1' => 'VALUE_1',
-        'HEADER_2' => 'VALUE_2'
-      ]));
+  public function testShouldMatchNullOnMethodNotSet(): void
+  {
+    $router = new Router(new Services());
 
-      $this->assertSame(200, http_response_code());
-      $this->assertSame(self::$headers, [
-        'HEADER_1: VALUE_1',
-        'HEADER_2: VALUE_2'
-      ]);
-    }
+    $this->assertNull($router->match('INVALID'));
+  }
 
-    public function testSendAfterHeadersSent(): void
-    {
-      self::$headersSent = true;
+  public function testShouldReturnActiveRequest(): void
+  {
+    $router = new Router(new Services());
+    $router->addRoute(new Route('PATH', [TestController::class => 'subaction']));
 
-      $dispatcher = new Dispatcher(
-        new RouteContainer(),
-        new ServiceContainer(),
-        new RequestStack()
-      );
+    $request = new Request('PATH');
+    $router->dispatch($request);
 
-      $this->expectException(ResponseException::class);
-
-      $dispatcher->send(new Response('RESPONSE'));
-    }
+    $this->assertSame($request, TestController::$main);
+    $this->assertNotSame($request, TestController::$active);
   }
 }

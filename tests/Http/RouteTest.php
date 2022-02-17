@@ -1,43 +1,45 @@
 <?php declare(strict_types=1);
 
-namespace Phoxx\Core\Tests\Router;
+namespace Phoxx\Core\Tests\Http;
 
-use Phoxx\Core\Router\Route;
-use Phoxx\Core\Router\Exceptions\RouteException;
+use Phoxx\Core\Http\Route;
+use Phoxx\Core\Exceptions\RouteException;
 
 use PHPUnit\Framework\TestCase;
 
 final class RouteTest extends TestCase
 {
-  public function testRotue()
+  public function testShouldCreateRotue()
   {
-    $route = new Route('PATH', ['CONTROLLER' => 'ACTION'], 'POST');
+    $route = new Route('PATH', ['CONTROLLER' => 'ACTION'], 'METHOD');
 
     $this->assertSame('PATH', $route->getPattern());
     $this->assertSame(['CONTROLLER' => 'ACTION'], $route->getAction());
-    $this->assertSame('POST', $route->getMethod());
+    $this->assertSame('METHOD', $route->getMethod());
   }
 
-  public function testGetPath(): void
-  {
-    $route = new Route('PATH', ['CONTROLLER' => 'ACTION']);
-
-    $this->assertSame('PATH', $route->getPath());
-  }
-
-  public function testGetPathWithParameters(): void
+  public function testShouldReverseRoute(): void
   {
     $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION']);
 
-    $this->assertSame('PATH/VALUE', $route->getPath(['PARAMETER' => 'VALUE']));
+    $this->assertSame('PATH/VALUE', $route->reverse(['PARAMETER' => 'VALUE']));
   }
 
-  public function testGetPathException(): void
+  public function testShouldRejectMissingParameter(): void
   {
     $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION']);
 
     $this->expectException(RouteException::class);
 
-    $route->getPath();
+    $route->reverse();
+  }
+
+  public function testShouldRejectInvalidParameter(): void
+  {
+    $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 123]);
+
+    $this->expectException(RouteException::class);
+
+    $route->reverse();
   }
 }

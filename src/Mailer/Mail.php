@@ -2,6 +2,7 @@
 
 namespace Phoxx\Core\Mailer;
 
+use Phoxx\Core\File\File;
 use Phoxx\Core\Renderer\View;
 
 class Mail
@@ -60,7 +61,7 @@ class Mail
 
   public function getHeader(string $key): ?string
   {
-    return isset($this->headers[$key]) ? $this->headers[$key] : null;
+    return $this->headers[$key] ?? null;
   }
 
   public function setHeader(string $key, string $value): void
@@ -83,27 +84,27 @@ class Mail
     return $this->recipients;
   }
 
-  public function addCc(string $email, ?string $name = null): void
+  public function addCC(string $email, ?string $name = null): void
   {
     $this->cc[$email] = $name;
   }
 
-  public function getCc(): array
+  public function getCC(): array
   {
     return $this->cc;
   }
 
-  public function addBcc(string $email, ?string $name = null): void
+  public function addBCC(string $email, ?string $name = null): void
   {
     $this->bcc[$email] = $name;
   }
 
-  public function getBcc(): array
+  public function getBCC(): array
   {
     return $this->bcc;
   }
 
-  public function addAttachment(string $file): void
+  public function addAttachment(File $file): void
   {
     $this->attachments[] = $file;
   }

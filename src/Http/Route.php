@@ -40,7 +40,7 @@ class Route
     return preg_replace_callback('#\(\?<([a-zA-Z0-9_-]+)>[^\)]+\)#', function (array $match) use ($parameters) {
       list($pattern, $parameter) = $match;
 
-      if (isset($parameters[$parameter]) === true && (bool)preg_match('#^' . $pattern . '$#', $parameters[$parameter]) === true) {
+      if (isset($parameters[$parameter]) && preg_match('#^' . $pattern . '$#', $parameters[$parameter])) {
         return (string)$parameters[$parameter];
       }
       throw new RouteException('Incorrect value for parameter `' . $parameter . '`.');

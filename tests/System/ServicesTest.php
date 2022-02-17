@@ -26,7 +26,6 @@ final class ServicesTest extends TestCase
     $this->assertNull($services->getService('INVALID'));
   }
 
-
   public function testShouldGetNamedService(): void
   {
     $service = new stdClass();
@@ -34,16 +33,6 @@ final class ServicesTest extends TestCase
     $services->setService($service, 'TEST');
 
     $this->assertSame($service, $services->getService('TEST'));
-    $this->assertNull($services->getService(stdClass::class));
-  }
-
-  public function testShouldRemoveService(): void
-  {
-    $service = new stdClass();
-    $services = new Services();
-    $services->setService($service);
-    $services->removeService(stdClass::class);
-
     $this->assertNull($services->getService(stdClass::class));
   }
 }

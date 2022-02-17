@@ -2,6 +2,7 @@
 
 namespace Phoxx\Core\Tests\Mailer;
 
+use Phoxx\Core\File\File;
 use Phoxx\Core\Mailer\Mail;
 use Phoxx\Core\Renderer\View;
 
@@ -9,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class MailTest extends TestCase
 {
-  public function testView()
+  public function testShouldCreateMail()
   {
     $view = new View('PATH');
     $mail = new Mail('SUBJECT', $view, 'SENDER', 'SENDER_NAME', ['HEADER' => 'VALUE']);
@@ -22,7 +23,7 @@ final class MailTest extends TestCase
     $this->assertSame(['HEADER' => 'VALUE'], $mail->getHeaders());
   }
 
-  public function testGetHeader()
+  public function testShouldGetHeader()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->setHeader('HEADER', 'VALUE');
@@ -30,14 +31,14 @@ final class MailTest extends TestCase
     $this->assertSame('VALUE', $mail->getHeader('HEADER'));
   }
 
-  public function testGetHeaderNull()
+  public function testShouldGetHeaderNull()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
 
-    $this->assertNull($mail->getHeader('HEADER'));
+    $this->assertNull($mail->getHeader('INVALID'));
   }
 
-  public function testGetHeaders()
+  public function testShouldGetHeaders()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->setHeader('HEADER', 'VALUE');
@@ -45,7 +46,7 @@ final class MailTest extends TestCase
     $this->assertSame(['HEADER' => 'VALUE'], $mail->getHeaders());
   }
 
-  public function testGetRecipients()
+  public function testShouldGetRecipients()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->addRecipient('EMAIL', 'NAME');
@@ -53,27 +54,28 @@ final class MailTest extends TestCase
     $this->assertSame(['EMAIL' => 'NAME'], $mail->getRecipients());
   }
 
-  public function testGetCc()
+  public function testShouldGetCC()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->addCc('EMAIL', 'NAME');
+    $mail->addCC('EMAIL', 'NAME');
 
-    $this->assertSame(['EMAIL' => 'NAME'], $mail->getCc());
+    $this->assertSame(['EMAIL' => 'NAME'], $mail->getCC());
   }
 
-  public function testGetBcc()
+  public function testShouldGetBCC()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->addBcc('EMAIL', 'NAME');
+    $mail->addBCC('EMAIL', 'NAME');
 
-    $this->assertSame(['EMAIL' => 'NAME'], $mail->getBcc());
+    $this->assertSame(['EMAIL' => 'NAME'], $mail->getBCC());
   }
 
-  public function testGetAttachments()
+  public function testShouldGetAttachments()
   {
+    $file = new File(PATH_BASE . '/Mailer/MailTest/attachment.txt');
     $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->addAttachment('FILE');
+    $mail->addAttachment($file);
 
-    $this->assertSame(['FILE'], $mail->getAttachments());
+    $this->assertSame([$file], $mail->getAttachments());
   }
 }

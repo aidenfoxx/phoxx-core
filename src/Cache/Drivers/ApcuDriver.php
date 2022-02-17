@@ -4,7 +4,7 @@ namespace Phoxx\Core\Cache\Drivers;
 
 use Phoxx\Core\Cache\Cache;
 
-class ApcuDriver implements Cache
+class APCUDriver implements Cache
 {
   public function getValue(string $index)
   {

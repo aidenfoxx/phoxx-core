@@ -7,9 +7,9 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
 class TablePrefix
 {
-  protected $prefix = '';
+  protected $prefix;
 
-  public function __construct(string $prefix)
+  public function __construct(string $prefix = '')
   {
     $this->prefix = $prefix;
   }
@@ -18,10 +18,7 @@ class TablePrefix
   {
     $classMetadata = $eventArgs->getClassMetadata();
 
-    if (
-      !$classMetadata->isInheritanceTypeSingleTable() ||
-      $classMetadata->name === $classMetadata->rootEntityName
-    ) {
+    if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->name === $classMetadata->rootEntityName) {
       $classMetadata->table['name'] = $this->prefix . $classMetadata->table['name'];
     }
 

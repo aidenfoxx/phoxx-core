@@ -3,10 +3,9 @@
 namespace Phoxx\Core\Tests\Controllers;
 
 use Phoxx\Core\Controllers\Controller;
-use Phoxx\Core\Framework\ServiceContainer;
-use Phoxx\Core\Http\Helpers\SimpleRequest;
-use Phoxx\Core\Http\RequestStack;
-use Phoxx\Core\Router\RouteContainer;
+use Phoxx\Core\Http\ServerRequest;
+use Phoxx\Core\Http\Router;
+use Phoxx\Core\System\Services;
 
 use PHPUnit\Framework\TestCase;
 
@@ -14,62 +13,57 @@ use stdClass;
 
 final class ControllerTest extends TestCase
 {
-  public function testGetService()
+  public function testShouldGetService()
   {
     $service = new stdClass();
-    $serviceContainer = new ServiceContainer();
-    $serviceContainer->setService($service);
-
+    $services = new Services();
+    $services->setService($service);
     $controller = $this->getMockForAbstractClass(Controller::class, [
-      new RouteContainer(),
-      $serviceContainer,
-      new RequestStack()
+      new Router($services),
+      $services
     ]);
 
     $this->assertSame($service, $controller->getService(stdClass::class));
   }
 
-  public function testGetServiceNull()
+  public function testShouldGetServiceNull()
   {
+    $services = new Services();
     $controller = $this->getMockForAbstractClass(Controller::class, [
-      new RouteContainer(),
-      new ServiceContainer(),
-      new RequestStack()
+      new Router($services),
+      $services
     ]);
 
-    $this->assertNull($controller->getService('SERVICE'));
+    $this->assertNull($controller->getService('INVALID'));
   }
 
-  public function testMain()
+  public function testShouldGetMainRequest()
   {
-    $request = new SimpleRequest('MAIN');
-    $requestStack = new RequestStack();
-    $requestStack->push($request);
-
+    $request = new ServerRequest('URI');
+    $router = $this->createMock(Router::class);
+    $router->expects($this->once())
+          ->method('main')
+          ->willReturn($request);
     $controller = $this->getMockForAbstractClass(Controller::class, [
-      new RouteContainer(),
-      new ServiceContainer(),
-      $requestStack
+      $router,
+      new Services()
     ]);
 
     $this->assertSame($request, $controller->main());
   }
 
-  public function testActive()
+  public function testShouldGetActiveRequest()
   {
-    $requestMain = new SimpleRequest('MAIN');
-    $requestActive = new SimpleRequest('ACTIVE');
-    $requestStack = new RequestStack();
-    $requestStack->push($requestMain);
-    $requestStack->push($requestActive);
-
+    $request = new ServerRequest('URI');
+    $router = $this->createMock(Router::class);
+    $router->expects($this->once())
+          ->method('active')
+          ->willReturn($request);
     $controller = $this->getMockForAbstractClass(Controller::class, [
-      new RouteContainer(),
-      new ServiceContainer(),
-      $requestStack
+      $router,
+      new Services()
     ]);
 
-    $this->assertSame($requestMain, $controller->main());
-    $this->assertSame($requestActive, $controller->active());
+    $this->assertSame($request, $controller->active());
   }
 }

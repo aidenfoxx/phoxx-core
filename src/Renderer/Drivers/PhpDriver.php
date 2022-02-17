@@ -30,12 +30,12 @@ class PHPDriver implements Renderer
     // Resolve namespace
     preg_match('#^@([a-zA-Z-_]+)[\\\\/](.+)$#', $view->getTemplate(), $match);
 
-    $namespace = isset($match[1]) ? $match[1] : null;
+    $namespace = $match[1] ?? null;
     $template =  isset($match[2]) ? $match[2] . self::EXTENSION : $view->getTemplate() . self::EXTENSION;
 
     // Reject on absolute path or missing namespace
     if (preg_match('#^(?:[a-zA-Z]:[\\\\/]|/)#', $template) || !isset($this->paths[$namespace])) {
-      throw new RendererException('Failed to find path for template `' . $template . '`.');
+      throw new RendererException('Failed to match path for template `' . $template . '`.');
     }
 
     foreach (array_keys($this->paths[$namespace]) as $path) {

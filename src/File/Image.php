@@ -2,7 +2,7 @@
 
 namespace Phoxx\Core\File;
 
-use Phoxx\Core\File\Exceptions\ImageException;
+use Phoxx\Core\Exceptions\ImageException;
 
 class Image extends File
 {

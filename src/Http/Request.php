@@ -6,15 +6,15 @@ class Request
 {
   protected $url;
 
-  protected $query = [];
+  protected $query;
 
-  protected $request = [];
+  protected $request;
 
-  protected $server = [];
+  protected $server;
 
-  protected $cookies = [];
+  protected $cookies;
 
-  protected $files = [];
+  protected $files;
 
   protected $content;
 
@@ -137,7 +137,7 @@ class Request
 
   public function getUrl(): string
   {
-    if (!isset($this->url)) {
+    if (!$this->url) {
       $protocol = isset($this->server['HTTPS']) ? 'https://' : 'http://';
       $host = $this->server['SERVER_NAME'];
       $port = !isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 80 || isset($this->server['HTTPS']) && (int)$this->server['SERVER_PORT'] !== 443 ? ':' . $this->server['SERVER_PORT'] : '';
@@ -150,27 +150,27 @@ class Request
 
   public function getQuery(string $index)
   {
-    return isset($this->query[$index]) ? $this->query[$index] : null;
+    return $this->query[$index] ?? null;
   }
 
   public function getRequest(string $index)
   {
-    return isset($this->request[$index]) ? $this->request[$index] : null;
+    return $this->request[$index] ?? null;
   }
 
   public function getServer(string $index)
   {
-    return isset($this->server[$index]) ? $this->server[$index] : null;
+    return $this->server[$index] ?? null;
   }
 
   public function getCookie(string $index): ?string
   {
-    return isset($this->cookies[$index]) ? (string)$this->cookies[$index] : null;
+    return $this->cookies[$index] ?? null;
   }
 
   public function getFile(string $index): ?array
   {
-    return isset($this->files[$index]) ? (array)$this->files[$index] : null;
+    return (array)$this->files[$index] ?? null;
   }
 
   public function getContent(): ?string

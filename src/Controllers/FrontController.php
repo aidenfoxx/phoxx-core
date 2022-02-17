@@ -2,7 +2,7 @@
 
 namespace Phoxx\Core\Controllers;
 
-use Phoxx\Core\Framework\Exceptions\ServiceException;
+use Phoxx\Core\Exceptions\ServiceException;
 use Phoxx\Core\Http\Response;
 use Phoxx\Core\Renderer\Renderer;
 use Phoxx\Core\Renderer\View;

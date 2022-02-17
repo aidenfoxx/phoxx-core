@@ -12,7 +12,7 @@ final class ValidatorTest extends TestCase
 {
   public function successRules(): array
   {
-    $isSet = 'VALUE';
+    $isSet = 'TEST';
     $notSet = null;
 
     // Validation rules that should pass
@@ -71,7 +71,7 @@ final class ValidatorTest extends TestCase
 
   public function errorRules(): array
   {
-    $isSet = 'VALUE';
+    $isSet = 'TEST';
     $notSet = null;
 
     // Validation rules that should fail
@@ -97,7 +97,7 @@ final class ValidatorTest extends TestCase
       [Validator::IS_NUMERIC, 'TEST'],
       [Validator::IS_OBJECT, ['TEST']],
       [Validator::IS_MATCH, '/TEST/', 'VALUE'],
-      [Validator::IS_SET, $isSet],
+      [Validator::IS_SET, $notSet],
       [Validator::IS_STRING, 123],
       [Validator::IS_UPPER, 'test'],
       [Validator::IS_IN_ARRAY, 'TEST', ['VALUE']],
@@ -120,7 +120,7 @@ final class ValidatorTest extends TestCase
       [Validator::NOT_NUMERIC, 123],
       [Validator::NOT_OBJECT, new stdClass()],
       [Validator::NOT_MATCH, '/TEST/', 'TEST'],
-      [Validator::NOT_SET, $notSet],
+      [Validator::NOT_SET, $isSet],
       [Validator::NOT_STRING, 'TEST'],
       [Validator::NOT_UPPER, 'TEST'],
       [Validator::NOT_IN_ARRAY, 'TEST', ['TEST']],

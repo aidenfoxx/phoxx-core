@@ -44,7 +44,7 @@ class CacheDriver implements Session
 
     $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
 
-    return isset($sessionData[$index]) ? $sessionData[$index] : null;
+    return $sessionData[$index] ?? null;
   }
 
   public function setValue(string $index, $value): void

@@ -4,6 +4,15 @@ ValidatorTest
 ServicesTest
 ConfigTest
 ViewTest
+MailTest
+RouteTest
+ControllerTest
+ModelTest
+ImageTest
+FrontControllerTest
+AjaxControllerTest
+ModelDateTest
+RouterTest
 
 TESTS OUTSTANDING:
 
@@ -12,18 +21,21 @@ CacheDriverTest
 TwigDriverTest
 SmartyDriverTest <-- Reference ConfigTest
 PHPDriverTest <-- Reference ConfigTest
-MailTest
 MailDriverTest
 SystemRequestTest
-RouteTest
-RouterTest
 ResponseTest
 RequestTest
-ModelTest
 DoctrineTest
-CacheInterfaceTest
 TablePrefixTest
-ModelDateTest
-FrontControllerTest
-ControllerTest
-AjaxControllerTest
+FileManagerTest
+FileTest
+APCUDriverTest
+ArrayDriverTest
+FileDriverTest
+MemcachedDriverTest
+RedisDriverTest
+
+TODO: Inconsistent casing for abreviations "PHPDriver" differs from "Http" namespace for example.
+TODO: Fix route loading so it's correctly validated
+TODO: What should be private and what should be public?
+TODO: Flip dependencies to global first, local second
