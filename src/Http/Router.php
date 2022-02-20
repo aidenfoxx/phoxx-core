@@ -14,7 +14,7 @@ class Router
 
   private $routes = [];
 
-  private $requestStack = [];
+  private $requests = [];
 
   public function __construct(Services $services) {
     $this->services = $services;
@@ -74,12 +74,12 @@ class Router
       throw new RouteException('Invalid action `' . $controller . '::' . $method . '()`.');
     }
 
-    array_push($this->requestStack, $request);
+    array_push($this->requests, $request);
 
     $controller = new $controller($this, $this->services);
     $response = call_user_func_array([$controller, $method], $parameters);
 
-    array_pop($this->requestStack);
+    array_pop($this->requests);
 
     if (!($response instanceof Response)) {
       throw new ResponseException('Response must be instance of `' . Response::class . '`.');
@@ -90,11 +90,11 @@ class Router
 
   public function main(): ?Request
   {
-    return ($request = reset($this->requestStack)) ? $request : null;
+    return ($request = reset($this->requests)) ? $request : null;
   }
 
   public function active(): ?Request
   {
-    return ($request = end($this->requestStack)) ? $request : null;
+    return ($request = end($this->requests)) ? $request : null;
   }
 }

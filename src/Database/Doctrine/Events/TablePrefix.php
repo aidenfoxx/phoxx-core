@@ -9,13 +9,17 @@ class TablePrefix
 {
   protected $prefix;
 
-  public function __construct(string $prefix = '')
+  public function __construct(string $prefix = null)
   {
     $this->prefix = $prefix;
   }
 
   public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
   {
+    if (!$this->prefix) {
+      return;
+    }
+
     $classMetadata = $eventArgs->getClassMetadata();
 
     if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->name === $classMetadata->rootEntityName) {

@@ -6,7 +6,7 @@ use Phoxx\Core\File\FileExceptions\FileException;
 
 class FileManager
 {
-  private function parseImage(Image $image)
+  private function parseImage(Image $image): GdImage
   {
     switch ($image->getFormat()) {
       case Image::FORMAT_BMP:
@@ -33,7 +33,7 @@ class FileManager
     return $resource;
   }
 
-  private function writeImage($resource, string $dest, string $format, int $quality = -1): void
+  private function writeImage(GdImage $resource, string $dest, string $format, int $quality = -1): void
   {
     switch ($format) {
       case Image::FORMAT_BMP:

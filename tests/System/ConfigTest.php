@@ -27,6 +27,14 @@ final class ConfigTest extends TestCase
     $this->assertSame('VALUE', $config->open('@namespace/config')->CONFIG);
   }
 
+  public function testShouldGetAbsoluteConfig(): void
+  {
+      $config = new Config();
+      $config->addPath(realpath(PATH_BASE) . '/System/ConfigTest');
+
+      $this->assertSame('VALUE', $config->open('config')->CONFIG);
+  }
+
   public function testShouldSetCachedConfig(): void
   {
     $cache = $this->createMock(Cache::class);
@@ -54,14 +62,6 @@ final class ConfigTest extends TestCase
     $this->assertSame('VALUE', $config->open('config')->CONFIG);
   }
 
-  public function testShouldUseBasePath(): void
-  {
-    $config = new Config(null, __DIR__);
-    $config->addPath('./ConfigTest');
-
-    $this->assertSame('VALUE', $config->open('config')->CONFIG);
-  }
-
   public function testShouldRejectInvalidConfig(): void
   {
     $config = new Config();
@@ -82,13 +82,13 @@ final class ConfigTest extends TestCase
     $config->open('@invalid/config');
   }
 
-  public function testShouldRejectAbsolutePaths(): void
+  public function testShouldRejectAbsoluteConfig(): void
   {
     $config = new Config();
     $config->addPath('./System/ConfigTest');
 
     $this->expectException(ConfigException::class);
 
-    $config->open(realpath(PATH_BASE . '/System/ConfigTest/config.php'));
+    $config->open(realpath(PATH_BASE) . '/System/ConfigTest/config.php');
   }
 }

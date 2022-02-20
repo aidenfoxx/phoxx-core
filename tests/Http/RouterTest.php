@@ -16,159 +16,158 @@ use PHPUnit\Framework\TestCase;
 
 final class TestController extends Controller
 {
-  static public $router;
+    static public $router;
 
-  static public $services;
+    static public $services;
 
-  static public $main;
+    static public $main;
 
-  static public $active;
+    static public $active;
 
-  public function __construct(Router $router, Services $services)
-  {
-    parent::__construct($router, $services);
+    public function __construct(Router $router, Services $services)
+    {
+        parent::__construct($router, $services);
 
-    self::$router = $router;
-    self::$services = $services;
-  }
-
-  public function action(): Response
-  {
-    return new Response();
-  }
-
-  public function invalid(): bool
-  {
-    return false;
-  }
-
-  public function subaction(): Response
-  {
-    if ($this->active() === $this->main()) {
-      return $this->dispatch(new Request($this->active()->getPath()));
+        self::$router = $router;
+        self::$services = $services;
     }
 
-    self::$main = $this->main();
-    self::$active = $this->active();
+    public function action(): Response
+    {
+        return new Response();
+    }
 
-    return new Response();
-  }
+    public function invalid(): bool
+    {
+        return false;
+    }
+
+    public function subaction(): Response
+    {
+        if ($this->active() === $this->main()) {
+            return $this->dispatch(new Request($this->active()->getPath()));
+        }
+
+        self::$main = $this->main();
+        self::$active = $this->active();
+
+        return new Response();
+    }
 }
 
 final class InvalidController {
-  
+    
 }
 
 final class RouterTest extends TestCase
 {
-  public function invalidActions(): array
-  {
-    return [
-      [['UndefinedController' => 'action']],
-      [[InvalidController::class => 'action']],
-      [[TestController::class => 'undefined']],
-    ];
-  }
+    public function invalidActions(): array
+    {
+        return [
+            [['UndefinedController' => 'action']],
+            [[InvalidController::class => 'action']],
+            [[TestController::class => 'undefined']],
+        ];
+    }
 
-  public function setUp(): void
-  {
-    TestController::$router = null;
-    TestController::$services = null;
-    TestController::$main = null;
-    TestController::$active = null;
-  }
+    public function setUp(): void
+    {
+        TestController::$router = null;
+        TestController::$services = null;
+        TestController::$main = null;
+        TestController::$active = null;
+    }
 
-  public function testShouldCreateRouter(): void
-  {
-    $router = new Router(new Services());
+    public function testShouldCreateRouter(): void
+    {
+        $router = new Router(new Services());
 
-    $this->assertNull($router->main());
-    $this->assertNull($router->active());
-  }
+        $this->assertNull($router->main());
+        $this->assertNull($router->active());
+    }
 
-  public function testShouldDispatch(): void
-  {
-    $router = new Router(new Services());
-    $router->addRoute(new Route('PATH', [TestController::class => 'action']));
+    public function testShouldDispatch(): void
+    {
+        $router = new Router(new Services());
+        $router->addRoute(new Route('path', [TestController::class => 'action']));
 
-    $this->assertInstanceOf(Response::class, $router->dispatch(new Request('PATH')));
-    $this->assertInstanceOf(Router::class, TestController::$router);
-    $this->assertInstanceOf(Services::class, TestController::$services);
-  }
+        $this->assertInstanceOf(Response::class, $router->dispatch(new Request('path')));
+        $this->assertInstanceOf(Router::class, TestController::$router);
+        $this->assertInstanceOf(Services::class, TestController::$services);
+    }
 
-  public function testShouldDispatchNull(): void
-  {
-    $router = new Router(new Services());
+    public function testShouldDispatchNull(): void
+    {
+        $router = new Router(new Services());
 
-    $this->assertNull($router->dispatch(new Request('PATH')));
-  }
+        $this->assertNull($router->dispatch(new Request('path')));
+    }
 
-  public function testShouldRejectExternalRequest(): void
-  {
-    $router = new Router(new Services());
+    public function testShouldRejectExternalRequest(): void
+    {
+        $router = new Router(new Services());
 
-    $this->expectException(RequestException::class);
+        $this->expectException(RequestException::class);
 
-    $router->dispatch(new Request('http://www.test.com'));
-  }
+        $router->dispatch(new Request('http://www.test.com'));
+    }
 
-  public function testShouldRejectInvalidResponse(): void
-  {
-    $router = new Router(new Services());
-    $router->addRoute(new Route('PATH', [TestController::class => 'invalid']));
+    public function testShouldRejectInvalidResponse(): void
+    {
+        $router = new Router(new Services());
+        $router->addRoute(new Route('path', [TestController::class => 'invalid']));
 
-    $this->expectException(ResponseException::class);
+        $this->expectException(ResponseException::class);
 
-    $router->dispatch(new Request('PATH'));
-  }
+        $router->dispatch(new Request('path'));
+    }
 
-  /**
-   * @dataProvider invalidActions
-   */
-  public function testShouldRejectInvalidAction(array $action): void
-  {
-    $router = new Router(new Services());
-    $router->addRoute(new Route('PATH', $action));
+    /**
+     * @dataProvider invalidActions
+     */
+    public function testShouldRejectInvalidAction(array $action): void
+    {
+        $router = new Router(new Services());
+        $router->addRoute(new Route('path', $action));
 
-    $this->expectException(RouteException::class);
+        $this->expectException(RouteException::class);
 
-    $router->dispatch(new Request('PATH'));
-  }
+        $router->dispatch(new Request('path'));
+    }
 
-  public function testShouldMatchRoute(): void
-  {
-    $router = new Router(new Services());
-    $router->addRoute(new Route('(?<param1>[A-Z]+)\/(?<param2>[0-9]+)\/([A-Z]+)', [TestController::class => 'action']));
+    public function testShouldMatchRoute(): void
+    {
+        $router = new Router(new Services());
+        $router->addRoute(new Route('(?<param1>[a-z]+)\/(?<param2>[0-9]+)\/([a-z]+)', [TestController::class => 'action']));
+        $router->match('value/123/path', 'GET', $parameters);
 
-    $router->match('TEST/123/IGNORE', 'GET', $parameters);
+        $this->assertSame(['param1' => 'value', 'param2' => '123'], $parameters);
+    }
 
-    $this->assertSame(['param1' => 'TEST',  'param2' => '123'], $parameters);
-  }
+    public function testShouldMatchNullOnRouteNotFound(): void
+    {
+        $router = new Router(new Services());
+        $router->addRoute(new Route('path', [TestController::class => 'action']));
 
-  public function testShouldMatchNullOnRouteNotFound(): void
-  {
-    $router = new Router(new Services());
-    $router->addRoute(new Route('PATH', [TestController::class => 'action']));
+        $this->assertNull($router->match('invalid'));
+    }
 
-    $this->assertNull($router->match('INVALID'));
-  }
+    public function testShouldMatchNullOnMethodNotSet(): void
+    {
+        $router = new Router(new Services());
 
-  public function testShouldMatchNullOnMethodNotSet(): void
-  {
-    $router = new Router(new Services());
+        $this->assertNull($router->match('invalid'));
+    }
 
-    $this->assertNull($router->match('INVALID'));
-  }
+    public function testShouldReturnActiveRequest(): void
+    {
+        $router = new Router(new Services());
+        $router->addRoute(new Route('path', [TestController::class => 'subaction']));
 
-  public function testShouldReturnActiveRequest(): void
-  {
-    $router = new Router(new Services());
-    $router->addRoute(new Route('PATH', [TestController::class => 'subaction']));
+        $request = new Request('path');
+        $router->dispatch($request);
 
-    $request = new Request('PATH');
-    $router->dispatch($request);
-
-    $this->assertSame($request, TestController::$main);
-    $this->assertNotSame($request, TestController::$active);
-  }
+        $this->assertSame($request, TestController::$main);
+        $this->assertNotSame($request, TestController::$active);
+    }
 }

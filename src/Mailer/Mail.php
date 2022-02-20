@@ -36,7 +36,10 @@ class Mail
     $this->view = $view;
     $this->sender = $sender;
     $this->senderName = $senderName;
-    $this->headers = $headers;
+    $this->headers =  array_merge([
+      'MIME-Version' => '1.0',
+      'Content-Type' => 'text/html; charset=UTF-8', 
+    ], $headers);
   }
 
   public function getSubject(): string
@@ -84,22 +87,22 @@ class Mail
     return $this->recipients;
   }
 
-  public function addCC(string $email, ?string $name = null): void
+  public function addCc(string $email, ?string $name = null): void
   {
     $this->cc[$email] = $name;
   }
 
-  public function getCC(): array
+  public function getCc(): array
   {
     return $this->cc;
   }
 
-  public function addBCC(string $email, ?string $name = null): void
+  public function addBcc(string $email, ?string $name = null): void
   {
     $this->bcc[$email] = $name;
   }
 
-  public function getBCC(): array
+  public function getBcc(): array
   {
     return $this->bcc;
   }

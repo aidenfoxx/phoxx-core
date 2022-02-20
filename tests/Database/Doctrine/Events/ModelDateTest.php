@@ -21,9 +21,7 @@ namespace Phoxx\Core\Tests\Database\Doctrine\Events {
       {
         $model = $this->getMockForAbstractClass(Model::class);
         $event = $this->createMock(LifecycleEventArgs::class);
-        $event->expects($this->once())
-              ->method('getEntity')
-              ->willReturn($model);
+        $event->expects($this->once())->method('getEntity')->willReturn($model);
     
         $modelDate = new ModelDate();
         $modelDate->prePersist($event);
@@ -36,10 +34,8 @@ namespace Phoxx\Core\Tests\Database\Doctrine\Events {
       {
         $model = $this->getMockForAbstractClass(Model::class);
         $event = $this->createMock(LifecycleEventArgs::class);
-        $event->expects($this->once())
-              ->method('getEntity')
-              ->willReturn($model);
-    
+        $event->expects($this->once())->method('getEntity')->willReturn($model);
+
         $modelDate = new ModelDate();
         $modelDate->preUpdate($event);
     

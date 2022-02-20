@@ -9,55 +9,52 @@ use Phoxx\Core\Renderer\Renderer;
 
 class MailDriver implements Mailer
 {
-  private $renderer;
+    private $renderer;
 
-  public function __construct(Renderer $renderer)
-  {
-    $this->renderer = $renderer;
-  }
-
-  /**
-   * Send mail using native mail function.
-   * @param  Mail $mail Mail content
-   * @return void
-   * @throws MailException If mail fails to send
-   */
-  public function send(Mail $mail): void
-  {
-    $from = null;
-    $to = [];
-    $cc = [];
-    $bcc = [];
-
-    if ($email = $mail->getSender()) {
-      if ($name = $mail->getSenderName()) {
-        $from = $name . ' <' . $email . '>';
-      } else {
-        $from = $email;
-      }
+    public function __construct(Renderer $renderer)
+    {
+        $this->renderer = $renderer;
     }
 
-    foreach ($mail->getRecipients() as $email => $name) {
-      $to[] = !empty($name) ? $name . ' <' . $email . '>' : $email;
-    }
+    /**
+     * Send mail using native mail function.
+     * @param    Mail $mail Mail content
+     * @return void
+     * @throws MailException If mail fails to send
+     */
+    public function send(Mail $mail): void
+    {
+        if (empty($mail->getRecipients())) {
+            throw new MailException('No recipient(s) defined.');
+        }
 
-    foreach ($mail->getCc() as $email => $name) {
-      $cc[] = !empty($name) ? $name . ' <' . $email . '>' : $email;
-    }
+        $headers = $mail->getHeaders();
 
-    foreach ($mail->getBcc() as $email => $name) {
-      $bcc[] = !empty($name) ? $name . ' <' . $email . '>' : $email;
-    }
+        if ($email = $mail->getSender()) {
+            $headers['From'] = ($name = $mail->getSenderName()) ? $name . ' <' . $email . '>' : $email;
+        }
 
-    $headers = [];
-    $headers['MIME-Version'] = '1.0';
-    $headers['Content-type'] = 'text/html;charset=UTF-8"';
-    $headers['From'] = $from;
-    $headers['Cc'] = implode(',', $cc);
-    $headers['Bcc'] = implode(',', $bcc);
+        foreach ($mail->getRecipients() as $email => $name) {
+            $headers['To'] = (isset($headers['To']) ? $headers['To'] . ', ' : '') . ($name ? $name . ' <' . $email . '>' : $email);
+        }
 
-    if (!mail(implode(',', $to), $mail->getSubject(), $this->renderer->render($mail->getTemplate()), $headers)) {
-      throw new MailException('Failed to send send mail.');
+        foreach ($mail->getCc() as $email => $name) {
+            $headers['CC'] = (isset($headers['CC']) ? $headers['CC'] . ', ' : '') . ($name ? $name . ' <' . $email . '>' : $email);
+        }
+
+        foreach ($mail->getBcc() as $email => $name) {
+            $headers['BCC'] = (isset($headers['BCC']) ? $headers['BCC'] . ', ' : '') . ($name ? $name . ' <' . $email . '>' : $email);
+        }
+
+        $success = mail(
+            $headers['To'],
+            $mail->getSubject(),
+            $this->renderer->render($mail->getView()),
+            array_change_key_case($headers)
+        );
+
+        if (!$success) {
+            throw new MailException('Failed to send send mail.');
+        }
     }
-  }
 }

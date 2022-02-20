@@ -46,7 +46,7 @@ class EntityManager extends DoctrineEntityManager
   public function addPath(string $path): void
   {
     if (!isset($this->paths[$path])) {
-      $this->paths[$path] = true;
+      $this->paths[$path] = null;
       $this->getConfiguration()->setMetadataDriverImpl(new XmlDriver(array_keys($this->paths)));
     }
   }

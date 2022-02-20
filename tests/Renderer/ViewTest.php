@@ -10,34 +10,25 @@ final class ViewTest extends TestCase
 {
   public function testShouldCreateView()
   {
-    $view = new View('PATH', ['KEY' => 'VALUE']);
+    $view = new View('template', ['parameter' => 'value']);
 
-    $this->assertSame('PATH', $view->getTemplate());
-    $this->assertSame('VALUE', $view->getParameter('KEY'));
-    $this->assertSame(['KEY' => 'VALUE'], $view->getParameters());
+    $this->assertSame('template', $view->getTemplate());
+    $this->assertSame('value', $view->getParameter('parameter'));
+    $this->assertSame(['parameter' => 'value'], $view->getParameters());
   }
 
-  public function testShouldGetParameter()
+  public function testShouldSetParameter()
   {
-    $view = new View('PATH');
-    $view->setParameter('KEY', 'VALUE');
+    $view = new View('template');
+    $view->setParameter('parameter', 'value');
 
-    $this->assertSame('VALUE', $view->getParameter('KEY'));
+    $this->assertSame(['parameter' => 'value'], $view->getParameters());
   }
 
   public function testShouldGetParameterNull()
   {
     $view = new View('PATH');
 
-    $this->assertNull($view->getParameter('INVALID'));
-  }
-
-
-  public function testGetParameters(): void
-  {
-    $view = new View('PATH');
-    $view->setParameter('KEY', 'VALUE');
-
-    $this->assertSame(['KEY' => 'VALUE'], $view->getParameters());
+    $this->assertNull($view->getParameter('invalid'));
   }
 }

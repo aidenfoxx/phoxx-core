@@ -19,30 +19,22 @@ final class FrontControllerTest extends TestCase
 {
   public function testShouldRender()
   {
-    $view = new View('TEST');
-
+    $view = new View('TEMPLATE');
     $renderer = $this->createMock(Renderer::class);
-    $renderer->expects($this->once())
-                 ->method('render')
-                 ->with($view)
-                 ->willReturn('CONTENT');
+    $renderer->expects($this->once())->method('render')->with($view)->willReturn('CONTENT');
 
     $services = $this->createMock(Services::class);
-    $services->expects($this->once())
-                         ->method('getService')
-                         ->with(Renderer::class)
-                         ->willReturn($renderer);
+    $services->expects($this->once())->method('getService')->with(Renderer::class)->willReturn($renderer);
 
     $controller = $this->getMockForAbstractClass(FrontController::class, [new Router($services), $services]);
     $response = $controller->render($view, Response::HTTP_OK, ['HEADER' => 'VALUE']);
-
 
     $this->assertSame('CONTENT', $response->getContent());
     $this->assertSame(Response::HTTP_OK, $response->getStatus());
     $this->assertSame(['HEADER' => 'VALUE'], $response->getHeaders());
   }
 
-  public function testShouldThrowServiceException()
+  public function testShouldRejectMissingService()
   {
     $services = new Services();
     $controller = $this->getMockForAbstractClass(FrontController::class, [new Router($services), $services]);

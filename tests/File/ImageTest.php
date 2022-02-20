@@ -49,6 +49,6 @@ final class ImageTest extends TestCase
   {
     $this->expectException(ImageException::class);
 
-    $image = new Image(PATH_BASE . '/File/ImageTest/invalid.tif');
+    new Image(PATH_BASE . '/File/ImageTest/invalid.tif');
   }
 }

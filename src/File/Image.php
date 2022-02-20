@@ -47,7 +47,6 @@ class Image extends File
 
       default:
         throw new ImageException('Unsupported image format.');
-        break;
     }
   }
 

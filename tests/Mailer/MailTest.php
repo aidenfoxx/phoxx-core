@@ -20,15 +20,23 @@ final class MailTest extends TestCase
     $this->assertSame('SENDER', $mail->getSender());
     $this->assertSame('SENDER_NAME', $mail->getSenderName());
     $this->assertSame('VALUE', $mail->getHeader('HEADER'));
-    $this->assertSame(['HEADER' => 'VALUE'], $mail->getHeaders());
+    $this->assertSame([
+      'MIME-Version' => '1.0',
+      'Content-Type' => 'text/html; charset=UTF-8',
+      'HEADER' => 'VALUE'
+    ], $mail->getHeaders());
   }
 
-  public function testShouldGetHeader()
+  public function testShouldSetHeader()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->setHeader('HEADER', 'VALUE');
 
-    $this->assertSame('VALUE', $mail->getHeader('HEADER'));
+    $this->assertSame([
+      'MIME-Version' => '1.0',
+      'Content-Type' => 'text/html; charset=UTF-8',
+      'HEADER' => 'VALUE'
+    ], $mail->getHeaders());
   }
 
   public function testShouldGetHeaderNull()
@@ -38,15 +46,7 @@ final class MailTest extends TestCase
     $this->assertNull($mail->getHeader('INVALID'));
   }
 
-  public function testShouldGetHeaders()
-  {
-    $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->setHeader('HEADER', 'VALUE');
-
-    $this->assertSame(['HEADER' => 'VALUE'], $mail->getHeaders());
-  }
-
-  public function testShouldGetRecipients()
+  public function testShouldAddRecipients()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->addRecipient('EMAIL', 'NAME');
@@ -54,7 +54,7 @@ final class MailTest extends TestCase
     $this->assertSame(['EMAIL' => 'NAME'], $mail->getRecipients());
   }
 
-  public function testShouldGetCC()
+  public function testShouldAddCC()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->addCC('EMAIL', 'NAME');
@@ -62,7 +62,7 @@ final class MailTest extends TestCase
     $this->assertSame(['EMAIL' => 'NAME'], $mail->getCC());
   }
 
-  public function testShouldGetBCC()
+  public function testShouldAddBCC()
   {
     $mail = new Mail('SUBJECT', new View('PATH'));
     $mail->addBCC('EMAIL', 'NAME');
@@ -70,7 +70,7 @@ final class MailTest extends TestCase
     $this->assertSame(['EMAIL' => 'NAME'], $mail->getBCC());
   }
 
-  public function testShouldGetAttachments()
+  public function testShouldAddAttachments()
   {
     $file = new File(PATH_BASE . '/Mailer/MailTest/attachment.txt');
     $mail = new Mail('SUBJECT', new View('PATH'));

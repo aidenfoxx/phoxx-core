@@ -24,7 +24,7 @@ class Config
 
   public function addPath(string $path, ?string $namespace = null): void
   {
-    $this->paths[$namespace][$path] = true;
+    $this->paths[$namespace][$path] = null;
   }
 
   public function open(string $config): ?object

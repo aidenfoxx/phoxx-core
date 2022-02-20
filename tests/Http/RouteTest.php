@@ -9,37 +9,37 @@ use PHPUnit\Framework\TestCase;
 
 final class RouteTest extends TestCase
 {
-  public function testShouldCreateRotue()
-  {
-    $route = new Route('PATH', ['CONTROLLER' => 'ACTION'], 'METHOD');
+    public function testShouldCreateRotue()
+    {
+        $route = new Route('path', ['Controller' => 'action'], 'GET');
 
-    $this->assertSame('PATH', $route->getPattern());
-    $this->assertSame(['CONTROLLER' => 'ACTION'], $route->getAction());
-    $this->assertSame('METHOD', $route->getMethod());
-  }
+        $this->assertSame('path', $route->getPattern());
+        $this->assertSame(['Controller' => 'action'], $route->getAction());
+        $this->assertSame('GET', $route->getMethod());
+    }
 
-  public function testShouldReverseRoute(): void
-  {
-    $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION']);
+    public function testShouldReverseRoute(): void
+    {
+        $route = new Route('path/(?<param>[a-z]+)', ['Controller' => 'action']);
 
-    $this->assertSame('PATH/VALUE', $route->reverse(['PARAMETER' => 'VALUE']));
-  }
+        $this->assertSame('path/value', $route->reverse(['param' => 'value']));
+    }
 
-  public function testShouldRejectMissingParameter(): void
-  {
-    $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 'ACTION']);
+    public function testShouldRejectMissingParameter(): void
+    {
+        $route = new Route('path/(?<param>[a-z]+)', ['Controller' => 'action']);
 
-    $this->expectException(RouteException::class);
+        $this->expectException(RouteException::class);
 
-    $route->reverse();
-  }
+        $route->reverse();
+    }
 
-  public function testShouldRejectInvalidParameter(): void
-  {
-    $route = new Route('PATH/(?<PARAMETER>[A-Z]+)', ['CONTROLLER' => 123]);
+    public function testShouldRejectInvalidParameter(): void
+    {
+        $route = new Route('path/(?<param>[a-z]+)', ['Controller' => 'action']);
 
-    $this->expectException(RouteException::class);
+        $this->expectException(RouteException::class);
 
-    $route->reverse();
-  }
+        $route->reverse(['param' => 123]);
+    }
 }
