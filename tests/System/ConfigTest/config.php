@@ -1,3 +1,3 @@
 <?php
 
-return ['CONFIG' => 'VALUE'];
+return ['config' => 'value'];

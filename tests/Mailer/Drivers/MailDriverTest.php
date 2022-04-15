@@ -2,7 +2,8 @@
 
 namespace Phoxx\Core\Mailer\Drivers
 {
-    final class MailHelper {
+    final class MailTestHelper
+    {
         public static $to;
 
         public static $subject;
@@ -12,16 +13,25 @@ namespace Phoxx\Core\Mailer\Drivers
         public static $headers;
 
         public static $success;
+
+        public static function clear()
+        {
+            self::$to = null;
+            self::$subject = null;
+            self::$content = null;
+            self::$headers = null;
+            self::$success = true;
+        }
     }
 
     function mail(string $to, string $subject, string $content, array $headers)
     {
-        MailHelper::$to = $to;
-        MailHelper::$subject = $subject;
-        MailHelper::$content = $content;
-        MailHelper::$headers = $headers;
+        MailTestHelper::$to = $to;
+        MailTestHelper::$subject = $subject;
+        MailTestHelper::$content = $content;
+        MailTestHelper::$headers = $headers;
 
-        return MailHelper::$success;
+        return MailTestHelper::$success;
     }
 }
 
@@ -29,7 +39,7 @@ namespace Phoxx\Core\Tests\Mailer\Drivers
 {
     use Phoxx\Core\Exceptions\MailException;
     use Phoxx\Core\Mailer\Drivers\MailDriver;
-    use Phoxx\Core\Mailer\Drivers\MailHelper;
+    use Phoxx\Core\Mailer\Drivers\MailTestHelper;
     use Phoxx\Core\Mailer\Mail;
     use Phoxx\Core\Renderer\Renderer;
     use Phoxx\Core\Renderer\View;
@@ -40,69 +50,65 @@ namespace Phoxx\Core\Tests\Mailer\Drivers
     {
         public function setUp(): void
         {
-            MailHelper::$to = null;
-            MailHelper::$subject = null;
-            MailHelper::$content = null;
-            MailHelper::$headers = null;
-            MailHelper::$success = true;
+            MailTestHelper::clear();
         }
 
         public function testShouldSendMail()
         {
             $view = new View('template');
             $renderer = $this->createMock(Renderer::class);
-            $renderer->expects($this->once())->method('render')->with($view)->willReturn('Content');
+            $renderer->expects($this->once())->method('render')->with($view)->willReturn('content');
 
-            $mail = new Mail('Subject', $view, 'john@test.com', 'John Doe', ['Header' => 'Value']);
-            $mail->addRecipient('jane@test.com', 'Jane Doe');
+            $mail = new Mail('subject', $view, 'john@test.com', 'john doe', ['header' => 'value']);
+            $mail->addRecipient('jane@test.com', 'jane doe');
 
             $driver = new MailDriver($renderer);
             $driver->send($mail);
 
-            $this->assertSame('Jane Doe <jane@test.com>', MailHelper::$to);
-            $this->assertSame('Subject', MailHelper::$subject);
-            $this->assertSame('Content', MailHelper::$content);
+            $this->assertSame('jane doe <jane@test.com>', MailTestHelper::$to);
+            $this->assertSame('subject', MailTestHelper::$subject);
+            $this->assertSame('content', MailTestHelper::$content);
             $this->assertSame([
                 'mime-version' => '1.0',
                 'content-type' => 'text/html; charset=UTF-8',
-                'header' => 'Value',
-                'from' => 'John Doe <john@test.com>',
-                'to' => 'Jane Doe <jane@test.com>'
-            ], MailHelper::$headers);
+                'header' => 'value',
+                'from' => 'john doe <john@test.com>',
+                'to' => 'jane doe <jane@test.com>'
+            ], MailTestHelper::$headers);
         }
 
         public function testShouldSendMultipleRecipients()
         {
             $renderer = $this->createMock(Renderer::class);
-            $renderer->expects($this->once())->method('render')->willReturn('Content');
+            $renderer->expects($this->once())->method('render')->willReturn('content');
 
-            $mail = new Mail('Subject', new View('template'), 'john@test.com');
+            $mail = new Mail('dubject', new View('template'), 'john@test.com');
             $mail->addRecipient('john@test.com');
-            $mail->addRecipient('jane@test.com', 'Jane Doe');
+            $mail->addRecipient('jane@test.com', 'jane doe');
             $mail->addCc('jack@test.com');
-            $mail->addCc('jill@test.com', 'Jill Doe');
+            $mail->addCc('jill@test.com', 'jill doe');
             $mail->addBcc('james@test.com');
-            $mail->addBcc('joan@test.com', 'Joan Doe');
+            $mail->addBcc('joan@test.com', 'joan doe');
 
             $driver = new MailDriver($renderer);
             $driver->send($mail);
 
-            $this->assertSame('john@test.com, Jane Doe <jane@test.com>', MailHelper::$to);
+            $this->assertSame('john@test.com, jane doe <jane@test.com>', MailTestHelper::$to);
             $this->assertSame([
                 'mime-version' => '1.0',
                 'content-type' => 'text/html; charset=UTF-8',
                 'from' => 'john@test.com',
-                'to' => 'john@test.com, Jane Doe <jane@test.com>',
-                'cc' => 'jack@test.com, Jill Doe <jill@test.com>',
-                'bcc' => 'james@test.com, Joan Doe <joan@test.com>',
-            ], MailHelper::$headers);
+                'to' => 'john@test.com, jane doe <jane@test.com>',
+                'cc' => 'jack@test.com, jill doe <jill@test.com>',
+                'bcc' => 'james@test.com, joan doe <joan@test.com>',
+            ], MailTestHelper::$headers);
         }
 
         public function testShouldRejectNoRecipients()
         {
             $renderer = $this->createMock(Renderer::class);
 
-            $mail = new Mail('Subject', new View('template'));
+            $mail = new Mail('subject', new View('template'));
             $driver = new MailDriver($renderer);
 
             $this->expectException(MailException::class);
@@ -112,12 +118,12 @@ namespace Phoxx\Core\Tests\Mailer\Drivers
 
         public function testShouldRejectMailError()
         {
-            MailHelper::$success = false;
+            MailTestHelper::$success = false;
 
             $renderer = $this->createMock(Renderer::class);
-            $renderer->expects($this->once())->method('render')->willReturn('Content');
+            $renderer->expects($this->once())->method('render')->willReturn('content');
             
-            $mail = new Mail('Subject', new View('template'));
+            $mail = new Mail('subject', new View('template'));
             $mail->addRecipient('john@test.com');
 
             $driver = new MailDriver($renderer);

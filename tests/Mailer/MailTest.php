@@ -12,68 +12,68 @@ final class MailTest extends TestCase
 {
   public function testShouldCreateMail()
   {
-    $view = new View('PATH');
-    $mail = new Mail('SUBJECT', $view, 'SENDER', 'SENDER_NAME', ['HEADER' => 'VALUE']);
+    $view = new View('path');
+    $mail = new Mail('subject', $view, 'email', 'name', ['header' => 'value']);
 
-    $this->assertSame('SUBJECT', $mail->getSubject());
+    $this->assertSame('subject', $mail->getSubject());
     $this->assertSame($view, $mail->getView());
-    $this->assertSame('SENDER', $mail->getSender());
-    $this->assertSame('SENDER_NAME', $mail->getSenderName());
-    $this->assertSame('VALUE', $mail->getHeader('HEADER'));
+    $this->assertSame('email', $mail->getSender());
+    $this->assertSame('name', $mail->getSenderName());
+    $this->assertSame('value', $mail->getHeader('header'));
     $this->assertSame([
       'MIME-Version' => '1.0',
       'Content-Type' => 'text/html; charset=UTF-8',
-      'HEADER' => 'VALUE'
+      'header' => 'value'
     ], $mail->getHeaders());
   }
 
   public function testShouldSetHeader()
   {
-    $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->setHeader('HEADER', 'VALUE');
+    $mail = new Mail('subject', new View('path'));
+    $mail->setHeader('header', 'value');
 
     $this->assertSame([
       'MIME-Version' => '1.0',
       'Content-Type' => 'text/html; charset=UTF-8',
-      'HEADER' => 'VALUE'
+      'header' => 'value'
     ], $mail->getHeaders());
   }
 
   public function testShouldGetHeaderNull()
   {
-    $mail = new Mail('SUBJECT', new View('PATH'));
+    $mail = new Mail('subject', new View('path'));
 
-    $this->assertNull($mail->getHeader('INVALID'));
+    $this->assertNull($mail->getHeader('invalid'));
   }
 
   public function testShouldAddRecipients()
   {
-    $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->addRecipient('EMAIL', 'NAME');
+    $mail = new Mail('subject', new View('path'));
+    $mail->addRecipient('email', 'name');
 
-    $this->assertSame(['EMAIL' => 'NAME'], $mail->getRecipients());
+    $this->assertSame(['email' => 'name'], $mail->getRecipients());
   }
 
   public function testShouldAddCC()
   {
-    $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->addCC('EMAIL', 'NAME');
+    $mail = new Mail('subject', new View('path'));
+    $mail->addCC('email', 'name');
 
-    $this->assertSame(['EMAIL' => 'NAME'], $mail->getCC());
+    $this->assertSame(['email' => 'name'], $mail->getCC());
   }
 
   public function testShouldAddBCC()
   {
-    $mail = new Mail('SUBJECT', new View('PATH'));
-    $mail->addBCC('EMAIL', 'NAME');
+    $mail = new Mail('subject', new View('path'));
+    $mail->addBCC('email', 'name');
 
-    $this->assertSame(['EMAIL' => 'NAME'], $mail->getBCC());
+    $this->assertSame(['email' => 'name'], $mail->getBCC());
   }
 
   public function testShouldAddAttachments()
   {
     $file = new File(PATH_BASE . '/Mailer/MailTest/attachment.txt');
-    $mail = new Mail('SUBJECT', new View('PATH'));
+    $mail = new Mail('subject', new View('path'));
     $mail->addAttachment($file);
 
     $this->assertSame([$file], $mail->getAttachments());

@@ -3,7 +3,7 @@
 namespace Phoxx\Core\Http
 {
     function file_get_contents() {
-        return 'CONTENT';
+        return 'content';
     }
 }
 
@@ -17,22 +17,22 @@ namespace Phoxx\Core\Tests\Http
     {
         public function testShouldCreateServerRequest()
         {
-            $_GET['QUERY'] = 'VALUE';
-            $_POST['REQUEST'] = 'VALUE';
-            $_SERVER['SERVER'] = 'VALUE';
-            $_COOKIE['COOKIE'] = 'VALUE';
-            $_FILES['FILE'] = 'VALUE';
+            $_GET['query'] = 'value';
+            $_POST['request'] = 'value';
+            $_SERVER['server'] = 'value';
+            $_COOKIE['cookie'] = 'value';
+            $_FILES['file'] = 'value';
 
-            $request = new ServerRequest('PATH', 'METHOD');
+            $request = new ServerRequest('path', 'method');
     
-            $this->assertSame('PATH?QUERY=VALUE', $request->getUri());
+            $this->assertSame('path?query=value', $request->getUri());
             $this->assertSame('METHOD', $request->getMethod());
-            $this->assertSame('VALUE', $request->getQuery('QUERY'));
-            $this->assertSame('VALUE', $request->getRequest('REQUEST'));
-            $this->assertSame('VALUE', $request->getServer('SERVER'));
-            $this->assertSame('VALUE', $request->getCookie('COOKIE'));
-            $this->assertSame(['VALUE'], $request->getFile('FILE'));
-            $this->assertSame('CONTENT', $request->getContent());
+            $this->assertSame('value', $request->getQuery('query'));
+            $this->assertSame('value', $request->getRequest('request'));
+            $this->assertSame('value', $request->getServer('server'));
+            $this->assertSame('value', $request->getCookie('cookie'));
+            $this->assertSame(['value'], $request->getFile('file'));
+            $this->assertSame('content', $request->getContent());
         }
     }
 }

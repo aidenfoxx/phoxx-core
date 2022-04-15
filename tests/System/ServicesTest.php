@@ -23,16 +23,16 @@ final class ServicesTest extends TestCase
   {
     $services = new Services();
 
-    $this->assertNull($services->getService('INVALID'));
+    $this->assertNull($services->getService('invalid'));
   }
 
   public function testShouldGetNamedService(): void
   {
     $service = new stdClass();
     $services = new Services();
-    $services->setService($service, 'TEST');
+    $services->setService($service, 'test');
 
-    $this->assertSame($service, $services->getService('TEST'));
+    $this->assertSame($service, $services->getService('test'));
     $this->assertNull($services->getService(stdClass::class));
   }
 }

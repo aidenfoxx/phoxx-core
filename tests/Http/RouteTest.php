@@ -11,23 +11,23 @@ final class RouteTest extends TestCase
 {
     public function testShouldCreateRotue()
     {
-        $route = new Route('path', ['Controller' => 'action'], 'GET');
+        $route = new Route('path', ['controller' => 'action'], 'method');
 
         $this->assertSame('path', $route->getPattern());
-        $this->assertSame(['Controller' => 'action'], $route->getAction());
-        $this->assertSame('GET', $route->getMethod());
+        $this->assertSame(['controller' => 'action'], $route->getAction());
+        $this->assertSame('METHOD', $route->getMethod());
     }
 
     public function testShouldReverseRoute(): void
     {
-        $route = new Route('path/(?<param>[a-z]+)', ['Controller' => 'action']);
+        $route = new Route('path/(?<param>[a-z]+)', ['controller' => 'action']);
 
         $this->assertSame('path/value', $route->reverse(['param' => 'value']));
     }
 
     public function testShouldRejectMissingParameter(): void
     {
-        $route = new Route('path/(?<param>[a-z]+)', ['Controller' => 'action']);
+        $route = new Route('path/(?<param>[a-z]+)', ['controller' => 'action']);
 
         $this->expectException(RouteException::class);
 
@@ -36,7 +36,7 @@ final class RouteTest extends TestCase
 
     public function testShouldRejectInvalidParameter(): void
     {
-        $route = new Route('path/(?<param>[a-z]+)', ['Controller' => 'action']);
+        $route = new Route('path/(?<param>[a-z]+)', ['controller' => 'action']);
 
         $this->expectException(RouteException::class);
 

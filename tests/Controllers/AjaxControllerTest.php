@@ -16,10 +16,10 @@ final class AjaxControllerTest extends TestCase
   {
     $services = new Services();
     $controller = $this->getMockForAbstractClass(AjaxController::class, [new Router($services), $services]);
-    $response = $controller->render(['KEY' => 'VALUE'], Response::HTTP_OK, ['HEADER' => 'VALUE']);
+    $response = $controller->render(['key' => 'value'], Response::HTTP_OK, ['header' => 'value']);
 
-    $this->assertSame('{"KEY":"VALUE"}', $response->getContent());
+    $this->assertSame('{"key":"value"}', $response->getContent());
     $this->assertSame(Response::HTTP_OK, $response->getStatus());
-    $this->assertSame(['HEADER' => 'VALUE', 'Content-Type' => 'application/json'], $response->getHeaders());
+    $this->assertSame(['header' => 'value', 'Content-Type' => 'application/json'], $response->getHeaders());
   }
 }

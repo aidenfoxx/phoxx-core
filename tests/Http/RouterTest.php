@@ -24,6 +24,14 @@ final class TestController extends Controller
 
     static public $active;
 
+    public static function clear(): void
+    {
+        self::$router = null;
+        self::$services = null;
+        self::$main = null;
+        self::$active = null;
+    }
+
     public function __construct(Router $router, Services $services)
     {
         parent::__construct($router, $services);
@@ -72,10 +80,7 @@ final class RouterTest extends TestCase
 
     public function setUp(): void
     {
-        TestController::$router = null;
-        TestController::$services = null;
-        TestController::$main = null;
-        TestController::$active = null;
+        TestController::clear();
     }
 
     public function testShouldCreateRouter(): void

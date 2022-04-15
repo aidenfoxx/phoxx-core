@@ -28,12 +28,12 @@ final class ControllerTest extends TestCase
     $services = new Services();
     $controller = $this->getMockForAbstractClass(Controller::class, [new Router($services), $services]);
 
-    $this->assertNull($controller->getService('INVALID'));
+    $this->assertNull($controller->getService('invalid'));
   }
 
   public function testShouldGetMainRequest()
   {
-    $request = new Request('URI');
+    $request = new Request('uri');
     $router = $this->createMock(Router::class);
     $router->expects($this->once())->method('main')->willReturn($request);
     $controller = $this->getMockForAbstractClass(Controller::class, [$router, new Services()]);
@@ -43,7 +43,7 @@ final class ControllerTest extends TestCase
 
   public function testShouldGetActiveRequest()
   {
-    $request = new Request('URI');
+    $request = new Request('uri');
     $router = $this->createMock(Router::class);
     $router->expects($this->once())->method('active')->willReturn($request);
     $controller = $this->getMockForAbstractClass(Controller::class, [$router, new Services()]);

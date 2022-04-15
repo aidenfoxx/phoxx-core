@@ -27,7 +27,7 @@ final class ViewTest extends TestCase
 
   public function testShouldGetParameterNull()
   {
-    $view = new View('PATH');
+    $view = new View('template');
 
     $this->assertNull($view->getParameter('invalid'));
   }

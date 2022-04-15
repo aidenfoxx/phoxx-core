@@ -16,7 +16,7 @@ final class ConfigTest extends TestCase
     $config = new Config();
     $config->addPath('./System/ConfigTest');
 
-    $this->assertSame('VALUE', $config->open('config')->CONFIG);
+    $this->assertSame('value', $config->open('config')->config);
   }
 
   public function testShouldGetNamespacedConfig(): void
@@ -24,7 +24,7 @@ final class ConfigTest extends TestCase
     $config = new Config();
     $config->addPath('./System/ConfigTest', 'namespace');
 
-    $this->assertSame('VALUE', $config->open('@namespace/config')->CONFIG);
+    $this->assertSame('value', $config->open('@namespace/config')->config);
   }
 
   public function testShouldGetAbsoluteConfig(): void
@@ -32,7 +32,7 @@ final class ConfigTest extends TestCase
       $config = new Config();
       $config->addPath(realpath(PATH_BASE) . '/System/ConfigTest');
 
-      $this->assertSame('VALUE', $config->open('config')->CONFIG);
+      $this->assertSame('value', $config->open('config')->config);
   }
 
   public function testShouldSetCachedConfig(): void
@@ -40,12 +40,12 @@ final class ConfigTest extends TestCase
     $cache = $this->createMock(Cache::class);
     $cache->expects($this->once())
           ->method('setValue')
-          ->with($this->equalTo(realpath(PATH_BASE . '/System/ConfigTest/config.php')), ['CONFIG' => 'VALUE']);
+          ->with($this->equalTo(realpath(PATH_BASE . '/System/ConfigTest/config.php')), ['config' => 'value']);
 
     $config = new Config($cache);
     $config->addPath('./System/ConfigTest');
 
-    $this->assertSame('VALUE', $config->open('config')->CONFIG);
+    $this->assertSame('value', $config->open('config')->config);
   }
 
   public function testShouldGetCachedConfig(): void
@@ -54,12 +54,12 @@ final class ConfigTest extends TestCase
     $cache->expects($this->once())
           ->method('getValue')
           ->with($this->equalTo(realpath(PATH_BASE . '/System/ConfigTest/config.php')))
-          ->willReturn(['CONFIG' => 'VALUE']);
+          ->willReturn(['config' => 'value']);
 
     $config = new Config($cache);
     $config->addPath('./System/ConfigTest');
 
-    $this->assertSame('VALUE', $config->open('config')->CONFIG);
+    $this->assertSame('value', $config->open('config')->config);
   }
 
   public function testShouldRejectInvalidConfig(): void

@@ -12,108 +12,108 @@ final class RequestTest extends TestCase
     public function testShouldCreateRequest()
     {
         $request = new Request(
-            'PATH',
-            'METHOD',
-            ['QUERY' => 'VALUE'],
-            ['REQUEST' => 'VALUE'],
-            ['SERVER' => 'VALUE'],
-            ['COOKIE' => 'VALUE'],
-            ['FILE' => 'VALUE'],
-            'CONTENT'
+            'path',
+            'method',
+            ['query' => 'value'],
+            ['request' => 'value'],
+            ['server' => 'value'],
+            ['cookie' => 'value'],
+            ['file' => 'value'],
+            'content'
         );
 
-        $this->assertSame('PATH', $request->getPath());
-        $this->assertSame('PATH?QUERY=VALUE', $request->getUri());
+        $this->assertSame('path', $request->getPath());
+        $this->assertSame('path?query=value', $request->getUri());
         $this->assertSame('METHOD', $request->getMethod());
-        $this->assertSame('VALUE', $request->getQuery('QUERY'));
-        $this->assertSame('VALUE', $request->getRequest('REQUEST'));
-        $this->assertSame('VALUE', $request->getCookie('COOKIE'));
-        $this->assertSame(['VALUE'], $request->getFile('FILE'));
-        $this->assertSame('CONTENT', $request->getContent());
+        $this->assertSame('value', $request->getQuery('query'));
+        $this->assertSame('value', $request->getRequest('request'));
+        $this->assertSame('value', $request->getCookie('cookie'));
+        $this->assertSame(['value'], $request->getFile('file'));
+        $this->assertSame('content', $request->getContent());
     }
 
     public function testShouldCreatePostRequest()
     {
-        $request = new Request('PATH', 'POST');
+        $request = new Request('path', 'POST');
 
         $this->assertSame('application/x-www-form-urlencoded', $request->getServer('CONTENT_TYPE'));
     }
 
     public function testShouldCreateExternalRequest()
     {
-        $request = new Request('HTTP://TEST.COM');
+        $request = new Request('http://test.com');
 
-        $this->assertSame('http://TEST.COM', $request->getUrl());
+        $this->assertSame('http://test.com', $request->getUrl());
 
         $this->assertNull($request->getServer('HTTPS'));
         $this->assertSame(80, $request->getServer('SERVER_PORT'));
-        $this->assertSame('TEST.COM', $request->getServer('HTTP_HOST'));
+        $this->assertSame('test.com', $request->getServer('HTTP_HOST'));
     }
 
     public function testShouldCreateExternalRequestWithPort()
     {
-        $request = new Request('HTTP://TEST.COM:123');
+        $request = new Request('http://test.com:123');
 
-        $this->assertSame('http://TEST.COM:123', $request->getUrl());
+        $this->assertSame('http://test.com:123', $request->getUrl());
 
         $this->assertNull($request->getServer('HTTPS'));
         $this->assertSame(123, $request->getServer('SERVER_PORT'));
-        $this->assertSame('TEST.COM:123', $request->getServer('HTTP_HOST'));
+        $this->assertSame('test.com:123', $request->getServer('HTTP_HOST'));
     }
 
     public function testShouldCreateSecureRequest()
     {
-        $request = new Request('HTTPS://TEST.COM');
+        $request = new Request('https://test.com');
 
-        $this->assertSame('https://TEST.COM', $request->getUrl());
+        $this->assertSame('https://test.com', $request->getUrl());
 
         $this->assertSame('on', $request->getServer('HTTPS'));
         $this->assertSame(443, $request->getServer('SERVER_PORT'));
-        $this->assertSame('TEST.COM', $request->getServer('HTTP_HOST'));
+        $this->assertSame('test.com', $request->getServer('HTTP_HOST'));
     }
 
     public function testShouldCreateSecureRequestWithPort()
     {
-        $request = new Request('HTTPS://TEST.COM:123');
+        $request = new Request('https://test.com:123');
 
-        $this->assertSame('https://TEST.COM:123', $request->getUrl());
+        $this->assertSame('https://test.com:123', $request->getUrl());
 
         $this->assertSame('on', $request->getServer('HTTPS'));
         $this->assertSame(123, $request->getServer('SERVER_PORT'));
-        $this->assertSame('TEST.COM:123', $request->getServer('HTTP_HOST'));
+        $this->assertSame('test.com:123', $request->getServer('HTTP_HOST'));
     }
 
     public function testShouldCreateAuthRequest()
     {
-        $request = new Request('HTTP://USER:PASS@TEST.COM');
+        $request = new Request('http://user:pass@test.com');
 
-        $this->assertSame('USER', $request->getServer('PHP_AUTH_USER'));
-        $this->assertSame('PASS', $request->getServer('PHP_AUTH_PW'));
+        $this->assertSame('user', $request->getServer('PHP_AUTH_USER'));
+        $this->assertSame('pass', $request->getServer('PHP_AUTH_PW'));
     }
 
     public function testShouldParseQuery()
     {
-        $request = new Request('?URL=VALUE');
+        $request = new Request('?url=value');
 
-        $this->assertSame('URL=VALUE', $request->getServer('QUERY_STRING'));
-        $this->assertSame('VALUE', $request->getQuery('URL'));
+        $this->assertSame('url=value', $request->getServer('QUERY_STRING'));
+        $this->assertSame('value', $request->getQuery('url'));
     }
 
     public function testShouldCombineQuery()
     {
-        $request = new Request('?URL=VALUE', 'METHOD', ['QUERY' => 'VALUE']);
+        $request = new Request('?url=value', 'method', ['query' => 'value']);
 
-        $this->assertSame('URL=VALUE&QUERY=VALUE', $request->getServer('QUERY_STRING'));
-        $this->assertSame('VALUE', $request->getQuery('URL'));
-        $this->assertSame('VALUE', $request->getQuery('QUERY'));
+        $this->assertSame('url=value&query=value', $request->getServer('QUERY_STRING'));
+        $this->assertSame('value', $request->getQuery('url'));
+        $this->assertSame('value', $request->getQuery('query'));
     }
 
     public function testShouldGetBasePath()
     {
-        $request = new Request('/BASE/PATH', 'METHOD', [], [], ['SCRIPT_NAME' => '/BASE/SCRIPT']);
+        $request = new Request('/base/path', 'method', [], [], ['SCRIPT_NAME' => '/base/script']);
 
-        $this->assertSame('/PATH', $request->getPath());
-        $this->assertSame('/BASE', $request->getBasePath());
+        $this->assertSame('/path', $request->getPath());
+        $this->assertSame('/base', $request->getBasePath());
     }
 }
 

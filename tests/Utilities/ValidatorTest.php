@@ -154,28 +154,27 @@ final class ValidatorTest extends TestCase
   {
     $validator = new Validator();
 
-    $this->assertTrue($validator->validate([[Validator::IS_TRUE, true], [Validator::IS_FALSE, false]], 'ERROR'));
+    $this->assertTrue($validator->validate([[Validator::IS_TRUE, true], [Validator::IS_FALSE, false]], 'error'));
     $this->assertCount(0, $validator->getErrors());
 
-    $this->assertFalse($validator->validate([[Validator::IS_TRUE, false], [Validator::IS_FALSE, true]], 'ERROR'));
-    $this->assertSame(['ERROR'], $validator->getErrors());
+    $this->assertFalse($validator->validate([[Validator::IS_TRUE, false], [Validator::IS_FALSE, true]], 'error'));
+    $this->assertSame(['error'], $validator->getErrors());
   }
 
   public function testShouldReturnMultipleErrors()
   {
     $validator = new Validator();
 
-    $this->assertFalse($validator->validate([[Validator::IS_TRUE, false]], 'ERROR'));
-    $this->assertFalse($validator->validate([[Validator::IS_FALSE, true]], 'ERROR'));
-    $this->assertSame(['ERROR', 'ERROR'], $validator->getErrors());
+    $this->assertFalse($validator->validate([[Validator::IS_TRUE, false]], 'error 1'));
+    $this->assertFalse($validator->validate([[Validator::IS_FALSE, true]], 'error 2'));
+    $this->assertSame(['error 1', 'error 2'], $validator->getErrors());
   }
 
   public function testShouldClearErrors()
   {
     $validator = new Validator();
 
-    $this->assertFalse($validator->validate([[Validator::IS_TRUE, false]], 'ERROR'));
-    $this->assertSame(['ERROR'], $validator->getErrors());
+    $this->assertFalse($validator->validate([[Validator::IS_TRUE, false]], 'error'));
 
     $validator->clear();
 

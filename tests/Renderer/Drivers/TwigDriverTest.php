@@ -1,31 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace
+namespace Twig
 {
-    final class Twig_Loader_Filesystem
-    {
-        public const MAIN_NAMESPACE = 'main';
-
-        public static $paths;
-
-        public static $base;
-
-        public static $namespace;
-
-        public function __construct(array $paths, string $base)
-        {
-            self::$paths = $paths;
-            self::$base = $base;
-        }
-
-        public function addPath(string $path, ?string $namespace = null): void
-        {
-            self::$paths[] = $path;
-            self::$namespace = $namespace;
-        }
-    }
-
-    final class Twig_Environment
+    final class Environment
     {
         public static $loader;
 
@@ -35,29 +12,66 @@ namespace
 
         public static $parameters;
 
-        public function __construct(Twig_Loader_Filesystem $loader, array $config)
+        public static function clear()
+        {
+            self::$loader = null;
+            self::$config = null;
+            self::$template = null;
+            self::$parameters = null;
+        }
+
+        public function __construct($loader, $config)
         {
             self::$loader = $loader;
             self::$config = $config;
         }
 
-        public function render(string $template, array $parameters): string
+        public function render($template, $parameters)
         {
             self::$template = $template;
             self::$parameters = $parameters;
 
-            return 'Content';
+            return 'value';
+        }
+    }
+}
+
+namespace Twig\Loader
+{
+    final class FilesystemLoader
+    {
+        const MAIN_NAMESPACE = 'main';
+
+        public static $paths;
+
+        public static $base;
+
+        public static function clear()
+        {
+            self::$paths = null;
+            self::$base = null;
+        }
+
+        public function __construct($paths, $base)
+        {
+            self::$paths = $paths;
+            self::$base = $base;
+        }
+
+        public function addPath($path, $namespace = self::MAIN_NAMESPACE)
+        {
+            self::$paths[$namespace] = $path;
         }
     }
 }
 
 namespace Phoxx\Core\Tests\Renderer\Drivers
 {
+    use Twig\Environment;
+    use Twig\Loader\FilesystemLoader;
+
     use Phoxx\Core\Renderer\Drivers\TwigDriver;
     use Phoxx\Core\Renderer\View;
-
-    use Twig_Environment;
-    use Twig_Loader_Filesystem;
 
     use PHPUnit\Framework\TestCase;
     
@@ -65,34 +79,32 @@ namespace Phoxx\Core\Tests\Renderer\Drivers
     {
         public function setUp(): void
         {
-            Twig_Loader_Filesystem::$paths = null;
-            Twig_Loader_Filesystem::$base = null;
-            Twig_Loader_Filesystem::$namespace = null;
-            
-            Twig_Environment::$loader = null;
-            Twig_Environment::$config = null;
-            Twig_Environment::$template = null;
-            Twig_Environment::$parameters = null;
+            Environment::clear();
+            FilesystemLoader::clear();
         }
 
         public function testShouldCreateTwigDriver()
         {
-            $driver = new TwigDriver();
+            new TwigDriver();
 
-            $this->assertSame([], Twig_Loader_Filesystem::$paths);
-            $this->assertSame(PATH_BASE, Twig_Loader_Filesystem::$base);
-
-            $this->assertInstanceOf(Twig_Loader_Filesystem::class, Twig_Environment::$loader);
-            $this->assertSame(['cache' => PATH_CACHE . '/twig'], Twig_Environment::$config);
-
-            $this->assertInstanceOf(Twig_Environment::class, $driver->getTwig());
+            $this->assertSame([], FilesystemLoader::$paths);
+            $this->assertSame(PATH_BASE, FilesystemLoader::$base);
+            $this->assertInstanceOf(FilesystemLoader::class, Environment::$loader);
+            $this->assertSame(['cache' => PATH_CACHE . '/twig'], Environment::$config);
         }
 
         public function testShouldCreateWithoutCache()
         {
+            new TwigDriver(false);
+
+            $this->assertSame(['cache' => false], Environment::$config);
+        }
+
+        public function testShouldGetTwig()
+        {
             $driver = new TwigDriver(false);
 
-            $this->assertSame(['cache' => false], Twig_Environment::$config);
+            $this->assertInstanceOf(Environment::class, $driver->getTwig());
         }
 
         public function testShouldAddPath()
@@ -100,8 +112,7 @@ namespace Phoxx\Core\Tests\Renderer\Drivers
             $driver = new TwigDriver();
             $driver->addPath('/path');
 
-            $this->assertSame(['/path'], Twig_Loader_Filesystem::$paths);
-            $this->assertSame('main', Twig_Loader_Filesystem::$namespace);
+            $this->assertSame(['main' => '/path'], FilesystemLoader::$paths);
         }
 
         public function testShouldAddNamespace()
@@ -109,18 +120,17 @@ namespace Phoxx\Core\Tests\Renderer\Drivers
             $driver = new TwigDriver();
             $driver->addPath('/path', 'namespace');
 
-            $this->assertSame(['/path'], Twig_Loader_Filesystem::$paths);
-            $this->assertSame('namespace', Twig_Loader_Filesystem::$namespace);
+            $this->assertSame(['namespace' => '/path'], FilesystemLoader::$paths);
         }
 
         public function testShouldRender()
         {
             $view = new View('template', ['parameter' => 'value']);
             $driver = new TwigDriver();
-            $driver->render($view);
 
-            $this->assertSame('template.twig', Twig_Environment::$template);
-            $this->assertSame(['parameter' => 'value'], Twig_Environment::$parameters);
+            $this->assertSame('value', $driver->render($view));
+            $this->assertSame('template.twig', Environment::$template);
+            $this->assertSame(['parameter' => 'value'], Environment::$parameters);
         }
     }
 }
