@@ -2,12 +2,13 @@
 <ruleset name="phoxx-mvc/core">
     <description>phoxx-mvc/core</description>
     <config name="installed_paths" value="../../slevomat/coding-standard" />
+    <rule ref="PSR1" />
+    <rule ref="PSR12" />
     <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
     <rule ref="Generic.Formatting.NoSpaceAfterCast" />
     <rule ref="Generic.Strings.UnnecessaryStringConcat" />
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator" />
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator" />
-    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit" />
     <rule ref="SlevomatCodingStandard.Functions.UnusedParameter" />
     <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue" />
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses" />

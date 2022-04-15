@@ -7,29 +7,29 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
 class TablePrefix
 {
-  protected $prefix;
+    protected $prefix;
 
-  public function __construct(string $prefix = null)
-  {
-    $this->prefix = $prefix;
-  }
-
-  public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
-  {
-    if (!$this->prefix) {
-      return;
+    public function __construct(string $prefix = null)
+    {
+        $this->prefix = $prefix;
     }
 
-    $classMetadata = $eventArgs->getClassMetadata();
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
+    {
+        if (!$this->prefix) {
+            return;
+        }
 
-    if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->name === $classMetadata->rootEntityName) {
-      $classMetadata->table['name'] = $this->prefix . $classMetadata->table['name'];
-    }
+        $classMetadata = $eventArgs->getClassMetadata();
 
-    foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
-      if ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide']) {
-        $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mapping['joinTable']['name'];
-      }
+        if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->name === $classMetadata->rootEntityName) {
+            $classMetadata->table['name'] = $this->prefix . $classMetadata->table['name'];
+        }
+
+        foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
+            if ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide']) {
+                $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mapping['joinTable']['name'];
+            }
+        }
     }
-  }
 }

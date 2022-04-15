@@ -4,7 +4,6 @@ namespace Phoxx\Core\Renderer\Drivers;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-
 use Phoxx\Core\Renderer\Renderer;
 use Phoxx\Core\Renderer\View;
 

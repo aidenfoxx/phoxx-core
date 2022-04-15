@@ -3,47 +3,46 @@
 namespace Phoxx\Core\Cache\Drivers;
 
 use Memcached;
-
 use Phoxx\Core\Cache\Cache;
 
 class MemcachedDriver implements Cache
 {
-  private $memcached;
+    private $memcached;
 
-  public function __construct()
-  {
-    $this->memcached = new Memcached();
-  }
+    public function __construct()
+    {
+        $this->memcached = new Memcached();
+    }
 
-  public function getMemcached(): Memcached
-  {
-    return $this->memcached;
-  }
+    public function getMemcached(): Memcached
+    {
+        return $this->memcached;
+    }
 
-  public function addServer(string $address, int $port, int $weight)
-  {
-    $this->memcached->addServer($address, $port, $weight);
-  }
+    public function addServer(string $address, int $port, int $weight)
+    {
+        $this->memcached->addServer($address, $port, $weight);
+    }
 
-  public function getValue(string $index)
-  {
-    $value = $this->memcached->get($index);
+    public function getValue(string $index)
+    {
+        $value = $this->memcached->get($index);
 
-    return $this->memcached->getResultCode() === Memcached::MEMCACHED_SUCCESS ? $value : null;
-  }
+        return $this->memcached->getResultCode() === Memcached::MEMCACHED_SUCCESS ? $value : null;
+    }
 
-  public function setValue(string $index, $value, int $lifetime = 0): void
-  {
-    $this->memcached->set($index, $value, $lifetime);
-  }
+    public function setValue(string $index, $value, int $lifetime = 0): void
+    {
+        $this->memcached->set($index, $value, $lifetime);
+    }
 
-  public function removeValue(string $index): void
-  {
-    $this->memcached->delete($index);
-  }
+    public function removeValue(string $index): void
+    {
+        $this->memcached->delete($index);
+    }
 
-  public function clear(): void
-  {
-    $this->memcached->flush();
-  }
+    public function clear(): void
+    {
+        $this->memcached->flush();
+    }
 }

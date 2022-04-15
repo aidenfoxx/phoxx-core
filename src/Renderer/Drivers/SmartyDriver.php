@@ -4,7 +4,6 @@ namespace Phoxx\Core\Renderer\Drivers;
 
 use Smarty;
 use Smarty_Security;
-
 use Phoxx\Core\Exceptions\FileException;
 use Phoxx\Core\Exceptions\RendererException;
 use Phoxx\Core\Renderer\Renderer;

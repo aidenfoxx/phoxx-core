@@ -31,7 +31,7 @@ class PhpDriver implements Renderer
         preg_match('#^@([a-zA-Z-_]+)[\\\\/](.+)$#', $view->getTemplate(), $match);
 
         $namespace = $match[1] ?? null;
-        $template =    isset($match[2]) ? $match[2] . self::EXTENSION : $view->getTemplate() . self::EXTENSION;
+        $template = isset($match[2]) ? $match[2] . self::EXTENSION : $view->getTemplate() . self::EXTENSION;
 
         // Reject on absolute path or missing namespace
         if (preg_match('#^(?:[a-zA-Z]:[\\\\/]|/)#', $template) || !isset($this->paths[$namespace])) {

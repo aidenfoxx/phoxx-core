@@ -9,12 +9,12 @@ use Phoxx\Core\Renderer\View;
 
 abstract class FrontController extends Controller
 {
-  public function render(View $view, int $status = Response::HTTP_OK, array $headers = []): Response
-  {
-    if (!($renderer = $this->getService(Renderer::class))) {
-      throw new ServiceException('Failed to load service `' . Renderer::class . '`.');
-    }
+    public function render(View $view, int $status = Response::HTTP_OK, array $headers = []): Response
+    {
+        if (!($renderer = $this->getService(Renderer::class))) {
+            throw new ServiceException('Failed to load service `' . Renderer::class . '`.');
+        }
 
-    return new Response($renderer->render($view), $status, $headers);
-  }
+        return new Response($renderer->render($view), $status, $headers);
+    }
 }
