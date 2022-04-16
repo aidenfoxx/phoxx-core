@@ -53,7 +53,11 @@ class CacheDriver implements Session
             $sessionData = (array)$this->cache->getValue(self::PREFIX . $this->sessionId);
             $sessionData[$index] = $value;
 
-            $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+            $this->cache->setValue(
+                self::PREFIX . $this->sessionId,
+                $sessionData,
+                (int)ini_get('session.cookie_lifetime')
+            );
         }
     }
 
@@ -64,7 +68,11 @@ class CacheDriver implements Session
 
             unset($sessionData[$index]);
 
-            $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+            $this->cache->setValue(
+                self::PREFIX . $this->sessionId,
+                $sessionData,
+                (int)ini_get('session.cookie_lifetime')
+            );
         }
     }
 
@@ -107,7 +115,11 @@ class CacheDriver implements Session
 
             $this->cache->removeValue(self::PREFIX . $this->sessionId);
             $this->sessionId = $_COOKIE[$this->sessionName];
-            $this->cache->setValue(self::PREFIX . $this->sessionId, $sessionData, (int)ini_get('session.cookie_lifetime'));
+            $this->cache->setValue(
+                self::PREFIX . $this->sessionId,
+                $sessionData,
+                (int)ini_get('session.cookie_lifetime')
+            );
 
             $this->setCookie();
         }

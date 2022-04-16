@@ -71,7 +71,11 @@ class Router
         $controller = key($action);
         $method = reset($action);
 
-        if (!class_exists($controller) || !is_subclass_of($controller, Controller::class) || !is_callable([$controller, $method])) {
+        if (
+            !class_exists($controller) ||
+            !is_subclass_of($controller, Controller::class) ||
+            !is_callable([$controller, $method])
+        ) {
             throw new RouteException('Invalid action `' . $controller . '::' . $method . '()`.');
         }
 

@@ -22,22 +22,21 @@ class SmartyDriver implements Renderer
     public function __construct(bool $cache = true, bool $forceCompile = false, string $base = PATH_BASE)
     {
         $this->smarty = new Smarty();
-        $this->security = new Smarty_Security($this->smarty);
-
-        $this->security->php_handling = Smarty::PHP_REMOVE;
-        $this->security->static_classes = null;
-        $this->security->streams = null;
-        $this->security->allow_super_globals = false;
-
         $this->smarty->setTemplateDir($base);
         $this->smarty->setCompileDir(PATH_CACHE . '/smarty/templates_c');
         $this->smarty->setCacheDir(PATH_CACHE . '/smarty/cache');
-        $this->smarty->setConfigDir(PATH_CACHE . '/smarty/configs');
-        $this->smarty->enableSecurity($this->security);
 
         $this->smarty->caching = (int)$cache;
         $this->smarty->force_compile = $forceCompile;
         $this->smarty->escape_html = true;
+
+        $security = new Smarty_Security($this->smarty);
+        $security->php_handling = Smarty::PHP_REMOVE;
+        $security->static_classes = null;
+        $security->streams = null;
+        $security->allow_super_globals = false;
+
+        $this->smarty->enableSecurity($security);
     }
 
     public function getSmarty(): Smarty

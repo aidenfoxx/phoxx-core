@@ -22,13 +22,17 @@ class TablePrefix
 
         $classMetadata = $eventArgs->getClassMetadata();
 
-        if (!$classMetadata->isInheritanceTypeSingleTable() || $classMetadata->name === $classMetadata->rootEntityName) {
+        if (
+            !$classMetadata->isInheritanceTypeSingleTable() ||
+            $classMetadata->name === $classMetadata->rootEntityName
+        ) {
             $classMetadata->table['name'] = $this->prefix . $classMetadata->table['name'];
         }
 
         foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
             if ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide']) {
-                $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mapping['joinTable']['name'];
+                $classMetadata->associationMappings[$fieldName]['joinTable']['name'] =
+                    $this->prefix . $mapping['joinTable']['name'];
             }
         }
     }

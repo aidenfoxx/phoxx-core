@@ -35,15 +35,18 @@ class MailDriver implements Mailer
         }
 
         foreach ($mail->getRecipients() as $email => $name) {
-            $headers['To'] = (isset($headers['To']) ? $headers['To'] . ', ' : '') . ($name ? $name . ' <' . $email . '>' : $email);
+            $headers['To'] = (isset($headers['To']) ? $headers['To'] . ', ' : '') .
+                ($name ? $name . ' <' . $email . '>' : $email);
         }
 
         foreach ($mail->getCc() as $email => $name) {
-            $headers['CC'] = (isset($headers['CC']) ? $headers['CC'] . ', ' : '') . ($name ? $name . ' <' . $email . '>' : $email);
+            $headers['CC'] = (isset($headers['CC']) ? $headers['CC'] . ', ' : '') .
+                ($name ? $name . ' <' . $email . '>' : $email);
         }
 
         foreach ($mail->getBcc() as $email => $name) {
-            $headers['BCC'] = (isset($headers['BCC']) ? $headers['BCC'] . ', ' : '') . ($name ? $name . ' <' . $email . '>' : $email);
+            $headers['BCC'] = (isset($headers['BCC']) ? $headers['BCC'] . ', ' : '') .
+                ($name ? $name . ' <' . $email . '>' : $email);
         }
 
         $success = mail(

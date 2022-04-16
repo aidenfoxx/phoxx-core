@@ -85,7 +85,6 @@ final class ConfigTest extends TestCase
   public function testShouldRejectAbsoluteConfig(): void
   {
     $config = new Config();
-    $config->addPath('./System/ConfigTest');
 
     $this->expectException(ConfigException::class);
 

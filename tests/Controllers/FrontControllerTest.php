@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Phoxx\Core\Tests\Controllers\Helpers;
 

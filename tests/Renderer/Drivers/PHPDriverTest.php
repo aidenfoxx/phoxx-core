@@ -62,9 +62,8 @@ final class PhpDriverTest extends TestCase
   
     public function testShouldRejectAbsoluteTemplate(): void
     {
-        $view = new View(realpath(PATH_BASE) . '/System/ConfigTest/config');
+        $view = new View(realpath(PATH_BASE));
         $driver = new PhpDriver();
-        $driver->addPath('./Renderer/Drivers/PhpDriverTest');
 
         $this->expectException(RendererException::class);
 

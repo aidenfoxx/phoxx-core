@@ -16,15 +16,15 @@ RouterTest
 MailDriverTest
 TwigDriverTest
 PHPDriverTest <-- Reference ConfigTest
+SmartyDriverTest <-- Reference ConfigTest
 CacheDriverTest
 ResponseTest
+ServerRequestTest
 RequestTest
 
 TESTS OUTSTANDING:
 
 NativeDriverTest
-SmartyDriverTest <-- Reference ConfigTest
-SystemRequestTest
 DoctrineTest
 TablePrefixTest
 FileManagerTest

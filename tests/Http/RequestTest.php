@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 final class RequestTest extends TestCase
 {
-    // TODO: Test full server like headers in Mail/View/MailDriver/Response?
     public function testShouldCreateRequest()
     {
         $request = new Request(

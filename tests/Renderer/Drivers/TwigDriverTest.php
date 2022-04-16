@@ -31,7 +31,7 @@ namespace Twig
             self::$template = $template;
             self::$parameters = $parameters;
 
-            return 'value';
+            return 'content';
         }
     }
 }
@@ -102,7 +102,7 @@ namespace Phoxx\Core\Tests\Renderer\Drivers
 
         public function testShouldGetTwig()
         {
-            $driver = new TwigDriver(false);
+            $driver = new TwigDriver();
 
             $this->assertInstanceOf(Environment::class, $driver->getTwig());
         }
@@ -128,7 +128,7 @@ namespace Phoxx\Core\Tests\Renderer\Drivers
             $view = new View('template', ['parameter' => 'value']);
             $driver = new TwigDriver();
 
-            $this->assertSame('value', $driver->render($view));
+            $this->assertSame('content', $driver->render($view));
             $this->assertSame('template.twig', Environment::$template);
             $this->assertSame(['parameter' => 'value'], Environment::$parameters);
         }

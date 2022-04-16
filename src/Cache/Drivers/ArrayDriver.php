@@ -16,7 +16,9 @@ class ArrayDriver implements Cache
             return null;
         }
 
-        return ($lifetime = $this->cache[$index]['lifetime']) === 0 || $lifetime > time() ? $this->cache[$index]['value'] : null;
+        return ($lifetime = $this->cache[$index]['lifetime']) === 0 || $lifetime > time()
+            ? $this->cache[$index]['value']
+            : null;
     }
 
     public function setValue(string $index, $value, int $lifetime = 0): void
