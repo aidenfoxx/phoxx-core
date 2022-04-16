@@ -2,7 +2,7 @@
 
 namespace Phoxx\Core\File;
 
-use Phoxx\Core\File\Exceptions\FileException;
+use Phoxx\Core\Exceptions\FileException;
 
 class File
 {
@@ -31,7 +31,7 @@ class File
 
         $this->name = $pathInfo['filename'];
         $this->baseName = $pathInfo['basename'];
-        $this->directory = $pathInfo['dirname'] ?? null;
+        $this->directory = realpath($pathInfo['dirname']);
         $this->extension = $pathInfo['extension'] ?? null;
     }
 
@@ -50,7 +50,7 @@ class File
         return $this->baseName;
     }
 
-    public function getDirectory(): ?string
+    public function getDirectory(): string
     {
         return $this->directory;
     }

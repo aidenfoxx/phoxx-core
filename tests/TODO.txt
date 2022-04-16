@@ -9,6 +9,7 @@ RouteTest
 ControllerTest
 ModelTest
 ImageTest
+FileTest
 FrontControllerTest
 AjaxControllerTest
 ModelDateTest
@@ -24,11 +25,12 @@ RequestTest
 
 TESTS OUTSTANDING:
 
+FileManagerTest
+
+
 NativeDriverTest
 DoctrineTest
 TablePrefixTest
-FileManagerTest
-FileTest
 APCUDriverTest
 ArrayDriverTest
 FileDriverTest
