@@ -42,7 +42,7 @@ class FileManager
     {
         switch ($format) {
             case Image::FORMAT_BMP:
-                $success = @imagebmp($resource, $dest, $quality);
+                $success = @imagebmp($resource, $dest);
                 break;
 
             case Image::FORMAT_PNG:
@@ -50,7 +50,7 @@ class FileManager
                 break;
 
             case Image::FORMAT_GIF:
-                $success = @imagegif($resource, $dest, $quality);
+                $success = @imagegif($resource, $dest);
                 break;
 
             case Image::FORMAT_WEBP:
@@ -225,6 +225,10 @@ class FileManager
 
     public function compress(Image $image, float $quality = -1): void
     {
-        $this->convert($image, $image->getPath(), $image->getFormat(), null, $quality);
+        $source = $this->readImage($image);
+
+        $this->writeImage($source, $image->getPath(), $image->getFormat(), $quality);
+
+        imagedestroy($source);
     }
 }

@@ -20,6 +20,18 @@ namespace Phoxx\Core\File
 
     public static $angle;
 
+    public static $offsetX;
+
+    public static $offsetY;
+
+    public static $destWidth;
+
+    public static $destHeight;
+
+    public static $sourceWidth;
+
+    public static $sourceHeight;
+
     public static $background;
 
     public static $destroyed = [];
@@ -120,12 +132,11 @@ namespace Phoxx\Core\File
     return true;
   }
 
-  function imagebmp($resource, $dest, $quality)
+  function imagebmp($resource, $dest)
   {
     FileManagerTestHelper::$dest = $dest;
     FileManagerTestHelper::$destExtension = 'bmp';
     FileManagerTestHelper::$destResource = $resource;
-    FileManagerTestHelper::$quality = $quality;
 
     return true;
   }
@@ -140,12 +151,11 @@ namespace Phoxx\Core\File
     return true;
   }
 
-  function imagegif($resource, $dest, $quality)
+  function imagegif($resource, $dest)
   {
     FileManagerTestHelper::$dest = $dest;
     FileManagerTestHelper::$destExtension = 'gif';
     FileManagerTestHelper::$destResource = $resource;
-    FileManagerTestHelper::$quality = $quality;
 
     return true;
   }
@@ -173,12 +183,50 @@ namespace Phoxx\Core\File
     return 255;
   }
 
+  function imagecreatetruecolor()
+  {
+    return imagecreate(1, 1);
+  }
+
+  function imagefill($_resource, $_startX, $_startY, $background)
+  {
+    FileManagerTestHelper::$background = $background;
+  }
+
+  function imagecopyresampled(
+    $dest,
+    $source,
+    $offsetX,
+    $offsetY,
+    $_sourceX,
+    $_sourceY,
+    $destWidth,
+    $destHeight,
+    $sourceWidth,
+    $sourceHeight
+  ) {
+    FileManagerTestHelper::$destResource = $dest;
+    FileManagerTestHelper::$sourceResource = $source;
+    FileManagerTestHelper::$offsetX = $offsetX;
+    FileManagerTestHelper::$offsetY = $offsetY;
+    FileManagerTestHelper::$destWidth = $destWidth;
+    FileManagerTestHelper::$destHeight = $destHeight;
+    FileManagerTestHelper::$sourceWidth = $sourceWidth;
+    FileManagerTestHelper::$sourceHeight = $sourceHeight;
+  }
+
   function imagedestroy($resource)
   {
     FileManagerTestHelper::$destroyed[] = $resource;
   }
 }
 
+/**
+ * TODO: This file needs cleaning up. Unify the source/dest naming with the
+ * FileManager. Pick whatever works best for the project.
+ * 
+ * TODO: Add quality tests. We already have the var from writeImage.
+ */
 namespace Phoxx\Core\Tests\File
 {
   use Phoxx\Core\File\File;
@@ -191,6 +239,16 @@ namespace Phoxx\Core\Tests\File
   
   final class FileManagerTest extends TestCase
   {
+    public function resizeScaling(): array
+    {
+      return [
+        [Image::SCALE_COVER, 32, 32, 32, 64, 0, -16],
+        [Image::SCALE_COVER, 16, 64, 32, 64, -8, 0],
+        [Image::SCALE_CONTAIN, 32, 32, 16, 32, 8, 0],
+        [Image::SCALE_CONTAIN, 16, 64, 16, 32, 0, 16]
+      ];
+    }
+
     public function imageExtensions(): array
     {
       return [
@@ -209,34 +267,34 @@ namespace Phoxx\Core\Tests\File
 
     public function testShouldCopyFile()
     {
-      $source = realpath(PATH_BASE . '/File/FileTest/test.txt');
+      $source = new File(PATH_BASE . '/File/FileTest/test.txt');
 
       $fileManager = new FileManager();
       $fileManager->copy(new File(PATH_BASE . '/File/FileTest/test.txt'), 'dest');
   
-      $this->assertSame($source, FileManagerTestHelper::$source);
+      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
       $this->assertSame('dest', FileManagerTestHelper::$dest);
     }
   
     public function testShouldMoveFile()
     {
-      $source = realpath(PATH_BASE . '/File/FileTest/test.txt');
+      $source = new File(PATH_BASE . '/File/FileTest/test.txt');
 
       $fileManager = new FileManager();
-      $fileManager->move(new File(PATH_BASE . '/File/FileTest/test.txt'), 'dest');
+      $fileManager->move($source, 'dest'); // TODO: Should this be a variable?
   
-      $this->assertSame($source, FileManagerTestHelper::$source);
+      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
       $this->assertSame('dest', FileManagerTestHelper::$dest);
     }
   
     public function testShouldDeleteFile()
     {
-      $source = realpath(PATH_BASE . '/File/FileTest/test.txt');
+      $source = new File(PATH_BASE . '/File/FileTest/test.txt');
 
       $fileManager = new FileManager();
-      $fileManager->delete(new File($source));
+      $fileManager->delete($source);
   
-      $this->assertSame($source, FileManagerTestHelper::$source);
+      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
     }
 
     public function testShouldRejectCopyInvalidFile()
@@ -271,17 +329,16 @@ namespace Phoxx\Core\Tests\File
 
     public function testShouldRotateImage()
     {
-      $source = realpath(PATH_BASE . '/File/ImageTest/test.jpg');
+      $source = new Image(PATH_BASE . '/File/ImageTest/test.jpg');
 
       $fileManager = new FileManager();
-      $fileManager->rotate(new Image($source), 180);
+      $fileManager->rotate($source, 180);
 
-      $this->assertSame($source, FileManagerTestHelper::$source);
-      $this->assertSame($source, FileManagerTestHelper::$dest);
+      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
+      $this->assertSame($source->getPath(), FileManagerTestHelper::$dest);
 
       $this->assertSame(180, FileManagerTestHelper::$angle);
       $this->assertSame(0, FileManagerTestHelper::$background);
-      $this->assertSame(-1, FileManagerTestHelper::$quality);
 
       $this->assertTrue(is_resource(FileManagerTestHelper::$sourceResource));
       $this->assertTrue(is_resource(FileManagerTestHelper::$destResource));
@@ -301,13 +358,126 @@ namespace Phoxx\Core\Tests\File
       $this->assertSame(255, FileManagerTestHelper::$background);
     }
 
+    public function testShouldRotateImageWithQuality()
+    {  
+      $fileManager = new FileManager();
+      $fileManager->rotate(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 180, null, 50);
+  
+      $this->assertSame(50, FileManagerTestHelper::$quality);
+    }
+
+    public function testShouldResizeImage()
+    {
+      $source = new Image(PATH_BASE . '/File/ImageTest/test.jpg');
+
+      $fileManager = new FileManager();
+      $fileManager->resize($source, 32, 32);
+
+      $this->assertSame($source->getPatH(), FileManagerTestHelper::$source);
+      $this->assertSame($source->getPatH(), FileManagerTestHelper::$dest);
+
+      $this->assertSame(8, FileManagerTestHelper::$sourceWidth);
+      $this->assertSame(16, FileManagerTestHelper::$sourceHeight);
+      $this->assertEquals(32, FileManagerTestHelper::$destWidth);
+      $this->assertEquals(32, FileManagerTestHelper::$destHeight);
+
+      $this->assertTrue(is_resource(FileManagerTestHelper::$sourceResource));
+      $this->assertTrue(is_resource(FileManagerTestHelper::$destResource));
+      $this->assertNotSame(FileManagerTestHelper::$sourceResource, FileManagerTestHelper::$destResource);
+
+      $this->assertSame(
+        [FileManagerTestHelper::$sourceResource, FileManagerTestHelper::$destResource],
+        FileManagerTestHelper::$destroyed
+      );
+    }
+
+    /**
+     * @dataProvider resizeScaling
+     */
+    public function testShouldResizeImageWithScale($scale, $resizeWidth, $resizeHeight, $destWidth, $destHeight, $offsetX, $offsetY)
+    {
+      $fileManager = new FileManager();
+      $fileManager->resize(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), $resizeWidth, $resizeHeight, $scale);
+
+      $this->assertEquals($destWidth, FileManagerTestHelper::$destWidth);
+      $this->assertEquals($destHeight, FileManagerTestHelper::$destHeight);
+      $this->assertEquals($offsetX, FileManagerTestHelper::$offsetX);
+      $this->assertEquals($offsetY, FileManagerTestHelper::$offsetY);
+    }
+
+    public function testShouldResizeImageWithBackground()
+    {  
+      $fileManager = new FileManager();
+      $fileManager->resize(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 32, 32, Image::SCALE_FILL, [255, 255, 255, 1.0]);
+  
+      $this->assertSame(255, FileManagerTestHelper::$background);
+    }
+
+    public function testShouldResizeImageWithQuality()
+    {  
+      $fileManager = new FileManager();
+      $fileManager->resize(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 32, 32, Image::SCALE_FILL, null, 50);
+  
+      $this->assertSame(50, FileManagerTestHelper::$quality);
+    }
+
+    public function testShouldConvertImage()
+    {
+      $source = new Image(PATH_BASE . '/File/ImageTest/test.jpg');
+      $dest = PATH_BASE . '/File/ImageTest/output.png';
+
+      $fileManager = new FileManager();
+      $fileManager->convert($source, $dest, Image::FORMAT_PNG);
+
+      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
+      $this->assertSame($dest, FileManagerTestHelper::$dest);
+
+      $this->assertTrue(is_resource(FileManagerTestHelper::$sourceResource));
+      $this->assertTrue(is_resource(FileManagerTestHelper::$destResource));
+      $this->assertNotSame(FileManagerTestHelper::$sourceResource, FileManagerTestHelper::$destResource);
+
+      $this->assertSame(
+        [FileManagerTestHelper::$sourceResource, FileManagerTestHelper::$destResource],
+        FileManagerTestHelper::$destroyed
+      );
+    }
+
+    public function testShouldConvertImageWithQuality()
+    {
+      $source = PATH_BASE . '/File/ImageTest/test.jpg';
+
+      $fileManager = new FileManager();
+      $fileManager->convert(new Image($source), $source, Image::FORMAT_PNG, null, 50);
+
+      $this->assertSame(50, FileManagerTestHelper::$quality);
+    }
+
+    public function testShouldCompressImage()
+    {
+      $source = realpath(PATH_BASE . '/File/ImageTest/test.jpg');
+
+      $fileManager = new FileManager();
+      $fileManager->compress(new Image($source), 50);
+
+      $this->assertSame($source, FileManagerTestHelper::$source);
+      $this->assertSame($source, FileManagerTestHelper::$dest);
+
+      $this->assertSame(50, FileManagerTestHelper::$quality);
+
+      $this->assertTrue(is_resource(FileManagerTestHelper::$sourceResource));
+      $this->assertTrue(is_resource(FileManagerTestHelper::$destResource));
+      $this->assertSame(FileManagerTestHelper::$sourceResource, FileManagerTestHelper::$destResource);
+
+      $this->assertSame([FileManagerTestHelper::$sourceResource], FileManagerTestHelper::$destroyed);
+    }
+
     /**
      * @dataProvider imageExtensions
      */
     public function testShouldHandleImageExtension($extension)
     {
       $fileManager = new FileManager();
-      $fileManager->rotate(new Image(PATH_BASE . '/File/ImageTest/test.' . $extension), 180);
+      $fileManager->compress(new Image(PATH_BASE . '/File/ImageTest/test.' . $extension), -1);
 
       $this->assertSame($extension, FileManagerTestHelper::$sourceExtension);
       $this->assertSame($extension, FileManagerTestHelper::$destExtension);
