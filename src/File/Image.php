@@ -14,6 +14,8 @@ class Image extends File
 
     public const FORMAT_GIF = 'gif';
 
+    public const FORMAT_WEBP = 'webp';
+
     public const SCALE_FILL = 'fill';
 
     public const SCALE_COVER = 'cover';
@@ -27,6 +29,11 @@ class Image extends File
         parent::__construct($path);
 
         switch ($this->mimetype) {
+            case 'image/jpg':
+            case 'image/jpeg':
+                $this->format = self::FORMAT_JPG;
+                break;
+
             case 'image/bmp':
             case 'image/x-ms-bmp':
                 $this->format = self::FORMAT_BMP;
@@ -40,9 +47,8 @@ class Image extends File
                 $this->format = self::FORMAT_GIF;
                 break;
 
-            case 'image/jpg':
-            case 'image/jpeg':
-                $this->format = self::FORMAT_JPG;
+            case 'image/webp':
+                $this->format = self::FORMAT_WEBP;
                 break;
 
             default:

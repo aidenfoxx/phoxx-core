@@ -18,6 +18,15 @@ final class ImageTest extends TestCase
     $this->assertSame(16, $image->getHeight());
   }
 
+  public function testShouldCreateBmpImage()
+  {
+    $image = new Image(PATH_BASE . '/File/ImageTest/test.bmp');
+  
+    $this->assertSame(Image::FORMAT_BMP, $image->getFormat());
+    $this->assertSame(8, $image->getWidth());
+    $this->assertSame(16, $image->getHeight());
+  }
+
   public function testShouldCreatePngImage()
   {
     $image = new Image(PATH_BASE . '/File/ImageTest/test.png');
@@ -36,11 +45,11 @@ final class ImageTest extends TestCase
     $this->assertSame(16, $image->getHeight());
   }
 
-  public function testShouldCreateBmpImage()
+  public function testShouldCreateWebPImage()
   {
-    $image = new Image(PATH_BASE . '/File/ImageTest/test.bmp');
+    $image = new Image(PATH_BASE . '/File/ImageTest/test.webp');
   
-    $this->assertSame(Image::FORMAT_BMP, $image->getFormat());
+    $this->assertSame(Image::FORMAT_WEBP, $image->getFormat());
     $this->assertSame(8, $image->getWidth());
     $this->assertSame(16, $image->getHeight());
   }

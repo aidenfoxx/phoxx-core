@@ -24,7 +24,7 @@ namespace Phoxx\Core\Mailer\Drivers
         }
     }
 
-    function mail(string $to, string $subject, string $content, array $headers)
+    function mail($to, $subject, $content, $headers)
     {
         MailTestHelper::$to = $to;
         MailTestHelper::$subject = $subject;

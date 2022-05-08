@@ -2,7 +2,7 @@
 
 namespace Phoxx\Core\File;
 
-use Phoxx\Core\File\FileExceptions\FileException;
+use Phoxx\Core\Exceptions\FileException;
 
 class FileManager
 {
@@ -21,6 +21,10 @@ class FileManager
                 $resource = @imagecreatefromgif($image->getPath());
                 break;
 
+            case Image::FORMAT_WEBP:
+                $resource = @imagecreatefromwebp($image->getPath());
+                break;
+
             default:
                 $resource = @imagecreatefromjpeg($image->getPath());
                 break;
@@ -37,23 +41,27 @@ class FileManager
     {
         switch ($format) {
             case Image::FORMAT_BMP:
-                $response = @imagebmp($resource, $dest, $quality);
+                $success = @imagebmp($resource, $dest, $quality);
                 break;
 
             case Image::FORMAT_PNG:
-                $response = @imagepng($resource, $dest, $quality);
+                $success = @imagepng($resource, $dest, $quality);
                 break;
 
             case Image::FORMAT_GIF:
-                $response = @imagegif($resource, $dest, $quality);
+                $success = @imagegif($resource, $dest, $quality);
+                break;
+
+            case Image::FORMAT_WEBP:
+                $success = @imagewebp($resource, $dest, $quality);
                 break;
 
             default:
-                $response = @imagejpeg($resource, $dest, $quality);
+                $success = @imagejpeg($resource, $dest, $quality);
                 break;
         }
 
-        if (!$response) {
+        if (!$success) {
             throw new ImageException('Failed to write image `' . $dest . '`.');
         }
     }

@@ -22,20 +22,21 @@ CacheDriverTest
 ResponseTest
 ServerRequestTest
 RequestTest
+ApcuDriverTest
+MemcachedDriverTest
+RedisDriverTest
 
 TESTS OUTSTANDING:
 
 FileManagerTest
-
-
 NativeDriverTest
 DoctrineTest
 TablePrefixTest
-APCUDriverTest
 ArrayDriverTest
 FileDriverTest
-MemcachedDriverTest
-RedisDriverTest
+
+
+TODO: FIX ASSERTIONS. Should be expected first
 
 TODO: Fix route loading so it's correctly validated
 TODO: What should be private and what should be public?

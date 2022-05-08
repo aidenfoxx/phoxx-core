@@ -9,13 +9,13 @@ class RedisDriver implements Cache
 {
     private $redis;
 
-    public function __construct(string $address, int $port)
+    public function __construct(string $host, int $port)
     {
         $this->redis = new Redis();
-        $this->redis->connect($address, $port);
+        $this->redis->connect($host, $port);
     }
 
-    public function getRedis(): Memcached
+    public function getRedis(): Redis
     {
         return $this->redis;
     }

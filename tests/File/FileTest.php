@@ -18,7 +18,7 @@ final class FileTest extends TestCase
     $this->assertSame('test.txt', $file->getBaseName());
     $this->assertSame(realpath(PATH_BASE . '/File/FileTest'), $file->getDirectory());
     $this->assertSame('txt', $file->getExtension());
-    $this->assertSame('text/plain', $file->getMimetype());
+    $this->assertSame('inode/x-empty', $file->getMimetype());
   }
 
   public function testShouldRejectInvalidFile()

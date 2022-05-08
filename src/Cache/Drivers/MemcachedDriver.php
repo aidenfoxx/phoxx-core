@@ -19,9 +19,9 @@ class MemcachedDriver implements Cache
         return $this->memcached;
     }
 
-    public function addServer(string $address, int $port, int $weight)
+    public function addServer(string $host, int $port, int $weight)
     {
-        $this->memcached->addServer($address, $port, $weight);
+        $this->memcached->addServer($host, $port, $weight);
     }
 
     public function getValue(string $index)
