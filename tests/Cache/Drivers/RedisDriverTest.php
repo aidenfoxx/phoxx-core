@@ -132,16 +132,6 @@ namespace Phoxx\Core\Tests\Cache\Drivers
       $this->assertSame(0, Redis::$lifetime);
     }
 
-    public function testShouldSetValueWithLifetime()
-    {  
-      $driver = new RedisDriver('host', 6379);
-      $driver->setValue('index', 'value', 10);
-  
-      $this->assertSame('index', Redis::$index);
-      $this->assertSame(serialize('value'), Redis::$value);
-      $this->assertSame(10, Redis::$lifetime);
-    }
-
     public function testShouldRemoveValue()
     {  
       $driver = new RedisDriver('host', 6379);

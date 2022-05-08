@@ -134,16 +134,6 @@ namespace Phoxx\Core\Tests\Cache\Drivers
       $this->assertSame(0, Memcached::$lifetime);
     }
 
-    public function testShouldSetValueWithLifetime()
-    {  
-      $driver = new MemcachedDriver();
-      $driver->setValue('index', 'value', 10);
-  
-      $this->assertSame('index', Memcached::$index);
-      $this->assertSame('value', Memcached::$value);
-      $this->assertSame(10, Memcached::$lifetime);
-    }
-
     public function testShouldRemoveValue()
     {  
       $driver = new MemcachedDriver();

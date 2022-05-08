@@ -95,16 +95,6 @@ namespace Phoxx\Core\Tests\Cache\Drivers
       $this->assertSame(0, ApcuDriverTestHelper::$lifetime);
     }
 
-    public function testShouldSetValueWithLifetime()
-    {  
-      $driver = new ApcuDriver();
-      $driver->setValue('index', 'value', 10);
-  
-      $this->assertSame('index', ApcuDriverTestHelper::$index);
-      $this->assertSame('value', ApcuDriverTestHelper::$value);
-      $this->assertSame(10, ApcuDriverTestHelper::$lifetime);
-    }
-
     public function testShouldRemoveValue()
     {  
       $driver = new ApcuDriver();

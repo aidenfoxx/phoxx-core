@@ -3,10 +3,11 @@
 namespace Phoxx\Core\File;
 
 use Phoxx\Core\Exceptions\FileException;
+use Phoxx\Core\Exceptions\ImageException;
 
 class FileManager
 {
-    private function parseImage(Image $image): GdImage
+    private function readImage(Image $image)
     {
         switch ($image->getFormat()) {
             case Image::FORMAT_BMP:
@@ -37,7 +38,7 @@ class FileManager
         return $resource;
     }
 
-    private function writeImage(GdImage $resource, string $dest, string $format, int $quality = -1): void
+    private function writeImage($resource, string $dest, string $format, int $quality = -1): void
     {
         switch ($format) {
             case Image::FORMAT_BMP:
@@ -95,7 +96,7 @@ class FileManager
 
     public function rotate(Image $image, int $angle, ?array $background = null, float $quality = -1): void
     {
-        $source = $this->parseImage($image);
+        $source = $this->readImage($image);
 
         if ($background) {
             $output = imagerotate($source, $angle, imagecolorallocatealpha(
@@ -103,7 +104,7 @@ class FileManager
                 (int)$background[0],
                 (int)$background[1],
                 (int)$background[2],
-                (float)$background[3]
+                (int)$background[3] * 127
             ));
         } else {
             $output = imagerotate($source, $angle, 0);
@@ -160,7 +161,7 @@ class FileManager
             }
         }
 
-        $source = $this->parseImage($image);
+        $source = $this->readImage($image);
 
         if ($background) {
             imagefill($output, 0, 0, imagecolorallocatealpha(
@@ -198,7 +199,7 @@ class FileManager
         ?array $background = null,
         int $quality = -1
     ): void {
-        $source = $this->parseImage($image);
+        $source = $this->readImage($image);
 
         if (!($output = @imagecreatetruecolor($image->getWidth(), $image->getHeight()))) {
             throw new ImageException('Failed to convert image.');
