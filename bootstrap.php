@@ -147,8 +147,7 @@ function generate_session(Config $config, Cache $cache): Session
 /**
 * Bootstrap application.
 */
-// phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
-register_bootstrap(function (Router $router, Services $services) {
+register_bootstrap(function (Router $_router, Services $services) {
   $cache = generate_cache();
   $config = generate_config($cache);
 

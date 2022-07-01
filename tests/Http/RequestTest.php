@@ -42,44 +42,44 @@ final class RequestTest extends TestCase
     {
         $request = new Request('http://test.com');
 
-        $this->assertSame('http://test.com', $request->getUrl());
-
         $this->assertNull($request->getServer('HTTPS'));
         $this->assertSame(80, $request->getServer('SERVER_PORT'));
         $this->assertSame('test.com', $request->getServer('HTTP_HOST'));
+        
+        $this->assertSame('http://test.com', $request->getUrl());
     }
 
     public function testShouldCreateExternalRequestWithPort()
     {
         $request = new Request('http://test.com:123');
 
-        $this->assertSame('http://test.com:123', $request->getUrl());
-
         $this->assertNull($request->getServer('HTTPS'));
         $this->assertSame(123, $request->getServer('SERVER_PORT'));
         $this->assertSame('test.com:123', $request->getServer('HTTP_HOST'));
+
+        $this->assertSame('http://test.com:123', $request->getUrl());
     }
 
     public function testShouldCreateSecureRequest()
     {
         $request = new Request('https://test.com');
 
-        $this->assertSame('https://test.com', $request->getUrl());
-
         $this->assertSame('on', $request->getServer('HTTPS'));
         $this->assertSame(443, $request->getServer('SERVER_PORT'));
         $this->assertSame('test.com', $request->getServer('HTTP_HOST'));
+
+        $this->assertSame('https://test.com', $request->getUrl());
     }
 
     public function testShouldCreateSecureRequestWithPort()
     {
         $request = new Request('https://test.com:123');
 
-        $this->assertSame('https://test.com:123', $request->getUrl());
-
         $this->assertSame('on', $request->getServer('HTTPS'));
         $this->assertSame(123, $request->getServer('SERVER_PORT'));
         $this->assertSame('test.com:123', $request->getServer('HTTP_HOST'));
+
+        $this->assertSame('https://test.com:123', $request->getUrl());
     }
 
     public function testShouldCreateAuthRequest()

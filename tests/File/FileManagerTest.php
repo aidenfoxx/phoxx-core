@@ -6,13 +6,13 @@ namespace Phoxx\Core\File
   {
     public static $source;
 
-    public static $sourceExtension;
+    public static $sourceFormat;
     
     public static $sourceResource;
 
     public static $dest;
     
-    public static $destExtension;
+    public static $destFormat;
 
     public static $destResource;
     
@@ -41,10 +41,10 @@ namespace Phoxx\Core\File
     public static function clear()
     {
       self::$source = null;
-      self::$sourceExtension = null;
+      self::$sourceFormat = null;
       self::$sourceResource = null;
       self::$dest = null;
-      self::$destExtension = null;
+      self::$destFormat = null;
       self::$destResource = null;
       self::$quality = null;
       self::$angle = null;
@@ -80,7 +80,7 @@ namespace Phoxx\Core\File
   function imagecreatefromjpeg($source)
   {
     FileManagerTestHelper::$source = $source;
-    FileManagerTestHelper::$sourceExtension = 'jpg';
+    FileManagerTestHelper::$sourceFormat = 'jpg';
     FileManagerTestHelper::$sourceResource = imagecreate(1, 1);
 
     return FileManagerTestHelper::$sourceResource;
@@ -89,7 +89,7 @@ namespace Phoxx\Core\File
   function imagecreatefrombmp($source)
   {
     FileManagerTestHelper::$source = $source;
-    FileManagerTestHelper::$sourceExtension = 'bmp';
+    FileManagerTestHelper::$sourceFormat = 'bmp';
     FileManagerTestHelper::$sourceResource = imagecreate(1, 1);
 
     return FileManagerTestHelper::$sourceResource;
@@ -98,7 +98,7 @@ namespace Phoxx\Core\File
   function imagecreatefrompng($source)
   {
     FileManagerTestHelper::$source = $source;
-    FileManagerTestHelper::$sourceExtension = 'png';
+    FileManagerTestHelper::$sourceFormat = 'png';
     FileManagerTestHelper::$sourceResource = imagecreate(1, 1);
 
     return FileManagerTestHelper::$sourceResource;
@@ -107,7 +107,7 @@ namespace Phoxx\Core\File
   function imagecreatefromgif($source)
   {
     FileManagerTestHelper::$source = $source;
-    FileManagerTestHelper::$sourceExtension = 'gif';
+    FileManagerTestHelper::$sourceFormat = 'gif';
     FileManagerTestHelper::$sourceResource = imagecreate(1, 1);
 
     return FileManagerTestHelper::$sourceResource;
@@ -116,7 +116,7 @@ namespace Phoxx\Core\File
   function imagecreatefromwebp($source)
   {
     FileManagerTestHelper::$source = $source;
-    FileManagerTestHelper::$sourceExtension = 'webp';
+    FileManagerTestHelper::$sourceFormat = 'webp';
     FileManagerTestHelper::$sourceResource = imagecreate(1, 1);
 
     return FileManagerTestHelper::$sourceResource;
@@ -125,7 +125,7 @@ namespace Phoxx\Core\File
   function imagejpeg($resource, $dest, $quality)
   {
     FileManagerTestHelper::$dest = $dest;
-    FileManagerTestHelper::$destExtension = 'jpg';
+    FileManagerTestHelper::$destFormat = 'jpg';
     FileManagerTestHelper::$destResource = $resource;
     FileManagerTestHelper::$quality = $quality;
 
@@ -135,7 +135,7 @@ namespace Phoxx\Core\File
   function imagebmp($resource, $dest)
   {
     FileManagerTestHelper::$dest = $dest;
-    FileManagerTestHelper::$destExtension = 'bmp';
+    FileManagerTestHelper::$destFormat = 'bmp';
     FileManagerTestHelper::$destResource = $resource;
 
     return true;
@@ -144,7 +144,7 @@ namespace Phoxx\Core\File
   function imagepng($resource, $dest, $quality)
   {
     FileManagerTestHelper::$dest = $dest;
-    FileManagerTestHelper::$destExtension = 'png';
+    FileManagerTestHelper::$destFormat = 'png';
     FileManagerTestHelper::$destResource = $resource;
     FileManagerTestHelper::$quality = $quality;
 
@@ -154,7 +154,7 @@ namespace Phoxx\Core\File
   function imagegif($resource, $dest)
   {
     FileManagerTestHelper::$dest = $dest;
-    FileManagerTestHelper::$destExtension = 'gif';
+    FileManagerTestHelper::$destFormat = 'gif';
     FileManagerTestHelper::$destResource = $resource;
 
     return true;
@@ -163,7 +163,7 @@ namespace Phoxx\Core\File
   function imagewebp($resource, $dest, $quality)
   {
     FileManagerTestHelper::$dest = $dest;
-    FileManagerTestHelper::$destExtension = 'webp';
+    FileManagerTestHelper::$destFormat = 'webp';
     FileManagerTestHelper::$destResource = $resource;
     FileManagerTestHelper::$quality = $quality;
 
@@ -224,8 +224,6 @@ namespace Phoxx\Core\File
 /**
  * TODO: This file needs cleaning up. Unify the source/dest naming with the
  * FileManager. Pick whatever works best for the project.
- * 
- * TODO: Add quality tests. We already have the var from writeImage.
  */
 namespace Phoxx\Core\Tests\File
 {
@@ -249,7 +247,7 @@ namespace Phoxx\Core\Tests\File
       ];
     }
 
-    public function imageExtensions(): array
+    public function imageFormats(): array
     {
       return [
         ['jpg'],
@@ -267,34 +265,28 @@ namespace Phoxx\Core\Tests\File
 
     public function testShouldCopyFile()
     {
-      $source = new File(PATH_BASE . '/File/FileTest/test.txt');
-
       $fileManager = new FileManager();
-      $fileManager->copy(new File(PATH_BASE . '/File/FileTest/test.txt'), 'dest');
+      $fileManager->copy(new File(PATH_BASE . '/File/FileManagerTest/test.txt'), 'dest');
   
-      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.txt'), FileManagerTestHelper::$source);
       $this->assertSame('dest', FileManagerTestHelper::$dest);
     }
   
     public function testShouldMoveFile()
     {
-      $source = new File(PATH_BASE . '/File/FileTest/test.txt');
-
       $fileManager = new FileManager();
-      $fileManager->move($source, 'dest'); // TODO: Should this be a variable?
+      $fileManager->move(new File(PATH_BASE . '/File/FileManagerTest/test.txt'), 'dest');
   
-      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.txt'), FileManagerTestHelper::$source);
       $this->assertSame('dest', FileManagerTestHelper::$dest);
     }
   
     public function testShouldDeleteFile()
     {
-      $source = new File(PATH_BASE . '/File/FileTest/test.txt');
-
       $fileManager = new FileManager();
-      $fileManager->delete($source);
+      $fileManager->delete(new File(PATH_BASE . '/File/FileManagerTest/test.txt'));
   
-      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.txt'), FileManagerTestHelper::$source);
     }
 
     public function testShouldRejectCopyInvalidFile()
@@ -304,7 +296,7 @@ namespace Phoxx\Core\Tests\File
       $this->expectException(FileException::class);
 
       $fileManager = new FileManager();
-      $fileManager->copy(new File(PATH_BASE . '/File/FileTest/test.txt'), 'dest');
+      $fileManager->copy(new File(PATH_BASE . '/File/FileManagerTest/test.txt'), 'dest');
     }
 
     public function testShouldRejectMoveInvalidFile()
@@ -314,7 +306,7 @@ namespace Phoxx\Core\Tests\File
       $this->expectException(FileException::class);
   
       $fileManager = new FileManager();
-      $fileManager->move(new File(PATH_BASE . '/File/FileTest/test.txt'), 'dest');
+      $fileManager->move(new File(PATH_BASE . '/File/FileManagerTest/test.txt'), 'dest');
     }
 
     public function testShouldRejectDeleteInvalidFile()
@@ -324,18 +316,16 @@ namespace Phoxx\Core\Tests\File
       $this->expectException(FileException::class);
 
       $fileManager = new FileManager();
-      $fileManager->delete(new File(PATH_BASE . '/File/FileTest/test.txt'));
+      $fileManager->delete(new File(PATH_BASE . '/File/FileManagerTest/test.txt'));
     }
 
     public function testShouldRotateImage()
     {
-      $source = new Image(PATH_BASE . '/File/ImageTest/test.jpg');
-
       $fileManager = new FileManager();
-      $fileManager->rotate($source, 180);
+      $fileManager->rotate(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 180);
 
-      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
-      $this->assertSame($source->getPath(), FileManagerTestHelper::$dest);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$source);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$dest);
 
       $this->assertSame(180, FileManagerTestHelper::$angle);
       $this->assertSame(0, FileManagerTestHelper::$background);
@@ -353,7 +343,7 @@ namespace Phoxx\Core\Tests\File
     public function testShouldRotateImageWithBackground()
     {  
       $fileManager = new FileManager();
-      $fileManager->rotate(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 180, [255, 255, 255, 1.0]);
+      $fileManager->rotate(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 180, [255, 255, 255, 1.0]);
   
       $this->assertSame(255, FileManagerTestHelper::$background);
     }
@@ -361,20 +351,18 @@ namespace Phoxx\Core\Tests\File
     public function testShouldRotateImageWithQuality()
     {  
       $fileManager = new FileManager();
-      $fileManager->rotate(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 180, null, 50);
+      $fileManager->rotate(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 180, null, 50);
   
       $this->assertSame(50, FileManagerTestHelper::$quality);
     }
 
     public function testShouldResizeImage()
     {
-      $source = new Image(PATH_BASE . '/File/ImageTest/test.jpg');
-
       $fileManager = new FileManager();
-      $fileManager->resize($source, 32, 32);
+      $fileManager->resize(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 32, 32);
 
-      $this->assertSame($source->getPatH(), FileManagerTestHelper::$source);
-      $this->assertSame($source->getPatH(), FileManagerTestHelper::$dest);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$source);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$dest);
 
       $this->assertSame(8, FileManagerTestHelper::$sourceWidth);
       $this->assertSame(16, FileManagerTestHelper::$sourceHeight);
@@ -397,7 +385,7 @@ namespace Phoxx\Core\Tests\File
     public function testShouldResizeImageWithScale($scale, $resizeWidth, $resizeHeight, $destWidth, $destHeight, $offsetX, $offsetY)
     {
       $fileManager = new FileManager();
-      $fileManager->resize(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), $resizeWidth, $resizeHeight, $scale);
+      $fileManager->resize(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), $resizeWidth, $resizeHeight, $scale);
 
       $this->assertEquals($destWidth, FileManagerTestHelper::$destWidth);
       $this->assertEquals($destHeight, FileManagerTestHelper::$destHeight);
@@ -408,7 +396,7 @@ namespace Phoxx\Core\Tests\File
     public function testShouldResizeImageWithBackground()
     {  
       $fileManager = new FileManager();
-      $fileManager->resize(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 32, 32, Image::SCALE_FILL, [255, 255, 255, 1.0]);
+      $fileManager->resize(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 32, 32, Image::SCALE_FILL, [255, 255, 255, 1.0]);
   
       $this->assertSame(255, FileManagerTestHelper::$background);
     }
@@ -416,21 +404,18 @@ namespace Phoxx\Core\Tests\File
     public function testShouldResizeImageWithQuality()
     {  
       $fileManager = new FileManager();
-      $fileManager->resize(new Image(PATH_BASE . '/File/ImageTest/test.jpg'), 32, 32, Image::SCALE_FILL, null, 50);
+      $fileManager->resize(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 32, 32, Image::SCALE_FILL, null, 50);
   
       $this->assertSame(50, FileManagerTestHelper::$quality);
     }
 
     public function testShouldConvertImage()
     {
-      $source = new Image(PATH_BASE . '/File/ImageTest/test.jpg');
-      $dest = PATH_BASE . '/File/ImageTest/output.png';
-
       $fileManager = new FileManager();
-      $fileManager->convert($source, $dest, Image::FORMAT_PNG);
+      $fileManager->convert(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 'dest', Image::FORMAT_PNG);
 
-      $this->assertSame($source->getPath(), FileManagerTestHelper::$source);
-      $this->assertSame($dest, FileManagerTestHelper::$dest);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$source);
+      $this->assertSame('dest', FileManagerTestHelper::$dest);
 
       $this->assertTrue(is_resource(FileManagerTestHelper::$sourceResource));
       $this->assertTrue(is_resource(FileManagerTestHelper::$destResource));
@@ -442,25 +427,29 @@ namespace Phoxx\Core\Tests\File
       );
     }
 
+    public function testShouldConvertImageWithBackground()
+    {  
+      $fileManager = new FileManager();
+      $fileManager->convert(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 'dest', Image::FORMAT_PNG, [255, 255, 255, 1.0]);
+  
+      $this->assertSame(255, FileManagerTestHelper::$background);
+    }
+
     public function testShouldConvertImageWithQuality()
     {
-      $source = PATH_BASE . '/File/ImageTest/test.jpg';
-
       $fileManager = new FileManager();
-      $fileManager->convert(new Image($source), $source, Image::FORMAT_PNG, null, 50);
+      $fileManager->convert(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 'dest', Image::FORMAT_PNG, null, 50);
 
       $this->assertSame(50, FileManagerTestHelper::$quality);
     }
 
     public function testShouldCompressImage()
     {
-      $source = realpath(PATH_BASE . '/File/ImageTest/test.jpg');
-
       $fileManager = new FileManager();
-      $fileManager->compress(new Image($source), 50);
+      $fileManager->compress(new Image(PATH_BASE . '/File/FileManagerTest/test.jpg'), 50);
 
-      $this->assertSame($source, FileManagerTestHelper::$source);
-      $this->assertSame($source, FileManagerTestHelper::$dest);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$source);
+      $this->assertSame(realpath(PATH_BASE . '/File/FileManagerTest/test.jpg'), FileManagerTestHelper::$dest);
 
       $this->assertSame(50, FileManagerTestHelper::$quality);
 
@@ -472,15 +461,15 @@ namespace Phoxx\Core\Tests\File
     }
 
     /**
-     * @dataProvider imageExtensions
+     * @dataProvider imageFormats
      */
-    public function testShouldHandleImageExtension($extension)
+    public function testShouldHandleImageFormat($format)
     {
       $fileManager = new FileManager();
-      $fileManager->compress(new Image(PATH_BASE . '/File/ImageTest/test.' . $extension), -1);
+      $fileManager->compress(new Image(PATH_BASE . '/File/FileManagerTest/test.' . $format), -1);
 
-      $this->assertSame($extension, FileManagerTestHelper::$sourceExtension);
-      $this->assertSame($extension, FileManagerTestHelper::$destExtension);
+      $this->assertSame($format, FileManagerTestHelper::$sourceFormat);
+      $this->assertSame($format, FileManagerTestHelper::$destFormat);
     }
   }
 }
