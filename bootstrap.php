@@ -174,7 +174,7 @@ register_bootstrap(function (Router $_router, Services $services) {
   $services->setService($entityManager);
   $services->setService($renderer, Renderer::class);
   $services->setService($mailer, Mailer::class);
-  $services->setService($session, Mailer::class);
+  $services->setService($session, Session::class);
 
   $services->setService(new FileManager());
 });
