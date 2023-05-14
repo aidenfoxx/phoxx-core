@@ -19,23 +19,13 @@ abstract class Controller
         $this->services = $services;
     }
 
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
     public function getService(string $service)
     {
         return $this->services->getService($service);
-    }
-
-    public function dispatch(Request $request): ?Response
-    {
-        return $this->router->dispatch($request);
-    }
-
-    public function main(): ?Request
-    {
-        return $this->router->main();
-    }
-
-    public function active(): ?Request
-    {
-        return $this->router->active();
     }
 }
